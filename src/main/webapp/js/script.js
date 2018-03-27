@@ -10,3 +10,15 @@
 		})
 	})
 	
+	// Get the modal
+var signUp = document.getElementById('id02');
+var login = document.getElementById('id01');
+window.onclick = function(event) {
+    if (event.target == signUp) {
+        signUp.style.display = "none";
+    }
+	 if (event.target == login) {
+        login.style.display = "none";
+    }
+};
+
