@@ -1,16 +1,21 @@
-	$(document).ready(function(){
-		var date_input=$('input[name="dateOfBirth"]'); //our date input has the name "date"
-		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-		date_input.datepicker({
-			format: 'mm/dd/yyyy',
-			container: container,
-			todayHighlight: true,
-			autoclose: true,
-			orientation: 'top auto',
-		})
-	})
-	
-	// Get the modal
+// Get the modal
+	$('#sign-up').on('submit', function(e) {
+		
+		console.log("submit");
+	    e.preventDefault();
+	    $.ajax({
+	    url : "/signing",
+	    type: "POST",
+	    data: $('#sign-up').serialize(),
+	    success: function (data) {
+			console.log(data);
+	       //$("#schedule").html(data);
+	       },
+	        error: function (jXHR, textStatus, errorThrown) {
+	         alert(errorThrown);
+	         }
+	     });
+	});
 var signUp = document.getElementById('id02');
 var login = document.getElementById('id01');
 window.onclick = function(event) {
@@ -22,3 +27,12 @@ window.onclick = function(event) {
     }
 };
 
+
+//$('.signupbtn').click(function(){
+	//$.post('/login', $("#sign-up").serialize());
+//});
+
+
+
+
+//$.post('/signing', $("#login").serialize());

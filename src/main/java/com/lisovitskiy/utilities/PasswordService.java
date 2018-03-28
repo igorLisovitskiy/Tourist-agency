@@ -28,7 +28,6 @@ public final class PasswordService {
 		}
 		byte raw[] = md.digest();
 		String hash = Base64.getEncoder().encodeToString(raw);
-		System.out.println(hash);
 		return hash;
 	}
 }

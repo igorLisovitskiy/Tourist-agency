@@ -6,10 +6,15 @@ import com.lisovitskiy.utilities.PasswordService;
 
 public class RegistrationFacade {
 	private UserDaoImpl user = new UserDaoImpl();
-	public User registerUser(String username, String password) {
+	
+	public boolean registerUser(String username, String mail, String password, String birthday) {
+
+		
 		PasswordService pws = new PasswordService();
 		//encrypt the password to check against what's stored in DB
 		String encryptedPass = pws.encrypt(password);
-		return user.authenticateUser(username, encryptedPass);
+		
+		
+		return user.createUser(username, mail, encryptedPass, birthday, 2);
 	}
 }

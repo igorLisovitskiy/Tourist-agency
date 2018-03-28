@@ -2,7 +2,7 @@
 * {box-sizing: border-box}
 /* Full-width input fields */
 #id02 input[type=text], #id02 input[type=password], #id02 input[type=email] {
-    width: 80%;
+    width: 100%;
 
   
 
@@ -40,7 +40,7 @@
 /* Float cancel and signup buttons and add an equal width */
 #id02 .cancelbtn, #id02 .signupbtn {
   float: left;
-  width: 40%;
+  width: 50%;
 }
 
 
@@ -90,6 +90,7 @@
 }
  
 #id02 .container{
+	 max-width: 100%;
 	color: #6c6d70;
 	text-align: left;
 	font-size: 1.2em;

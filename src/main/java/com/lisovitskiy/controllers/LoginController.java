@@ -17,7 +17,7 @@ import com.lisovitskiy.pojos.User;
  * @author i.lisovitskyi Servlet implementation class LoginController A
  *         controller for handling user  authentication and login
  */
-@WebServlet
+
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
