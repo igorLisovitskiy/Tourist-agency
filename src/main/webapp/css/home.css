@@ -41,7 +41,7 @@ body{
 }
 
 .row{
-    overflow: hidden; 
+    overflow: hidden;
 }
 .carousel-inner{
 	   height: 100vh;
@@ -77,7 +77,6 @@ visibility: hidden;
 	font-family:quote;
 	font-size: 8em;
 }
-
 
 
 

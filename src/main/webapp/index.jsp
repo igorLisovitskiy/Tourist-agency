@@ -20,19 +20,7 @@
       <link href="css/index.css" rel="stylesheet">
       <link href="css/signup.css" rel="stylesheet">
       <link href="css/login.css" rel="stylesheet">
-	<script>
-	$(document).ready(function(){
-		var date_input=$('input[name="s_birthday"]'); //our date input has the name "date"
-		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-		date_input.datepicker({
-			format: 'mm/dd/yyyy',
-			container: container,
-			todayHighlight: true,
-			autoclose: true,
-			orientation: 'top auto',
-		})
-	});
-	</script>
+      <script src="js/script.js" type="text/javascript"></script>
 </head>
 <body>
  <div class="container-fluid no-padding">
@@ -46,37 +34,13 @@
                   </ol>
                   <div class="carousel-inner">
                      <div class="item active">
-                        <img src="images/slide1.jpg"  class="img-fluid">
-                        <div class="carousel-caption">
-                           <h3>
-                              First slide
-                           </h3>
-                           <p>
-                              Nulla vitae elit libero, a pharetra augue mollis interdum.
-                           </p>
-                        </div>
+                        <img src="images/slide1.jpg"  class="img-fluid"> 
                      </div>
                      <div class="item">
                         <img src="images/slide2.jpg" class="img-fluid">
-                        <div class="carousel-caption">
-                           <h3>
-                              Second slide
-                           </h3>
-                           <p>
-                              Nulla vitae elit libero, a pharetra augue mollis interdum.
-                           </p>
-                        </div>
                      </div>
                      <div class="item">
                         <img src="images/slide3.jpg"  class="img-fluid">
-                        <div class="carousel-caption">
-                           <h3>
-                              Third slide
-                           </h3>
-                           <p>
-                              Nulla vitae elit libero, a pharetra augue mollis interdum.
-                           </p>
-                        </div>
                      </div>
                   </div>
                   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -92,12 +56,12 @@
                         <a class="btn btn-clear btn-sm btn-min-block" onclick="document.getElementById('id01').style.display='block'">Login</a>
                         <!-- -->
                         <div id="id01" class="modal">
-                           <form class="modal-content animate" id="login" action="/login">
+                           <form class="modal-content animate" action="dashboard" id="loggin" method="post">
                               <div class="container">
                                  <label for="l-username"><b>Username</b></label>
-                                 <input type="text" id="l-username" placeholder="Enter Username" name="l_username" required>
+                                 <input type="text" id="l-username" placeholder="Enter Username" name="username" required>
                                  <label for="l-password"><b>Password</b></label>
-                                 <input type="password" id="l-password" placeholder="Enter Password" name="l_password" required>
+                                 <input type="password" id="l-password" placeholder="Enter Password" name="password" required>
                                  <button type="submit">Login</button>
                                  <label>
                                  <input type="checkbox" checked="checked" name="remember"> Remember me
@@ -114,29 +78,29 @@
                      </div>
                      <div id="id02" class="modal">
                         <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-                        <form class="modal-content animate" id="sign-up" action="signing" method="post">
+                        <form class="modal-content animate" action="signing"  method="post" id="signup">
                            <div class="container">
                               <h1>Sign Up</h1>
                               <p>Please fill in this form to create an account.</p>
                               <div class="form-group">
                                  <label for="username-signup"><span class="asteriskField">
-                                 * </span>Name:</label> <input type="text" name="s_username" class="form-control"
+                                 * </span>Name:</label> <input type="text" name="username" class="form-control"
                                     id=username-signup placeholder="Username" required>
                               </div>
                               <div class="form-group">
                                  <label for="inputEmail-signup"><span class="asteriskField">
-                                 * </span>Email:</label> <input type="email" name="s_mail" class="form-control"
+                                 * </span>Email:</label> <input type="email" name="mail" class="form-control"
                                     id="inputEmail-signup" placeholder="Email" required>
                               </div>
                               <div class="form-group">
                                  <label for="inputPassword-signup"><span class="asteriskField">
-                                 * </span>Password:</label> <input type="password" name="s_password"
+                                 * </span>Password:</label> <input type="password" name="password"
                                     class="form-control" id="inputPassword-signup" placeholder="Password"
                                     required>
                               </div>
                               <div class="form-group">
                                  <label for="repeatPassword-signup"><span class="asteriskField">
-                                 * </span>Repeat Password:</label> <input type="password" name="s_repeat_password"
+                                 * </span>Repeat Password:</label> <input type="password" name="repeat_password"
                                     class="form-control" id="repeatPassword-signup" placeholder="Repeat Password"
                                     required>
                               </div>
@@ -148,7 +112,7 @@
                                     <div class="input-group-addon">
                                        <i class="fa fa-calendar"> </i>
                                     </div>
-                                    <input class="form-control" id="birthday-signup" name="s_birthday"
+                                    <input class="form-control" id="birthday-signup" name="birthday"
                                        placeholder="MM/DD/YYYY" type="text" />
                                  </div>
                               </div>
@@ -170,13 +134,6 @@
          <div id="push">
          </div>
       </div>
-      <script type="text/javascript" src="js/script.js"></script>
-	<c:if test="${not empty loginError}">
-    	<script>
-		    window.addEventListener("load",function(){
-		         alert("${loginError}");
-		    });
-    	</script>
-	</c:if>
+
 </body>
 </html>

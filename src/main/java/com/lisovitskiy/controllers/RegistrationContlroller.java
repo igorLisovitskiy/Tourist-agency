@@ -28,18 +28,13 @@ public class RegistrationContlroller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String username = request.getParameter("s_username");
-		String mail = request.getParameter("s_mail");
-		String password = request.getParameter("s_password");
-		String birthday = request.getParameter("s_birthday");
+		String username = request.getParameter("username");
+		String mail = request.getParameter("mail");
+		String password = request.getParameter("password");
+		String birthday = request.getParameter("birthday");
 		rf.registerUser(username, mail, password, birthday);
-		
-		
-		//request.setAttribute("loginError","Incorrect password");
-		
-
 		try {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("/dashboard").forward(request, response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

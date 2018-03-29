@@ -10,7 +10,7 @@
 
 /* Set a style for all buttons */
 #id01 button {
-      background-color: #4CAF50;
+    background-color: #75c2f4;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -28,7 +28,7 @@
 #id01 .cancelbtn {
     width: auto;
     padding: 10px 18px;
-    background-color: #f44336;
+    background-color: #c6c6c6;
 }
 
 /* Center the image and position the close button */
