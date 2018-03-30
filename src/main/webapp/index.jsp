@@ -56,7 +56,7 @@
                         <a class="btn btn-clear btn-sm btn-min-block" onclick="document.getElementById('id01').style.display='block'">Login</a>
                         <!-- -->
                         <div id="id01" class="modal">
-                           <form class="modal-content animate" action="dashboard" id="loggin" method="post">
+                           <form class="modal-content animate" action="login" id="loggin" method="post">
                               <div class="container">
                                  <label for="l-username"><b>Username</b></label>
                                  <input type="text" id="l-username" placeholder="Enter Username" name="username" required>

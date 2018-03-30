@@ -58,7 +58,7 @@
                         <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
                         <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
                         <li class="divider"></li>
-                        <li><a href="/auth/logout"><i class="icon-off"></i> Logout</a></li>
+                        <li><a href="logout"><i class="icon-off"></i> Logout</a></li>
                     </ul>
                 </li>
                 </c:if>
@@ -74,6 +74,9 @@
     <img class="user-image" src="images/london2.jpg" alt="London" width="1500" height="700">
     <div class="user-display-middle" style="width:65%">
         <div class="user-bar user-black">
+            <button class="user-bar-item user-button tablink" onclick="openLink(event, 'Tour');"><i
+                    class="fa fa-globe user-margin-right"></i>Tour
+            </button>
             <button class="user-bar-item user-button tablink" onclick="openLink(event, 'Flight');"><i
                     class="fa fa-plane user-margin-right"></i>Flight
             </button>
@@ -86,6 +89,22 @@
         </div>
 
         <!-- Tabs -->
+    <div id="Tour" class="user-container user-white user-padding-16 myLink">
+    <h3>Travel the world with us</h3>
+    <div class="user-row-padding" style="margin:0 -16px;">
+    <div class="user-half">
+    <label>From</label>
+    <input class="user-input user-border" type="text" placeholder="Departing from">
+    </div>
+    <div class="user-half">
+    <label>To</label>
+    <input class="user-input user-border" type="text" placeholder="Arriving at">
+    </div>
+    </div>
+    <p>
+    <button class="user-button user-dark-grey">Search and find dates</button>
+    </p>
+    </div>
         <div id="Flight" class="user-container user-white user-padding-16 myLink">
             <h3>Travel the world with us</h3>
             <div class="user-row-padding" style="margin:0 -16px;">
