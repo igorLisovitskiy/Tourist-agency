@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<%@ page import="com.lisovitskyi.pojos.*"%> 
+<%@ page import="com.lisovitskyi.pojos.*"%>
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="js/userdashboard.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/userpage.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Include Date Range Picker -->
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
     <style>
         body, h1, h2, h3, h4, h5, h6 {
             font-family:normal_text;
@@ -89,38 +92,32 @@
         </div>
 
         <!-- Tabs -->
+    <!-- Tabs -->
     <div id="Tour" class="user-container user-white user-padding-16 myLink">
     <h3>Travel the world with us</h3>
-    <div class="user-row-padding" style="margin:0 -16px;">
-    <div class="user-half">
-    <label>From</label>
-    <input class="user-input user-border" type="text" placeholder="Departing from">
-    </div>
-    <div class="user-half">
-    <label>To</label>
-    <input class="user-input user-border" type="text" placeholder="Arriving at">
-    </div>
+    <div class="input-group input-daterange">
+    <div class="input-group-addon">From</div>
+    <input type="text" class="form-control" data-date-end-date="0d" placeholder="mm-dd-yyyy">
+    <div class="input-group-addon">to</div>
+    <input type="text" class="form-control" id="endDate" placeholder="mm-dd-yyyy">
     </div>
     <p>
     <button class="user-button user-dark-grey">Search and find dates</button>
     </p>
     </div>
-        <div id="Flight" class="user-container user-white user-padding-16 myLink">
-            <h3>Travel the world with us</h3>
-            <div class="user-row-padding" style="margin:0 -16px;">
-                <div class="user-half">
-                    <label>From</label>
-                    <input class="user-input user-border" type="text" placeholder="Departing from">
-                </div>
-                <div class="user-half">
-                    <label>To</label>
-                    <input class="user-input user-border" type="text" placeholder="Arriving at">
-                </div>
-            </div>
-            <p>
-                <button class="user-button user-dark-grey">Search and find dates</button>
-            </p>
-        </div>
+
+    <div id="Flight" class="user-container user-white user-padding-16 myLink">
+    <h3>Travel the world with us</h3>
+    <div class="input-group input-daterange">
+    <div class="input-group-addon">From</div>
+    <input type="text" class="form-control" placeholder="Departing from">
+    <div class="input-group-addon">to</div>
+    <input type="text" class="form-control" placeholder="Arriving at">
+    </div>
+    <p>
+    <button class="user-button user-dark-grey">Search and find dates</button>
+    </p>
+    </div>
 
         <div id="Hotel" class="user-container user-white user-padding-16 myLink">
             <h3>Find the best hotels</h3>
@@ -215,32 +212,8 @@
             </div>
         </div>
     </div>
-
-
-
 <!-- Footer -->
 <footer class="user-container user-center user-opacity user-margin-bottom">
 </footer>
-
-<script>
-    // Tabs
-    function openLink(evt, linkName) {
-        var i, x, tablinks;
-        x = document.getElementsByClassName("myLink");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < x.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" user-red", "");
-        }
-        document.getElementById(linkName).style.display = "block";
-        evt.currentTarget.className += " user-red";
-    }
-
-    // Click on the first tablink on load
-    document.getElementsByClassName("tablink")[0].click();
-</script>
-
 </body>
 </html>

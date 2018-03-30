@@ -34,7 +34,7 @@
                   </ol>
                   <div class="carousel-inner">
                      <div class="item active">
-                        <img src="images/slide1.jpg"  class="img-fluid"> 
+                        <img src="images/slide1.jpg"  class="img-fluid">
                      </div>
                      <div class="item">
                         <img src="images/slide2.jpg" class="img-fluid">
@@ -134,6 +134,5 @@
          <div id="push">
          </div>
       </div>
-
 </body>
 </html>

@@ -6,6 +6,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
+
+
     <link rel="stylesheet" href="css/userpage.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -66,6 +75,9 @@
     <img class="user-image" src="images/london2.jpg" alt="London" width="1500" height="700">
     <div class="user-display-middle" style="width:65%">
         <div class="user-bar user-black">
+            <button class="user-bar-item user-button tablink" onclick="openLink(event, 'Tour');"><i
+                    class="fa fa-plane user-margin-right"></i>Tour
+            </button>
             <button class="user-bar-item user-button tablink" onclick="openLink(event, 'Flight');"><i
                     class="fa fa-plane user-margin-right"></i>Flight
             </button>
@@ -78,17 +90,26 @@
         </div>
 
         <!-- Tabs -->
+        <div id="Tour" class="user-container user-white user-padding-16 myLink">
+            <h3>Travel the world with us</h3>
+            <div class="input-group input-daterange">
+                <div class="input-group-addon">From</div>
+                <input type="text" class="form-control" placeholder="mm-dd-yyyy">
+                <div class="input-group-addon">to</div>
+                <input type="text" class="form-control" placeholder="mm-dd-yyyy">
+            </div>
+            <p>
+                <button class="user-button user-dark-grey">Search and find dates</button>
+            </p>
+        </div>
+
         <div id="Flight" class="user-container user-white user-padding-16 myLink">
             <h3>Travel the world with us</h3>
-            <div class="user-row-padding" style="margin:0 -16px;">
-                <div class="user-half">
-                    <label>From</label>
-                    <input class="user-input user-border" type="text" placeholder="Departing from">
-                </div>
-                <div class="user-half">
-                    <label>To</label>
-                    <input class="user-input user-border" type="text" placeholder="Arriving at">
-                </div>
+            <div class="input-group input-daterange">
+                <div class="input-group-addon">From</div>
+                <input type="text" class="form-control" placeholder="Departing from">
+                <div class="input-group-addon">to</div>
+                <input type="text" class="form-control" placeholder="Arriving at">
             </div>
             <p>
                 <button class="user-button user-dark-grey">Search and find dates</button>
@@ -214,6 +235,10 @@
     // Click on the first tablink on load
     document.getElementsByClassName("tablink")[0].click();
 </script>
-
+    <script type="text/javascript">
+        $('.input-daterange input').each(function() {
+            $(this).datepicker('clearDates');
+        });
+    </script>
 </body>
 </html>

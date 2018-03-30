@@ -2,7 +2,6 @@ package com.lisovitskiy.controllers;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,7 @@ import com.lisovitskiy.pojos.User;
  * @author i.lisovitskyi Servlet implementation class LoginController A
  *         controller for handling user  authentication and login
  */
-@WebServlet(name = "LoginController", urlPatterns = "/dashboard", loadOnStartup = 1)
+@WebServlet(name = "LoginController", urlPatterns = "/login", loadOnStartup = 1)
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
@@ -31,18 +30,12 @@ public class LoginController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// User has clicked the logout link
-		session = req.getSession();
-		if (req.getParameter("logout") != null) {
-			// logout and redirect to front page
-			logout();
-		}
+			resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		session = req.getSession();
-
 		// get the number of logins
 		if (session.getAttribute("loginattempts") == null) {
 			loginAttempts = 0;
@@ -52,6 +45,7 @@ public class LoginController extends HttpServlet {
 		if (loginAttempts > 2) {
 			String errorMessage = "Error: Number of Login Attempts Exceeded";
 			req.setAttribute("errorMessage", errorMessage);
+			//TODO ajax here
 			url = "index.jsp";
 		} else {
 			// proceed
@@ -64,27 +58,16 @@ public class LoginController extends HttpServlet {
 				session.invalidate();
 				session = req.getSession(true);
 				session.setAttribute("user", user);
-				url = "userdashboard.jsp";
+				url = "dashboard";
 			} else {
 				String errorMessage = "Error: Unrecognized Username or Password<br>Login attampts remaining: "
 						+ (3 - (loginAttempts));
 				req.setAttribute("errorMessage", errorMessage);
-
 				// track login attempts (prevents brute force attacks)
 				session.setAttribute("loginAttempts", loginAttempts);
-				url = "index.jsp";
+				url = "login";
 			}
-			// forward our request along
-			RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-			dispatcher.forward(req, resp);
+			resp.sendRedirect(url);
 		}
 	}
-
-	/**
-	 * Logs the user out
-	 */
-	public void logout() {
-		session.invalidate();
-	}
-
 }
