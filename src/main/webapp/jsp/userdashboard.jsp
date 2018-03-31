@@ -97,9 +97,9 @@
     <h3>Travel the world with us</h3>
     <div class="input-group input-daterange">
     <div class="input-group-addon">From</div>
-    <input type="text" class="form-control" data-date-end-date="0d" placeholder="mm-dd-yyyy">
+    <input type="text" class="form-control" data-date-end-date="0d" placeholder="mm/dd/yyyy">
     <div class="input-group-addon">to</div>
-    <input type="text" class="form-control" id="endDate" placeholder="mm-dd-yyyy">
+    <input type="text" class="form-control" id="endDate" placeholder="mm/dd/yyyy">
     </div>
     <p>
     <button class="user-button user-dark-grey">Search and find dates</button>

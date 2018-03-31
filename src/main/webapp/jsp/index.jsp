@@ -52,8 +52,13 @@
                   <div class="col-md-12 text-center">
                      <h1>Welcome to the ++ProTravel</h1>
                      <h2 class="quote">To Travel is To Live</h2>
+                      <c:if test="${not empty logtoproceed}">
+                      	<script>
+                      	$(function(){$("#login-btn").click()});
+                      	</script>
+                      </c:if>
                      <div class="login-menu">
-                        <a class="btn btn-clear btn-sm btn-min-block" onclick="document.getElementById('id01').style.display='block'">Login</a>
+                        <a class="btn btn-clear btn-sm btn-min-block" id="login-btn" onclick="document.getElementById('id01').style.display='block'">Login</a>
                         <!-- -->
                         <div id="id01" class="modal">
                            <form class="modal-content animate" action="login" id="loggin" method="post">
