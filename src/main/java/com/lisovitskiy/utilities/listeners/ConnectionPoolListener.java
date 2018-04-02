@@ -16,7 +16,7 @@ import com.lisovitskiy.utilities.db.ConnectionManager;
  */
 @WebListener
 public class ConnectionPoolListener implements ServletContextListener {
-	private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/touristagency?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static final String DB_CONNECTION_URL = "jdbc:mysql://localhost:3306/protravelDb?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static final String DB_USER = "root";
 	private static final String DB_PASSWORD = "root";
 	

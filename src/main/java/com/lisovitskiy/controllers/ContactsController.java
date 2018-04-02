@@ -18,7 +18,7 @@ public class ContactsController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		session = req.getSession();
 		if (session.getAttribute("user") != null) {
-			req.getRequestDispatcher("contacts.jsp").forward(req, resp);
+			req.getRequestDispatcher("jsp/contacts.jsp").forward(req, resp);
 		} else {
 			resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
 		}

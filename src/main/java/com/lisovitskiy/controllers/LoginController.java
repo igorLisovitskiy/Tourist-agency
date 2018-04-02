@@ -46,7 +46,7 @@ public class LoginController extends HttpServlet {
 			String errorMessage = "Error: Number of Login Attempts Exceeded";
 			req.setAttribute("errorMessage", errorMessage);
 			//TODO ajax here
-			url = "index.jsp";
+			url = "jsp/index.jsp";
 		} else {
 			// proceed
 			String username = req.getParameter("username");
