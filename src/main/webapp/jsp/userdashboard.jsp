@@ -11,16 +11,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/userdashboard.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="css/userpage.css">
+    <link rel="stylesheet" href="css/userdashboard.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Include Date Range Picker -->
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
     <style>
-        body, h1, h2, h3, h4, h5, h6 {
-            font-family:normal_text;
-        }
         .myLink {
             display: none
         }
@@ -43,32 +40,33 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="contacts">Contact us</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
+            	<c:if test="${user.role == 1 || user.role == 0}">
+            	<li>
+                    <a href="adminpanel" aria-haspopup="true" aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i> Site Administration</a>
+                </li>
+            	</c:if>
+                <li>
+                    <a href="contacts" aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope fa-fw"></i> Contact us</a>
                 </li>
                 <c:if test="${not empty user.username}">
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, ${user.username} <b
-                        class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
-                        <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
-                        <li class="divider"></li>
-                        <li><a href="logout"><i class="icon-off"></i> Logout</a></li>
-                    </ul>
+             	<li class="dropdown">
+		            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome, ${user.username} 
+		                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+		            </a>
+		            <ul class="dropdown-menu dropdown-user">
+		                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+		            </li>
+		                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+		                </li>
+		                <li class="divider"></li>
+		                <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+		                </li>
+		            </ul>
                 </li>
                 </c:if>
             </ul>
             </div>
         </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
 </nav>
 
 

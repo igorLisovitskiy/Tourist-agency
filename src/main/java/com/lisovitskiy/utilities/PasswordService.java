@@ -14,7 +14,7 @@ public final class PasswordService {
 	/**
 	 * Encrypt strig pass to a hashed SHA 256 encrypted version
 	 */
-	public String encrypt(String pass) {
+	public static String encrypt(String pass) {
 		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance("SHA-256");

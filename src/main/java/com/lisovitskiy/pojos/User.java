@@ -7,7 +7,7 @@ public class User {
 	private String username;
 	private char[] password;
 	private String mail;
-	private Date dateOfBirth;
+	private Date birthday;
 	private int role;
 
 	public User(int id, String login, char[] password, String mail, Date dateOfBirth, int role) {
@@ -16,7 +16,7 @@ public class User {
 		this.username = login;
 		this.password = password;
 		this.mail = mail;
-		this.dateOfBirth = dateOfBirth;
+		this.birthday = dateOfBirth;
 		this.role = role;
 	}
 
@@ -53,11 +53,11 @@ public class User {
 	}
 
 	public Date getDateOfBirth() {
-		return dateOfBirth;
+		return birthday;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+		this.birthday = dateOfBirth;
 	}
 
 	public int getRole() {
