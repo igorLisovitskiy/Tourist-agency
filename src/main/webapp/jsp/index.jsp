@@ -6,6 +6,7 @@
 <head>
       <meta charset="UTF-8">
       <title>++ProTravel</title>
+      <link rel="icon" href="images/icon.gif" type="image/gif" sizes="16x16">
       <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
       <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
       <!-- Include Date Range Picker -->

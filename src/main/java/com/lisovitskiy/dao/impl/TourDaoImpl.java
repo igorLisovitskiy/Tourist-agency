@@ -18,7 +18,7 @@ public class TourDaoImpl implements TourDao {
 	private final static String UPDATE_TOUR = "UPDATE tours\r\n"
 			+ "SET name = ? , description = ?, start = ?, end = ?, price = ?, language = ?\r\n" + "WHERE user_id =?;";
 	private final static String SELECT_TOUR_BY_ID = "SELECT * FROM tours WHERE tour_id = ?";
-	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start => ? AND end <= ?";
+	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start >= ? AND end <= ?";
 	private final static String SELECT_ALL_TOURS = "SELECT * FROM tours";
 
 	@Override
@@ -64,7 +64,9 @@ public class TourDaoImpl implements TourDao {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			ps = conn.prepareStatement(SELECT_TOUR_BY_PERIOD);
 			ps.setDate(1, DateService.toSqlDate(start));
-			ps.setDate(1, DateService.toSqlDate(end));
+			ps.setDate(2, DateService.toSqlDate(end));
+			System.out.println(DateService.toSqlDate(start));
+			System.out.println(DateService.toSqlDate(end));
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				tourList.add(getTourFromDb(rs));

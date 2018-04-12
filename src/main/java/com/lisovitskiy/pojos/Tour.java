@@ -6,7 +6,7 @@ public class Tour {
 
 	private int tourId;
 	private String name;
-	private String descripction;
+	private String description;
 	private Date start;
 	private Date end;
 	public int getTourId() {
@@ -25,12 +25,12 @@ public class Tour {
 		this.name = name;
 	}
 
-	public String getDescripction() {
-		return descripction;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripction(String descripction) {
-		this.descripction = descripction;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getStart() {
@@ -68,10 +68,10 @@ public class Tour {
 	private int price;
 	private String language;
 
-	public Tour(int tourId, String name, String descripction, Date start, Date end, int price, String language) {
+	public Tour(int tourId, String name, String description, Date start, Date end, int price, String language) {
 		this.tourId = tourId;
 		this.name = name;
-		this.descripction = descripction;
+		this.description = description;
 		this.start = start;
 		this.end = end;
 		this.price = price;

@@ -10,7 +10,9 @@ html{
     -webkit-text-size-adjust:100%
 }
 body{
-    margin:0
+    margin:0;
+    padding-right: 0 !important;
+
 }
 
  article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{
@@ -556,7 +558,7 @@ a{
     }
 }
  .user-content{
-    max-width:980px;
+    max-width:75%;
     margin:auto
 }
 .user-rest{
@@ -1365,3 +1367,35 @@ body, h2, h3, h4, h5, h6 {
 .navbar-brand{
     font-family: brand_text !important;
 }
+
+.ui-dialog,.ui-widget, .ui-widget-content, .ui-corner-all, .foo, .ui-draggable, .ui-resizable {
+    background: white !important
+}​
+
+
+.modal-open {
+    padding-right: 0px !important;
+}
+.modal {
+    text-align: center;
+    top:0 !important;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+
+    }
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: auto;
+    max-width: 80%;
+}
+
+
