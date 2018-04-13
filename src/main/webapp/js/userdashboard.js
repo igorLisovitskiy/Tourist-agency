@@ -47,7 +47,7 @@ $(document).ready(function() {
         if(regexDate.test(start) && regexDate.test(end)){
             $('#tours-modal').modal('toggle');
 
-        $("#tours").DataTable({
+        var table = $("#tours").DataTable({
             "ajax":{
                 url: "tours",
                 dataType : "json",
@@ -68,16 +68,26 @@ $(document).ready(function() {
                 { "data": "language"},
                 {
                     "data": function(data, type) {
-                        return "<a class='btn btn-info btn-sm'>Edit</a>";
-                    }
+                        return "<a class='btn btn-info btn-sm'>Details</a>";
+                    },
+                    "bSortable": false
                 }
+            ],
+            "columnDefs": [
+                { "width": "5%", "targets": 0 },
+                { "width": "30%", "targets": 2 }
             ],
             "bDestroy": true
         });
 
         }else{
             regexDate.test(start) ? $("#tour-dates input[name='endDate']").addClass('is-invalid') :  $("#tour-dates input[name='startDate']").addClass('is-invalid');
-        }
+        };
+        $('#tours tbody').on( 'click', 'a', function () {
+
+            var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
+            alert("tours?id="+ tourId );
+        } );
 	});
 
     $('#search-flights').on('click', function(e) {

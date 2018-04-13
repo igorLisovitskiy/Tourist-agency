@@ -196,7 +196,7 @@
 										<th>End</th>
 										<th>Price</th>
 										<th>Language</th>
-										<th>Add to Cart</th>
+										<th>Details</th>
 									</tr>
 								</thead>
 							</table>
