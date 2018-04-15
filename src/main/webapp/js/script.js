@@ -55,6 +55,24 @@ $(document).ready(function() {
         todayHighlight: true,
         autoclose: true,
         orientation: 'top auto',
-    })
     });
+        $('#repeatPassword-signup').on('keyup', function () {
+            if ($('#inputPassword-signup').val() == $('#repeatPassword-signup').val()) {
+                $('.confirm-password').removeClass('has-error');
+                $('#signup :input[type="submit"]').prop('disabled', false);
+                $('#repeatPassword-signup').css("background-color", "#f1f1f1");
+                $('#signup :input[type="submit"]').css("background-color", "#75c2f4");
+            } else{
+                $('#repeatPassword-signup').css("background-color", "#ffcccc");
+                $('#signup :input[type="submit"]').css("background-color", "#7a7a7a");
+                $('#signup :input[type="submit"]').prop('disabled', true);
+                $('.confirm-password').addClass('has-error');
+            }
+        });
+    });
+
+
+
+
+
 

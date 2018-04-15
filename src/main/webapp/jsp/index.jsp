@@ -99,7 +99,7 @@
                                     class="form-control" id="inputPassword-signup" placeholder="Password"
                                     required>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group confirm-password">
                                  <label for="repeatPassword-signup"><span class="asteriskField">
                                  * </span>Repeat Password:</label> <input type="password" name="repeat_password"
                                     class="form-control" id="repeatPassword-signup" placeholder="Repeat Password"
