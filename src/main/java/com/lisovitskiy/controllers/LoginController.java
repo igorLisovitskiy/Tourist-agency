@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.lisovitskiy.facades.LoginFacade;
 import com.lisovitskiy.pojos.User;
+import com.lisovitskiy.utilities.AuthService;
 
 /**
  * @author i.lisovitskyi Servlet implementation class LoginController A
- *         controller for handling user  authentication and login
+ *         controller for handling user authentication and login
  */
 @WebServlet(name = "LoginController", urlPatterns = "/login", loadOnStartup = 1)
 public class LoginController extends HttpServlet {
@@ -22,7 +22,6 @@ public class LoginController extends HttpServlet {
 	private HttpSession session;
 	private String url;
 	private int loginAttempts;
-	private LoginFacade lf = new LoginFacade();
 
 	public LoginController() {
 		super();
@@ -30,7 +29,15 @@ public class LoginController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
+		String url = "dashboard";
+		session = req.getSession();
+		User user = AuthService.loginRememberedUser(session, req);
+		if (user != null) {
+			System.out.println("user " + user);
+			resp.sendRedirect(url);
+		} else {
+			req.getRequestDispatcher("/").forward(req, resp);
+		}
 	}
 
 	@Override
@@ -40,24 +47,27 @@ public class LoginController extends HttpServlet {
 		if (session.getAttribute("loginattempts") == null) {
 			loginAttempts = 0;
 		}
-
 		// exceeded logings
 		if (loginAttempts > 2) {
 			String errorMessage = "Error: Number of Login Attempts Exceeded";
 			req.setAttribute("errorMessage", errorMessage);
-			//TODO ajax here
+			// TODO ajax here
 			url = "jsp/index.jsp";
 		} else {
 			// proceed
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
-			User user = lf.authentificatedUser(username, password);
+			boolean remember = "on".equals(req.getParameter("remember"));
+			User user = null;
+			if (AuthService.getRememberMeCookie(req).isPresent()) {
+				user = AuthService.loginRememberedUser(session, req);
+				if (user == null) {
+					user = AuthService.login(session, req, resp, username, password, remember);
+				}
+			} else {
+				user = AuthService.login(session, req, resp, username, password, remember);
+			}
 			if (user != null) {
-				// invalidate current session, then get new session for our user (prevents
-				// session hijacking)
-				session.invalidate();
-				session = req.getSession(true);
-				session.setAttribute("user", user);
 				url = "dashboard";
 			} else {
 				String errorMessage = "Error: Unrecognized Username or Password<br>Login attampts remaining: "

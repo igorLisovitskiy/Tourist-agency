@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.lisovitskiy.pojos.User;
+import com.lisovitskiy.utilities.AuthService;
+
 /**
  * Servlet Filter implementation class LoggedFilter
  */
-@WebFilter("/dashboard")
+@WebFilter(urlPatterns = "/dashboard/*")
 public class LoggedFilter implements Filter {
 
     /**
@@ -37,11 +40,15 @@ public class LoggedFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
+		boolean isRemembered = AuthService.getRememberMeCookie(httpRequest).isPresent();
+	
 		if(session.getAttribute("user") == null) {
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			httpRequest.setAttribute("displayLogin", "block;");
 			httpRequest.getRequestDispatcher("jsp/index.jsp").forward(httpRequest, httpResponse);
+		}else {
+			httpRequest.getRequestDispatcher("/login").forward(httpRequest, httpResponse);
 		}
 		chain.doFilter(request, response);
 	}

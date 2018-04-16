@@ -70,6 +70,9 @@
                               </div>
                               <div class="container" style="background-color:#f1f1f1">
                                  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                                 	<c:if test="${not empty errorMessage}">
+											<c:out value="${errorMessage}"/>
+									</c:if>
                                  <span class="psw">Forgot <a href="#">password?</a></span>
                               </div>
                            </form>

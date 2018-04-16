@@ -68,7 +68,7 @@ $(document).ready(function() {
                 { "data": "language"},
                 {
                     "data": function(data, type) {
-                        return "<a class='btn btn-info btn-sm'>Details</a>";
+                        return "<a class='details btn btn-info btn-sm'>Details</a>";
                     },
                     "bSortable": false
                 }
@@ -84,9 +84,9 @@ $(document).ready(function() {
             regexDate.test(start) ? $("#tour-dates input[name='endDate']").addClass('is-invalid') :  $("#tour-dates input[name='startDate']").addClass('is-invalid');
         };
         $('#tours tbody').on( 'click', 'a', function () {
-
             var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
-            alert("tours?id="+ tourId );
+            var url = "details?id="+ tourId;
+            window.open(url, '_blank');
         } );
 	});
 
