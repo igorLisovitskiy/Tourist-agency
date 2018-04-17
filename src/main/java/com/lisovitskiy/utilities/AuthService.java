@@ -1,6 +1,7 @@
 package com.lisovitskiy.utilities;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.servlet.http.Cookie;
@@ -37,7 +38,7 @@ public class AuthService {
 		User rememberedUser = null;
 		if (rememberMeCookie.isPresent()) {
 			String id = rememberMeCookie.get().getValue();
-			System.out.println("id " + UserService.getRememberedUser(id));
+			//if id null then id in the Map rememberedUsers in UserService does not mathch the id which is stored at the client;
 				rememberedUser = UserService.getRememberedUser(id);
 			if (rememberedUser != null) {
 				session.invalidate();
@@ -59,7 +60,15 @@ public class AuthService {
 
 	public static Optional<Cookie> getRememberMeCookie(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
-		return Arrays.stream(cookies).filter(c -> c.getName().equals(COOKIE_NAME)).findFirst();
+		if(cookies != null) {
+			return Arrays.stream(cookies)
+					.filter(c -> c.getName()
+					.equals(COOKIE_NAME))
+					.filter(Objects::nonNull)
+					.findFirst();
+		}else {
+			return Optional.empty();
+		}
 	}
 
 	private static void rememberUser(User user, HttpServletResponse resp) {

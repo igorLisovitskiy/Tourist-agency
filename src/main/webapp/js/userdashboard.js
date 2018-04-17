@@ -85,7 +85,7 @@ $(document).ready(function() {
         };
         $('#tours tbody').on( 'click', 'a', function () {
             var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
-            var url = "details?id="+ tourId;
+            var url = "dashboard/tour?id="+ tourId;
             window.open(url, '_blank');
         } );
 	});

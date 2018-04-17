@@ -1,9 +1,11 @@
 package com.lisovitskiy.controllers;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,14 +31,15 @@ public class LoginController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = "dashboard";
+		String url = "";
 		session = req.getSession();
-		User user = AuthService.loginRememberedUser(session, req);
-		if (user != null) {
-			System.out.println("user " + user);
-			resp.sendRedirect(url);
+		if (session.getAttribute("user") == null) {
+			url = "jsp/index.jsp";
+			req.setAttribute("displayLogin", "block;");
+			req.getRequestDispatcher(url).forward(req, resp);
 		} else {
-			req.getRequestDispatcher("/").forward(req, resp);
+			url = "dashboard";
+			resp.sendRedirect(url);
 		}
 	}
 
@@ -47,7 +50,7 @@ public class LoginController extends HttpServlet {
 		if (session.getAttribute("loginattempts") == null) {
 			loginAttempts = 0;
 		}
-		// exceeded logings
+		// exceeded loggings
 		if (loginAttempts > 2) {
 			String errorMessage = "Error: Number of Login Attempts Exceeded";
 			req.setAttribute("errorMessage", errorMessage);
@@ -59,7 +62,8 @@ public class LoginController extends HttpServlet {
 			String password = req.getParameter("password");
 			boolean remember = "on".equals(req.getParameter("remember"));
 			User user = null;
-			if (AuthService.getRememberMeCookie(req).isPresent()) {
+			Optional<Cookie> remembered = AuthService.getRememberMeCookie(req);
+			if (remembered.isPresent()) {
 				user = AuthService.loginRememberedUser(session, req);
 				if (user == null) {
 					user = AuthService.login(session, req, resp, username, password, remember);
@@ -70,13 +74,11 @@ public class LoginController extends HttpServlet {
 			if (user != null) {
 				url = "dashboard";
 			} else {
-				String errorMessage = "Error: Unrecognized Username or Password<br>Login attampts remaining: "
-						+ (3 - (loginAttempts));
-				req.setAttribute("errorMessage", errorMessage);
-				// track login attempts (prevents brute force attacks)
-				session.setAttribute("loginAttempts", loginAttempts);
+				req.setAttribute("displayLogin", "block;");
+				req.getRequestDispatcher("jsp/index.jsp").forward(req, resp);
 				url = "login";
 			}
+			// req.getRequestDispatcher(url).forward(req, resp);
 			resp.sendRedirect(url);
 		}
 	}

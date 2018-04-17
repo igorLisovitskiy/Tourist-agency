@@ -57,7 +57,7 @@
                         <a class="btn btn-clear btn-sm btn-min-block" id="login-btn" onclick="document.getElementById('id01').style.display='block'">Login</a>
                         <!-- -->
                         <div id="id01" class="modal" style="display:<c:out value="${displayLogin}"/>">
-                           <form class="modal-content animate" action="login" id="loggin" method="post">
+                           <form class="modal-content animate" action="${pageContext.request.contextPath}/login" id="login-id" method="post">
                               <div class="container">
                                  <label for="l-username"><b>Username</b></label>
                                  <input type="text" id="l-username" placeholder="Enter Username" name="username" required>

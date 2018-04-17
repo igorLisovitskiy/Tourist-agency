@@ -16,13 +16,10 @@ public class DashboardController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
 		session = req.getSession();
 		if (session.getAttribute("user") != null) {
-			resp.sendRedirect("jsp/userdashboard.jsp");
+			req.getRequestDispatcher("jsp/userdashboard.jsp").forward(req, resp);
 		} else {
-			//won't happen every not logged attempt for /dashboard is filtered by LoggedFilter
-			//resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
 		}
 	}
 
@@ -30,9 +27,10 @@ public class DashboardController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		session = req.getSession();
 		if (session.getAttribute("user") != null) {
-			resp.sendRedirect("jsp/userdashboard.jsp");
+			req.getRequestDispatcher("jsp/userdashboard.jsp").forward(req, resp);
 		} else {
 			resp.sendRedirect("/");
+			
 		}
 	}
 }

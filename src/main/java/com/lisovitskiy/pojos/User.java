@@ -10,13 +10,13 @@ public class User {
 	private Date birthday;
 	private int role;
 
-	public User(int id, String login, char[] password, String mail, Date dateOfBirth, int role) {
+	public User(int id, String login, char[] password, String mail, Date birthday, int role) {
 		super();
 		this.id = id;
 		this.username = login;
 		this.password = password;
 		this.mail = mail;
-		this.birthday = dateOfBirth;
+		this.birthday = birthday;
 		this.role = role;
 	}
 
@@ -52,11 +52,11 @@ public class User {
 		this.mail = mail;
 	}
 
-	public Date getDateOfBirth() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setBirthday(Date dateOfBirth) {
 		this.birthday = dateOfBirth;
 	}
 

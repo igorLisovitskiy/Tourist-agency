@@ -1,7 +1,6 @@
 package com.lisovitskiy.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lisovitskiy.facades.UserFacade;
-import com.lisovitskiy.pojos.User;
 
 @WebServlet(name = "UsersController", urlPatterns = "/users", loadOnStartup = 1)
 public class UsersController extends HttpServlet {

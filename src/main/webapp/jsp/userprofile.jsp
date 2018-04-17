@@ -1,31 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html>
 <title>++ProTravel - ${user.mail}</title>
 <head>
     <link rel="icon" href="images/icon.gif" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src=" https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
-
     <script src="js/userprofile.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/userdashboard.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="css/profile.css" rel="stylesheet">
 
-    <!-- Include Date Picker -->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-
-
-
-
-    <script src="js/script.js" type="text/javascript"></script>
+          href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
 
 
 
@@ -93,7 +85,7 @@
                             class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User
+                            <li><a href="profile"><i class="fa fa-user fa-fw"></i> User
                                 Profile</a></li>
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i>
                                 Settings</a></li>
@@ -121,93 +113,31 @@
                     <tbody class="col-md-2">
                     <tr>
                         <th scope="row">Name:</th>
-                        <td >Mark</td>
+                        <td >${user.username}</td>
                     </tr>
                     <tr>
                         <th scope="row">E-mail:</th>
-                        <td  >Jacob</td>
+                        <td  >${user.mail}</td>
                     </tr>
                     <tr>
                         <th scope="row">Birthday:</th>
-                        <td >Larry</td>
+                        <td >${user.birthday}</td>
                     </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-info" onclick="document.getElementById('form-info').style.display='block'">
+                <button type="button" class="btn btn-info" id="edit-info">
                     <span class="glyphicon glyphicon-pencil"></span> Edit Information
                 </button>
-                <button type="button" class="btn btn-success btn-l">
+                <button type="button" class="btn btn-success btn-l" id="edit-pass">
                     <span class="glyphicon glyphicon-lock"></span> Change Password
                 </button>
-        <div id="form-info" class="modal">
-            <span onclick="document.getElementById('form-info').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <form class="modal-content animate" action="signing"  method="post" id="signup">
-                <div class="container">
-                    <div class="form-group">
-                        <label for="username-signup"><span class="asteriskField">
-                                 * </span>Name:</label> <input type="text" name="username" class="form-control"
-                                                               id=username-signup placeholder="Username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail-signup"><span class="asteriskField">
-                                 * </span>Email:</label> <input type="email" name="mail" class="form-control"
-                                                                id="inputEmail-signup" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="birthday-signup" class="control-label requiredField">
-                            <span class="asteriskField"> * </span>Birthday:
-                        </label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"> </i>
-                            </div>
-                            <input class="form-control" id="birthday-signup" name="birthday"
-                                   placeholder="MM/DD/YYYY" type="text" />
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <button type="button" onclick="document.getElementById('form-info').style.display='none'" class="cancelbtn">Cancel</button>
-                        <button type="submit" class="signupbtn">Sign Up</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
         </div>
     </div>
 </div>
 <!-- Footer -->
 <footer class="user-container user-center user-margin-top">
-    <h3>Enjoy ${tour Name} sights</h3>
-        <div class="col">
-            <a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox" data-gallery="example-gallery" class="">
-                <img src="https://unsplash.it/600.jpg?image=251" class="col-sm-2">
-            </a>
-        </div>
-        <div class="col">
-            <a href="https://unsplash.it/1200/768.jpg?image=252" data-toggle="lightbox" data-gallery="example-gallery" class="-2">
-                <img src="https://unsplash.it/600.jpg?image=252" class="col-sm-2">
-            </a>
-        </div>
-        <div class="col">
-            <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="">
-                <img src="https://unsplash.it/600.jpg?image=253" class="col-sm-2">
-            </a>
-        </div>
-        <div class="col">
-            <a href="https://unsplash.it/1200/768.jpg?image=254" data-toggle="lightbox" data-gallery="example-gallery" class="">
-                <img src="https://unsplash.it/600.jpg?image=254" class="col-sm-2">
-            </a>
-        </div>
-        <div class="col">
-            <a href="https://unsplash.it/1200/768.jpg?image=255" data-toggle="lightbox" data-gallery="example-gallery" class="">
-                <img src="https://unsplash.it/600.jpg?image=255" class="col-sm-2">
-            </a>
-        </div>
-        <div class="col">
-            <a href="https://unsplash.it/1200/768.jpg?image=256" data-toggle="lightbox" data-gallery="example-gallery" class="">
-                <img src="https://unsplash.it/600.jpg?image=256" class="col-sm-2">
-            </a>
-        </div>
+  
     </footer>
 <script>
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {

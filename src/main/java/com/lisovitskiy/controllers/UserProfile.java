@@ -9,21 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lisovitskiy.facades.TourFacade;
-import com.lisovitskiy.pojos.Tour;
 
 
-@WebServlet(name = "TourController", urlPatterns = "/dashboard/tour", loadOnStartup = 1)
-public class TourController extends HttpServlet {
+@WebServlet(name = "UserProfile", urlPatterns = "/profile", loadOnStartup = 1)
+public class UserProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			int id = Integer.parseInt(request.getParameter("id"));
-			Tour tour = tourFacade.getTourById(id);
-			request.setAttribute("tour", tour);
-			request.getRequestDispatcher("/jsp/tour.jsp").forward(request, response);
+			//int id = Integer.parseInt(request.getParameter("id"));
+			request.setAttribute("user",request.getSession().getAttribute("user"));
+			request.getRequestDispatcher("/jsp/userprofile.jsp").forward(request, response);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.lisovitskiy.filters;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,13 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.lisovitskiy.pojos.User;
-import com.lisovitskiy.utilities.AuthService;
-
 /**
  * Servlet Filter implementation class LoggedFilter
  */
-@WebFilter(urlPatterns = "/dashboard/*")
+@WebFilter(urlPatterns ={"/dashboard/*" , "/dashboard"})
 public class LoggedFilter implements Filter {
 
     /**
@@ -42,15 +40,14 @@ public class LoggedFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession();
-		boolean isRemembered = AuthService.getRememberMeCookie(httpRequest).isPresent();
-	
+
 		if(session.getAttribute("user") == null) {
-			httpRequest.setAttribute("displayLogin", "block;");
-			httpRequest.getRequestDispatcher("jsp/index.jsp").forward(httpRequest, httpResponse);
+			String loginUrl = request.getServletContext().getContextPath() + "/login";
+			httpResponse.sendRedirect(loginUrl);
 		}else {
-			httpRequest.getRequestDispatcher("/login").forward(httpRequest, httpResponse);
+			chain.doFilter(request, response);
 		}
-		chain.doFilter(request, response);
+		
 	}
 
 	/**
