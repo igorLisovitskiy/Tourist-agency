@@ -14,10 +14,18 @@ import com.lisovitskiy.utilities.db.ConnectionManager;
 public class OrderDaoImpl implements OrderDao {
 
 	private final static String CREATE_ORDER = "INSERT INTO orders (user_id, tour_id) VALUES(?, ?)";
-	private final static String UPDATE_ORDER = "UPDATE orders SET user_id = ? , tour_id = ? WHERE order_id =?;";
+	private final static String ORDER_FLIGHT = "UPDATE orders SET flight_id = ? WHERE order_id = ?;";
+	private final static String ORDER_HOTEL = "UPDATE orders SET hotel_id = ? WHERE order_id = ?;";
+	private final static String ORDER_RENTAL = "UPDATE orders SET rental_id = ? WHERE order_id = ?;";
+	private final static String UPDATE_ORDER = "UPDATE orders SET user_id = ? , tour_id = ?, rental_id = ?, flight_id = ?, hotel_id = ? WHERE order_id =?;";
 	private final static String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
 	private final static String SELECT_ORDER_BY_ID = "SELECT * FROM orders WHERE order_id = ?";
 	private final static String SELECT_ALL_ORDERS = "SELECT * FROM orders";
+	
+	private final static String REMOVE_TOURS_BY_USER = "UPDATE orders SET tour_id = null WHERE user_id = ?;";
+	private final static String REMOVE_FLIGHTS_BY_USER = "UPDATE orders SET flight_id = null WHERE user_id = ?;";
+	private final static String REMOVE_HOTELS_BY_USER = "UPDATE orders SET hotel_id = null WHERE user_id = ?;";
+	private final static String REMOVE_RENTAL_BY_USER = "UPDATE orders SET rental_id = null WHERE user_id = ?;";
 
 	@Override
 	public Order getOrderById(int orderId) {
@@ -53,6 +61,7 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		return orderList;
 	}
+	
 
 	@Override
 	public boolean createOrder(int userId, int tourId) {
@@ -101,6 +110,9 @@ public class OrderDaoImpl implements OrderDao {
 
 	// Utility methods
 	private static Order getOrderFromDb(ResultSet rs) throws SQLException {
-		return new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getInt("tour_id"));
+		return new Order(rs.getInt("order_id"), rs.getInt("user_id"), rs.getInt("tour_id"), rs.getInt("rental_id"), rs.getInt("flight_id"), rs.getInt("hotel_id"));
+		
+		
+		
 	}
 }

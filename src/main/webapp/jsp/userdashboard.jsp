@@ -110,7 +110,6 @@
 				</button>
 			</div>
 			<!-- Tabs -->
-			<!-- Tabs -->
 			<div id="Tour"
 				class="user-container user-white user-padding-16 myLink">
 				<h3>Travel the world with us</h3>
@@ -221,7 +220,7 @@
 						<div class="modal-body">
 							<table width="100%"
 								class="table table-striped table-bordered table-hover"
-								id="tours">
+								id="flights">
 								<thead>
 									<tr>
 										<th>From</th>

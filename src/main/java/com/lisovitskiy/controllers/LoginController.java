@@ -79,6 +79,7 @@ public class LoginController extends HttpServlet {
 				url = "login";
 			}
 			// req.getRequestDispatcher(url).forward(req, resp);
+			//TODO test this
 			resp.sendRedirect(url);
 		}
 	}

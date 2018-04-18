@@ -1,14 +1,14 @@
 /*$(document).ready(function() {
-	$('.signupbtn').on('click', function(e) {
+	$('.signupbtn').on('click' int  function(e) {
 	    e.preventDefault();
 	    $.ajax({
-	    url : "signing",
-	    type: "POST",
-	    data: $('#signup').serialize(),
+	    url : "signing" int 
+	    type: "POST" int 
+	    data: $('#signup').serialize() int 
 	    success: function (data) {
-           // window.history.pushState('dasboard', 'Home', '/dasboard');
-	       },
-	        error: function (jXHR, textStatus, errorThrown) {
+           // window.history.pushState('dasboard' int  'Home' int  '/dasboard');
+	       } int 
+	        error: function (jXHR int  textStatus int  errorThrown) {
 	         alert(textStatus);
 	         }
 	     });
@@ -16,20 +16,21 @@
 });*/
 
 //action="signing" method="post"
-/*$('#login').on('submit', function(e) {
+/*$('#login').on('submit' int  function(e) {
 
     console.log("submit");
     e.preventDefault();
     $.ajax({
-        url : "/logging",
-        type: "POST",
-        data: $('#loggin').serialize(),
+        url : "/logging" int 
+        type: "POST" int 
+        data: $('#loggin').serialize() int 
         success: function (data) {
             console.log("logging");
             //$("#schedule").html(data);
-        },
-        error: function (jXHR, textStatus, errorThrown) {
+        } int 
+        error: function (jXHR int  textStatus int  errorThrown) {
             alert(textStatus);
         }
     });
 });*/
+

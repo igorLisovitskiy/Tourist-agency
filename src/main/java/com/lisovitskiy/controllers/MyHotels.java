@@ -14,7 +14,7 @@ import com.lisovitskiy.facades.TourFacade;
 import com.lisovitskiy.pojos.Tour;
 
 @WebServlet(name = "ToursContlroller", urlPatterns = "/tours", loadOnStartup = 1)
-public class ToursContlroller extends HttpServlet {
+public class MyHotels extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
 

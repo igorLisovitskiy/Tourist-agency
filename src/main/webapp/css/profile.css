@@ -1,75 +1,59 @@
 /* Full-width input fields */
-#form-info input[type=text], #form-info input[type=password] {
+.modal-info input[type=text], .modal-info input[type=password] {
 	width: 100%;
 	padding: 12px 20px;
-	margin: 8px 0;
 	display: inline-block;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
 }
 
 /* Set a style for all buttons */
-#form-info button {
-	background-color: #75c2f4;
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 100%;
-}
+
+.modal-info button {
+    background-color: #75c2f4;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 15px;
+    margin-left: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }
 
-#form-info button:hover {
+.modal-info button:hover {
 	opacity: 0.8;
 }
 
 /* Extra styles for the cancel button */
-#form-info .cancelbtn {
-	width: auto;
-	padding: 10px 18px;
+.modal-info .cancelbtn {
 	background-color: #c6c6c6;
 }
 
 /* Center the image and position the close button */
-#form-info .imgcontainer {
+.modal-info .imgcontainer {
 	text-align: center;
 	margin: 24px 0 12px 0;
 	position: relative;
 }
 
-#form-info img.avatar {
+.modal-info img.avatar {
 	width: 40%;
 	border-radius: 50%;
 }
 
-#form-info .container {
+.modal-info .container {
 	width: 100%;
 
 }
 
-#form-info span.psw {
+.modal-info span.psw {
 	float: right;
 	padding-top: 16px;
 }
 
-/* The Modal (background) */
-#form-info .modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	padding-top: 15%;
-}
 
-/* Modal Content/Box */
-#form-info .modal-content {
+/* modal-info Content/Box */
+.modal-info .modal-info-content {
 	padding: 1%;
 	background-color: #fefefe;
 	margin: 15% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
@@ -81,7 +65,7 @@
 }
 
 /* The Close Button (x) */
-#form-info .close {
+.modal-info .close {
 	position: absolute;
 	right: 25px;
 	top: 0;
@@ -90,12 +74,16 @@
 	font-weight: bold;
 }
 
-#form-info .close:hover,
-#form-info .close:focus {
+
+.modal-info .close:hover,
+.modal-info .close:focus {
 	color: red;
 	cursor: pointer;
 }
 
+.modal{
+    transform: translateY(-100%) !important;;
+}
 /* Add Zoom Animation */
 .animate {
 	-webkit-animation: animatezoom 0.6s;
@@ -122,3 +110,5 @@
 		width: 100%;
 	}
 }
+
+.input-group { font-size: 14px !important; }

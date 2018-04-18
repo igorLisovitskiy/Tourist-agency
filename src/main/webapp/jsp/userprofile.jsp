@@ -1,26 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+
 <!DOCTYPE html>
 <html>
 <title>++ProTravel - ${user.mail}</title>
 <head>
     <link rel="icon" href="images/icon.gif" type="image/gif" sizes="16x16">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/userprofile.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="css/userdashboard.css">
-
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
 
+    <script src="js/userprofile.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/userdashboard.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/profile.css" rel="stylesheet">
 
-
+    <!-- Include Date Picker -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script src="js/script.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
     <style>
         .card{
@@ -75,7 +79,6 @@
                 <li><a href="adminpanel" aria-haspopup="true"
                        aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
                     Site Administration</a></li>
-
                 <li><a href="contacts" aria-haspopup="true"
                        aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
                     Contact us</a></li>
@@ -85,7 +88,7 @@
                             class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="profile"><i class="fa fa-user fa-fw"></i> User
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User
                                 Profile</a></li>
                             <li><a href="#"><i class="fa fa-gear fa-fw"></i>
                                 Settings</a></li>
@@ -103,9 +106,9 @@
         <h2>${user.username} account</h2>
     <br>
             <div class="list-group menu">
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa fa-globe"></i> Tours</a>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa fa-plane"></i> Flights</a>
-                <a href="#" class="list-group-item list-group-item-action"><i class="fa fa-building"></i> Hotels</a>
+                <button data-toggle="modal" data-target="#tours-modal" class="list-group-item list-group-item-action" id="search-tours"><i class="fa fa-globe"></i> Tours</button>
+                <button data-toggle="modal" data-target="#flights-modal" class="list-group-item list-group-item-action" id="search-flights"><i class="fa fa-plane"></i> Flights</button>
+                <button data-toggle="modal" data-target="#hotels-modal" class="list-group-item list-group-item-action" id="search-hotels"><i class="fa fa-building"></i> Hotels</button>
             </div>
             <div class="personal-info">
                 <h3>Personal Information</h3>
@@ -114,30 +117,274 @@
                     <tr>
                         <th scope="row">Name:</th>
                         <td >${user.username}</td>
+                        <td>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-name">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </button>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">E-mail:</th>
                         <td  >${user.mail}</td>
+                        <td>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-mail">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </button>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Birthday:</th>
                         <td >${user.birthday}</td>
+                        <td>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit-birthday">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-info" id="edit-info">
-                    <span class="glyphicon glyphicon-pencil"></span> Edit Information
-                </button>
-                <button type="button" class="btn btn-success btn-l" id="edit-pass">
+                <button type="button" class="btn btn-success btn-l" data-toggle="modal" data-target="#edit-password">
                     <span class="glyphicon glyphicon-lock"></span> Change Password
                 </button>
+                <div class="modal fade modal-info" id="edit-name" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <form class="" action="edit"  method="post" id="f_n_edit">
+                                    <div class="container">
+                                        <div class="form-group"><label for="username-edit"><span class="asteriskField">
+                                 </span>Name:</label> <input type="text" name="username" class="form-control" id=username-edit placeholder="Username" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cancelbtn" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit" form="f_n_edit">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade modal-info" id="edit-mail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <form class="" action="edit" method="post" id="f_m_edit">
+                                    <div class="container">
+                                        <div class="form-group"><label for="mail-edit"><span class="asteriskField">
+                                 </span>E-Mail:</label> <input type="text" name="mail" class="form-control" id=mail-edit placeholder="e-mail" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cancelbtn" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary"  type="submit" form="f_m_edit">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade modal-info" id="edit-birthday" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <form class="" action="edit" method="post" id="f_b_edit">
+                                    <div class="container">
+                                        <label for="birthday-edit" class="control-label requiredField"><span class="asteriskField"></span>Birthday:</label>
+                                        <div class="form-group">
+                                             <div class="input-group">
+                                                <div class="input-group-addon">
+                                                <i class="fa fa-calendar"> </i>
+                                                </div>
+                                         <input class="form-control" id="birthday-edit" name="birthday" placeholder="MM/DD/YYYY" type="text" />
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cancelbtn" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" type="submit" form="f_b_edit">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="modal fade modal-info" id="edit-password" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="" action="edit" method="post" id="f_p_edit">
+                            <div class="container">
+                                <div class="form-group">
+                                    <label for="old-password"><span class="asteriskField">
+                                  </span>Old password:</label> <input type="password" name="password"
+                                                                  class="form-control" id="old-password" placeholder="Old password"
+                                                                  required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password"><span class="asteriskField">
+                                  </span>New password:</label> <input type="password" name="password"
+                                                                   class="form-control" id="new-password" placeholder="Password"
+                                                                   required>
+                                </div>
+                                <div class="form-group confirm-password">
+                                    <label for="repeat-password"><span class="asteriskField">
+                                 * </span>Repeat new password:</label> <input type="password" name="repeat_password"
+                                                                          class="form-control" id="repeat-password" placeholder="Repeat password"
+                                                                          required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary cancelbtn" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit" form="f_b_edit">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Tours Modal -->
+        <div class="modal fade" id="tours-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Search Result:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tours" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Price</th>
+                                <th>Language</th>
+                                <th>Details</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="flights-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Search Result:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table width="100%"
+                               class="table table-striped table-bordered table-hover"
+                               id="flights">
+                            <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Departure</th>
+                                <th>Flight Time</th>
+                                <th>Price</th>
+                                <th>Details</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+              <!-- Modal -->
+        <div class="modal fade" id="hotels-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Search Result:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table width="100%"
+                               class="table table-striped table-bordered table-hover"
+                               id="flights">
+                            <thead>
+                            <tr>
+                              	<th>Name</th>
+                              	<th>Address</th>
+                                <th>Check in</th>
+                                <th>Check out</th>
+                                <th>Details</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 <!-- Footer -->
 <footer class="user-container user-center user-margin-top">
-  
+    <h3>Enjoy ${tour.name} sights</h3>
+        <div class="col">
+            <a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox" data-gallery="example-gallery" class="">
+                <img src="https://unsplash.it/600.jpg?image=251" class="col-sm-2">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://unsplash.it/1200/768.jpg?image=252" data-toggle="lightbox" data-gallery="example-gallery" class="-2">
+                <img src="https://unsplash.it/600.jpg?image=252" class="col-sm-2">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="">
+                <img src="https://unsplash.it/600.jpg?image=253" class="col-sm-2">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://unsplash.it/1200/768.jpg?image=254" data-toggle="lightbox" data-gallery="example-gallery" class="">
+                <img src="https://unsplash.it/600.jpg?image=254" class="col-sm-2">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://unsplash.it/1200/768.jpg?image=255" data-toggle="lightbox" data-gallery="example-gallery" class="">
+                <img src="https://unsplash.it/600.jpg?image=255" class="col-sm-2">
+            </a>
+        </div>
+        <div class="col">
+            <a href="https://unsplash.it/1200/768.jpg?image=256" data-toggle="lightbox" data-gallery="example-gallery" class="">
+                <img src="https://unsplash.it/600.jpg?image=256" class="col-sm-2">
+            </a>
+        </div>
     </footer>
 <script>
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {

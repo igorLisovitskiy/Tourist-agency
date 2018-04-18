@@ -12,7 +12,7 @@ import com.lisovitskiy.pojos.Tour;
 import com.lisovitskiy.utilities.DateService;
 import com.lisovitskiy.utilities.db.ConnectionManager;
 
-public class TourDaoImpl implements TourDao {
+public class HotelDaoImpl implements TourDao {
 	private final static String CREATE_TOUR = "INSERT INTO tours (name, description, start, end, price, language) VALUES(?, ?, ?, ?, ?, ?)";
 	private final static String DELETE_TOUR = "DELETE FROM tours WHERE tour_id = ?";
 	private final static String UPDATE_TOUR = "UPDATE tours\r\n"
