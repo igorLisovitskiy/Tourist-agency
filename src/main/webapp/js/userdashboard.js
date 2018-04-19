@@ -49,7 +49,7 @@ $(document).ready(function() {
 
         var table = $("#tours").DataTable({
             "ajax":{
-                url: "tours",
+                url: "tours/period",
                 dataType : "json",
                 type: "GET",
                 "data": function(d){
@@ -101,7 +101,7 @@ $(document).ready(function() {
 
             $("#tours").DataTable({
                 "ajax":{
-                    url: "tours",
+                    url: "flights/period",
                     dataType : "json",
                     type: "GET",
                     "data": function(d){

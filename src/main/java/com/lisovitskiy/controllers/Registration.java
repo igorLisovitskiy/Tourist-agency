@@ -13,8 +13,8 @@ import com.lisovitskiy.facades.RegistrationFacade;
  * @author i.lisovitskyi Servlet implementation class RegistrationContlroller A
  *         controller for handling user registration
  */
-@WebServlet(name = "RegistrationContlroller", urlPatterns = "/signing", loadOnStartup = 1)
-public class RegistrationContlroller extends HttpServlet {
+@WebServlet(name = "Registration", urlPatterns = "/signing", loadOnStartup = 1)
+public class Registration extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	RegistrationFacade rf = new RegistrationFacade();

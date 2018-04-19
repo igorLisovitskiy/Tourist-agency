@@ -81,9 +81,6 @@
 	cursor: pointer;
 }
 
-.modal{
-    transform: translateY(-100%) !important;;
-}
 /* Add Zoom Animation */
 .animate {
 	-webkit-animation: animatezoom 0.6s;

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "AdminPanelController", urlPatterns = "/adminpanel", loadOnStartup = 1)
-public class AdminPanelController extends HttpServlet {
+@WebServlet(name = "Dashboard", urlPatterns = "/dashboard", loadOnStartup = 1)
+public class Dashboard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
 
@@ -18,14 +18,19 @@ public class AdminPanelController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		session = req.getSession();
 		if (session.getAttribute("user") != null) {
-			req.getRequestDispatcher("jsp/admin.jsp").forward(req, resp);
+			req.getRequestDispatcher("jsp/userdashboard.jsp").forward(req, resp);
 		} else {
-			resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		session = req.getSession();
+		if (session.getAttribute("user") != null) {
+			req.getRequestDispatcher("jsp/userdashboard.jsp").forward(req, resp);
+		} else {
+			resp.sendRedirect("/");
+			
+		}
 	}
 }

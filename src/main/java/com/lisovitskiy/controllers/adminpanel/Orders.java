@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.adminpanel;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import com.lisovitskiy.facades.RegistrationFacade;
 
-@WebServlet(name = "OrdersContlroller", urlPatterns = "/orders", loadOnStartup = 1)
-public class OrdersContlroller extends HttpServlet {
+@WebServlet(name = "Orders", urlPatterns = "/adminpanel/orders", loadOnStartup = 1)
+public class Orders extends HttpServlet {
 	private HttpSession session;
 	private static final long serialVersionUID = 1L;
 	RegistrationFacade rf = new RegistrationFacade();
@@ -22,7 +22,7 @@ public class OrdersContlroller extends HttpServlet {
 			throws ServletException, IOException {
 		session = request.getSession();
 		if (session.getAttribute("user") != null) {
-			request.getRequestDispatcher("jsp/tours.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/tours.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
 		}

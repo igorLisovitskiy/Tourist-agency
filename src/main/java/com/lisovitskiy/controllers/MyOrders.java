@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import com.lisovitskiy.facades.TourFacade;
 import com.lisovitskiy.pojos.User;
 
-@WebServlet(name = "MyTours", urlPatterns = "/mytours", loadOnStartup = 1)
-public class MyTours extends HttpServlet {
+@WebServlet(name = "MyOrders", urlPatterns = "/myorders", loadOnStartup = 1)
+public class MyOrders extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
 

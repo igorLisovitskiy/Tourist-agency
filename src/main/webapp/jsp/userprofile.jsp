@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 <!DOCTYPE html>
@@ -70,15 +71,17 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">++ProTravel</a>
+            <a class="navbar-brand" href="dashboard">++ProTravel</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"
              id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="adminpanel" aria-haspopup="true"
-                       aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
-                    Site Administration</a></li>
+           	<c:if test="${user.role == 1 || user.role == 0}">
+						<li><a href="adminpanel" aria-haspopup="true"
+							aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
+								Site Administration</a></li>
+					</c:if>
                 <li><a href="contacts" aria-haspopup="true"
                        aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
                     Contact us</a></li>

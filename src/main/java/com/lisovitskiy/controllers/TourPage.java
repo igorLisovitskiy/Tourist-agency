@@ -7,27 +7,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.lisovitskiy.facades.TourFacade;
-import com.lisovitskiy.pojos.User;
+import com.lisovitskiy.pojos.Tour;
 
-@WebServlet(name = "MyTours", urlPatterns = "/mytours", loadOnStartup = 1)
-public class MyTours extends HttpServlet {
+
+@WebServlet(name = "TourPage", urlPatterns = "/dashboard/tour", loadOnStartup = 1)
+public class TourPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		
-	//	List<Tour> tours = tourFacade.ge;
-		//String json = new Gson().toJson(tours);
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-	//	response.getWriter().write(json);
+			int id = Integer.parseInt(request.getParameter("id"));
+			Tour tour = tourFacade.getTourById(id);
+			request.setAttribute("tour", tour);
+			request.getRequestDispatcher("/jsp/tour.jsp").forward(request, response);
 	}
 
 	@Override

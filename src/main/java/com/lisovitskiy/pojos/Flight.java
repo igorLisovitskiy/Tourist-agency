@@ -7,14 +7,14 @@ public class Flight {
 	private int flightID;
 	private String from;
 	private String to;
-	private Date departure;
+	private Date departureDate;
 
 	public Flight(int flightID, String from, String to, Date departure, int flightTime, int price) {
 		super();
 		this.flightID = flightID;
 		this.from = from;
 		this.to = to;
-		this.departure = departure;
+		this.departureDate = departure;
 		this.flightTime = flightTime;
 		this.price = price;
 	}
@@ -46,11 +46,11 @@ public class Flight {
 	}
 
 	public Date getDeparture() {
-		return departure;
+		return departureDate;
 	}
 
 	public void setDeparture(Date departure) {
-		this.departure = departure;
+		this.departureDate = departure;
 	}
 
 	public int getFlightTime() {

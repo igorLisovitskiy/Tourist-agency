@@ -1,6 +1,7 @@
 package com.lisovitskiy.pojos;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 	private int id;
@@ -9,17 +10,28 @@ public class User {
 	private String mail;
 	private Date birthday;
 	private int role;
+	private List<Order> orders;
 
-	public User(int id, String login, char[] password, String mail, Date birthday, int role) {
+	public User(int id, String username, char[] password, String mail, Date birthday, int role, List<Order> orders) {
 		super();
 		this.id = id;
-		this.username = login;
+		this.username = username;
+		this.password = password;
+		this.mail = mail;
+		this.birthday = birthday;
+		this.role = role;
+		this.orders = orders;
+	}
+
+	public User(int id, String username, char[] password, String mail, Date birthday, int role) {
+		super();
+		this.id = id;
+		this.username = username;
 		this.password = password;
 		this.mail = mail;
 		this.birthday = birthday;
 		this.role = role;
 	}
-
 	public int getId() {
 		return id;
 	}
@@ -56,8 +68,8 @@ public class User {
 		return birthday;
 	}
 
-	public void setBirthday(Date dateOfBirth) {
-		this.birthday = dateOfBirth;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public int getRole() {
@@ -68,5 +80,12 @@ public class User {
 		this.role = role;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 
 }

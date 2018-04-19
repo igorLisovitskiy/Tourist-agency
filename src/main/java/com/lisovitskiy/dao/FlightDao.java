@@ -11,9 +11,9 @@ public interface FlightDao {
 
 	List<Flight> getFlightsByPeriod(String start, String end);
 
-	boolean createFlight(String from, String to, String departure, int flightTime, int price);
+	boolean createFlight(String departureDate, String fromCity, String toCity, int flightTime, int price);
 
-	boolean updateFlight(int flightId, String from, String to, String departure, int flightTime, int price);
+	boolean updateFlight(int flightId, String departureDate, String fromCity, String toCity, int flightTime, int price);
 
 	boolean deleteFlight(int flightId);
 }

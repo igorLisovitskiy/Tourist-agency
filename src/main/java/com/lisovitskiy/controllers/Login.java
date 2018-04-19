@@ -18,14 +18,14 @@ import com.lisovitskiy.utilities.AuthService;
  * @author i.lisovitskyi Servlet implementation class LoginController A
  *         controller for handling user authentication and login
  */
-@WebServlet(name = "LoginController", urlPatterns = "/login", loadOnStartup = 1)
-public class LoginController extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = "/login", loadOnStartup = 1)
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
 	private String url;
 	private int loginAttempts;
 
-	public LoginController() {
+	public Login() {
 		super();
 	}
 
@@ -73,14 +73,12 @@ public class LoginController extends HttpServlet {
 			}
 			if (user != null) {
 				url = "dashboard";
+				resp.sendRedirect(url);
+				
 			} else {
 				req.setAttribute("displayLogin", "block;");
 				req.getRequestDispatcher("jsp/index.jsp").forward(req, resp);
-				url = "login";
 			}
-			// req.getRequestDispatcher(url).forward(req, resp);
-			//TODO test this
-			resp.sendRedirect(url);
 		}
 	}
 }

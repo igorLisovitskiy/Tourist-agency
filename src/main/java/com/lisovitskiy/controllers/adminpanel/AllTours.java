@@ -1,6 +1,7 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.adminpanel;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,22 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.lisovitskiy.facades.TourFacade;
 import com.lisovitskiy.pojos.Tour;
 
-
-@WebServlet(name = "TourController", urlPatterns = "/dashboard/tour", loadOnStartup = 1)
-public class TourController extends HttpServlet {
+@WebServlet(name = "AllTours", urlPatterns = "/adminpanel/tours/all", loadOnStartup = 1)
+public class AllTours extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			int id = Integer.parseInt(request.getParameter("id"));
-			Tour tour = tourFacade.getTourById(id);
-			request.setAttribute("tour", tour);
-			request.getRequestDispatcher("/jsp/tour.jsp").forward(request, response);
+	
+		List<Tour> tours = tourFacade.getTours();
+		String json = new Gson().toJson(tours);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json);
+	
+	
 	}
 
 	@Override

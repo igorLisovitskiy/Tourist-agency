@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "DashboardController", urlPatterns = "/dashboard", loadOnStartup = 1)
-public class DashboardController extends HttpServlet {
+@WebServlet(name = "Contacts", urlPatterns = "/contacts", loadOnStartup = 1)
+public class Contacts extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;
 
@@ -18,19 +18,14 @@ public class DashboardController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		session = req.getSession();
 		if (session.getAttribute("user") != null) {
-			req.getRequestDispatcher("jsp/userdashboard.jsp").forward(req, resp);
+			req.getRequestDispatcher("jsp/contacts.jsp").forward(req, resp);
 		} else {
+			resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		session = req.getSession();
-		if (session.getAttribute("user") != null) {
-			req.getRequestDispatcher("jsp/userdashboard.jsp").forward(req, resp);
-		} else {
-			resp.sendRedirect("/");
-			
-		}
+
 	}
 }

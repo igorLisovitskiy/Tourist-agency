@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoggedFilter
  */
-@WebFilter(urlPatterns ={"/dashboard/*" , "/dashboard", "/profile"})
+@WebFilter(urlPatterns ={"/dashboard/*" , "/dashboard", "/profile", "/adminpanel/*"})
 public class LoggedFilter implements Filter {
 
     /**

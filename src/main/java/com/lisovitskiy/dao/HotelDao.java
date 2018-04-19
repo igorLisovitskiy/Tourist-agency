@@ -11,9 +11,9 @@ public interface HotelDao {
 
 	List<Hotel> getHotelsByPeriod(String start, String end);
 
-	boolean createHotel(String name, String address, String checkin, String checkout, int nights, int price);
+	boolean createHotel(String name, String address, String checkin, String checkout, int nights, int price, String city);
 
-	boolean updateHotel(int hotelId, String address, String checkin, String checkout, int nights, int price);
+	boolean updateHotel(int hotelId, String name, String address, String checkin, String checkout, int nights, int price, String city);
 
 	boolean deleteHotel(int hotelId);
 }

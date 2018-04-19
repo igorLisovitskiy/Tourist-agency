@@ -71,13 +71,13 @@
                     </div>
                 </li>
                 <li>
-                    <a href="users" class="active"><i class="fa fa-user fa-fw"></i> Users</a>
+                    <a href="adminpanel/users" class="active"><i class="fa fa-user fa-fw"></i> Users</a>
                 </li>
                 <li>
-                    <a href="tours"><i class="fa fa-globe fa-fw"></i> Tours</a>
+                    <a href="adminpanel/tours"><i class="fa fa-globe fa-fw"></i> Tours</a>
                 </li>
                 <li>
-                    <a href="orders"><i class="fa fa-shopping-cart fa-fw"></i> Orders</a>
+                    <a href="adminpanel/orders"><i class="fa fa-shopping-cart fa-fw"></i> Orders</a>
                 </li>
             </ul>
         </div>

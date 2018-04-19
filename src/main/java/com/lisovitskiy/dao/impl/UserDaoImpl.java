@@ -132,9 +132,14 @@ public class UserDaoImpl implements UserDao {
 		return updatedRows == 1;
 	}
 
+	
+
 	// Utility methods
 	private static User getUserFromDb(ResultSet rs) throws SQLException {
-		return new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("password").toCharArray(),
+		OrderDaoImpl oDao = new OrderDaoImpl();
+		User user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("password").toCharArray(),
 				rs.getString("mail"), rs.getDate("birthday"), rs.getInt("role_id"));
+		user.setOrders(oDao.getOrdersByUserId(user.getId()));
+		return user;
 	}
 }
