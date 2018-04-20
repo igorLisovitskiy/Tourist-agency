@@ -7,27 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.lisovitskiy.facades.UserFacade;
 
 @WebServlet(name = "Users", urlPatterns = "/adminpanel/users", loadOnStartup = 1)
 public class Users extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private HttpSession session;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		session = req.getSession();
-		if (session.getAttribute("user") != null) {
-			req.getRequestDispatcher("/jsp/admin.jsp").forward(req, resp);
-		} else {
-			resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/"));
-		}
+			req.getRequestDispatcher("/jsp/users.jsp").forward(req, resp);
+			
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+	
 	}
 }

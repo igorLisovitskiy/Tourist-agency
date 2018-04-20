@@ -1,8 +1,4 @@
 $(document).ready(function() {
-        $('.input-daterange').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
     $('#birthday').datepicker({
         autoclose: true,
         todayHighlight: true
@@ -11,20 +7,20 @@ $(document).ready(function() {
             $('#myInput').trigger('focus');
         });
 
-    $('#editTourModal').on('hidden.bs.modal', function () {
+    $('#editUserModal').on('hidden.bs.modal', function () {
         $('.modal-header').find('h4').remove();
-        $('#edit-tour-form').off('submit');
+        $('#edit-user-form').off('submit');
     });
 
-    $( "#create-tour-form").on('submit', function(e) {
+    $( "#create-user-form").on('submit', function(e) {
         $.ajax({
-            url : 'create/tour?create=true',
+            url : 'create/user?create=true',
             type: "POST",
-            data: $('#create-tour-form').serialize(),
+            data: $('#create-user-form').serialize(),
             success: function (data) {
-                $("#alert-area").append($("<div class=\"alert alert-success alert-dismissible fade in\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>Success!</strong> Created a tour.</div>"));
+                $("#alert-area").append($("<div class=\"alert alert-success alert-dismissible fade in\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>Success!</strong> User Added!.</div>"));
                 $(".alert-success").delay(2000).fadeOut("slow", function () { $(this).remove(); });
-                loadTours();
+                loadUsers();
             },
             error: function (jXHR, textStatus, errorThrown) {
                 alert(textStatus);
@@ -34,12 +30,12 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $(".panel-heading").html('<b>All Tours </b><button id="refresh">Refresh</button>');
-    $('#refresh').on('click', loadTours);
-    var table = $("#tours").DataTable({
+    $(".panel-heading").html('<b>All Users </b><button id="refresh">Refresh</button>');
+    $('#refresh').on('click', loadUsers);
+    var table = $("#users").DataTable({
         "responsive" : true,
         "ajax":{
-            url: "tours/all",
+            url: "users/all",
             dataType : "json",
             type: "GET",
             "data": function(d){
@@ -47,19 +43,12 @@ $(document).ready(function() {
             dataSrc:'',
         },
         "columns": [
-            { "data": "tourId"},
-            { "data": "name"},
-            { "data": "description"},
-            { "data": "start"},
-            { "data": "end"},
-            { "data": "price"},
-            { "data": "language"},
-            {
-                "data": function(data, type) {
-                    return "<a class='details btn btn-info btn-sm'>Details</a>";
-                },
-                "bSortable": false
-            },
+            { "data": "id"},
+            { "data": "username"},
+            { "data": "password"},
+            { "data": "mail"},
+            { "data": "birthday"},
+            { "data": "role"},
             {
                 "data": function(data, type) {
                     return "<button class='edit btn btn-warning btn-sm' data-toggle=\"modal\" data-target=\"#editTourModal\">Edit</button>";
@@ -73,25 +62,17 @@ $(document).ready(function() {
                 "bSortable": false
             }
         ],
-        "columnDefs": [
-            { "width": "5%", "targets": 0 },
-            { "width": "30%", "targets": 2 }
-        ],
         "bDestroy": true
 
-    }).on( 'click', 'a', function () {
-        var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
-        var url = "dashboard/tour?id="+ tourId;
-        window.open(url, '_blank');
     }).on( 'click', '.edit', function () {
-        var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
-        var url = "update/tour?id="+ tourId + "&edit=true";
-        updateTour(url);
+        var userId = $("#users").DataTable().row($(this).closest('tr')).data().userId;
+        var url = "update/user?id="+ userId + "&edit=true";
+        updateUser(url);
     }).on( 'click', '.delete', function () {
-        var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
-        var url = "update/tour?id="+ tourId+ "&delete=true";
-        var deleteTour = confirm("Are you shure you want to delete the tour #" + tourId + "?");
-        if(deleteTour){
+        var userId = $("#users").DataTable().row($(this).closest('tr')).data().userId;
+        var url = "update/user?id="+ userId+ "&delete=true";
+        var deleteUser = confirm("Are you shure you want to delete the user #" + userId + "?");
+        if(deleteUser){
             $.ajax({
                 url : url,
                 type: "DELETE",
@@ -108,11 +89,11 @@ $(document).ready(function() {
 
 });
 
-function loadTours(){
-    var table = $("#tours").DataTable({
+function loadUsers(){
+    var table = $("#users").DataTable({
         "responsive" : true,
         "ajax":{
-            url: "tours/all",
+            url: "users/all",
             dataType : "json",
             type: "GET",
             "data": function(d){
@@ -120,19 +101,12 @@ function loadTours(){
             dataSrc:'',
         },
         "columns": [
-            { "data": "tourId"},
-            { "data": "name"},
-            { "data": "description"},
-            { "data": "start"},
-            { "data": "end"},
-            { "data": "price"},
-            { "data": "language"},
-            {
-                "data": function(data, type) {
-                    return "<a class='details btn btn-info btn-sm'>Details</a>";
-                },
-                "bSortable": false
-            },
+            { "data": "id"},
+            { "data": "username"},
+            { "data": "password"},
+            { "data": "mail"},
+            { "data": "birthday"},
+            { "data": "role"},
             {
                 "data": function(data, type) {
                     return "<button class='edit btn btn-warning btn-sm' data-toggle=\"modal\" data-target=\"#editTourModal\">Edit</button>";
@@ -146,16 +120,12 @@ function loadTours(){
                 "bSortable": false
             }
         ],
-        "columnDefs": [
-            { "width": "5%", "targets": 0 },
-            { "width": "30%", "targets": 2 }
-        ],
         "bDestroy": true
     });
 }
 
 
-$('#editTourModal').on('show.bs.modal', function (event) {
+$('#editUserModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipient = button.data('whatever');
     var modal = $(this);
@@ -163,12 +133,12 @@ $('#editTourModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body input').val(recipient);
 });
 
-function updateTour(url){
+function updateUser(url){
     $( "#edit-tour-form").on('submit', function(e) {
             $.ajax({
                 url : url,
                 type: "POST",
-                data: $('#edit-tour-form').serialize(),
+                data: $('#edit-user-form').serialize(),
                 success: function (data) {
                     loadTours();
                 },
@@ -177,7 +147,7 @@ function updateTour(url){
                 }
         });
         e.preventDefault();
-        $('#editTourModal').modal('toggle');
+        $('#editUserModal').modal('toggle');
     });
 }
 

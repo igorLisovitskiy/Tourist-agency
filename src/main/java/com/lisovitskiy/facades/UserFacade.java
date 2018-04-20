@@ -17,5 +17,10 @@ public class UserFacade {
 	public boolean createUser(String username, String mail, String password, String birthday, int role) {
 		return uDao.createUser(username, mail, password, birthday, role);
 	}
-
+	public boolean updateUser(int userId, String username, String password, String mail, String birthday, int roleId) {
+		return uDao.updateUser(userId, username, password, mail, birthday, roleId);
+	}
+	public boolean deleteUser(int userId) {
+		return uDao.deleteUser(userId);
+	}
 }

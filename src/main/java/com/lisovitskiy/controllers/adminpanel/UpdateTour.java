@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.adminpanel;
 
 import java.io.IOException;
 

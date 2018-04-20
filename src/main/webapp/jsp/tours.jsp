@@ -139,6 +139,9 @@
 							</div>
 						</div>
 					</form>
+				<div id="alert-area" style="height:60px;">
+				
+				</div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">All Tours</div>
