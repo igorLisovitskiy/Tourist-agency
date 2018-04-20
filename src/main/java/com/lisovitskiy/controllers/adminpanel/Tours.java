@@ -1,18 +1,12 @@
 package com.lisovitskiy.controllers.adminpanel;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.google.gson.Gson;
-import com.lisovitskiy.facades.TourFacade;
-import com.lisovitskiy.pojos.Tour;
 
 @WebServlet(name = "Tours", urlPatterns = "/adminpanel/tours", loadOnStartup = 1)
 public class Tours extends HttpServlet {

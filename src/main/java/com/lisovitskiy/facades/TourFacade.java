@@ -21,5 +21,12 @@ public class TourFacade {
 	public boolean createTour(String name, String description, String start, String end, int price, String language) {
 		return tDao.createTour(name, description, start, end, price, language);
 	}
+	public boolean updateTour(int tourId, String name, String description, String start, String end, int price, String language) {
+		return tDao.updateTour(tourId, name, description, start, end, price, language);
+	}
+	
+	public boolean deleteTour(int tourId) {
+		return tDao.deleteTour(tourId);
+	}
 
 }

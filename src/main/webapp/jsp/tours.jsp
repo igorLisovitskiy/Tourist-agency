@@ -16,9 +16,7 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="../js/admin.js"></script>
-    
-    
-    
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css"/>
     <!-- DataTables CSS -->
@@ -41,7 +39,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="dashboard">++ProTravel</a>
+			<a class="navbar-brand" href="../dashboard">++ProTravel</a>
 		</div>
 		<!-- /.navbar-header -->
 		<ul class="nav navbar-top-links navbar-right">
@@ -86,25 +84,24 @@
 			</div>
 		</div>
 	</nav>
-
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
 				<div>
 					<h3>Create Tour</h3>
-					<form id="create_tour">
+					<form id="create-tour-form" method="post">
 						<div class="form-group row">
 							<label for="tour_name" class="col-sm-2 col-form-label">Name:</label>
 							<div class="col-sm-4">
 								<input type="text" class="form-control" id="tour_name"
-									placeholder="Name" required>
+									placeholder="Name" name="tour-name" required>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="tour_description" class="col-sm-2 col-form-label">Description:</label>
 							<div class="col-sm-10">
-								<textarea rows="4" cols="50" class="col-sm-8" name="comment"
-									id="tour_description" form="create_tour"
+								<textarea rows="4" cols="50" class="col-sm-8" name="description"
+									id="tour_description" form="create-tour-form"
 									placeholder="Description" required></textarea>
 							</div>
 						</div>
@@ -119,6 +116,20 @@
 									<input id="endDate" name="endDate" type="text"
 										class="form-control" placeholder="mm/dd/yyyy" required />
 								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="tour_price" class="col-sm-2 col-form-label">Price:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tour_price"
+									placeholder="Price" name="tour-price" required>
+							</div>
+						</div>
+							<div class="form-group row">
+							<label for="tour_language" class="col-sm-2 col-form-label">Language:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tour_language"
+									placeholder="Language" name="tour-language" required>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -146,26 +157,67 @@
 									<th>Language</th>
 									<th>Details</th>
 									<th>Edit</th>
+									<th>Delete</th>
 								</tr>
 							</thead>
 						</table>
 					</div>
 					<!-- /.panel-body -->
 				</div>
-
 			</div>
 		</div>
+	</div>
+	
+	<div class="modal fade" id="editTourModal" tabindex="-1" role="dialog" aria-labelledby="editTourModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h3 class="modal-title" id="editTourModalLabel">Edit Tour</h3>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="edit-tour-form">
+	          <div class="form-group">
+	            <label for="tour-name" class="col-form-label">Name:</label>
+	            <input type="text" class="form-control" id="tour-name"  name="tour-name" required/>
+	          </div>
+	          <div class="form-group">
+	            <label for="description-text" class="col-form-label">Description:</label>
+	            <textarea class="form-control" id="description-text"  name="description" required></textarea>
+	          </div>
+	             <div class="form-group">
+	               <label for="edit_tour_dates" class="col-form-label">Dates:</label>
+	          		<div id="edit_tour_dates">
+								<div class="input-group input-daterange">
+									<div class="input-group-addon">From</div>
+									<input id="startDate" name="startDate" type="text" class="form-control" placeholder="mm/dd/yyyy" required />
+								<div class="input-group-addon">to</div>
+							<input id="endDate" name="endDate" type="text" class="form-control" placeholder="mm/dd/yyyy" required />
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+		            <label for="tour-price" class="col-form-label">Price:</label>
+		            <input type="text" class="form-control" id="tour-price"  name="price" required/>
+	          	</div>
+	          	<div class="form-group">
+		            <label for="tour-language" class="col-form-label">Language:</label>
+		            <input type="text" class="form-control" id="tour-language" name="language" required/>
+	          	</div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="submit" form="edit-tour-form" class="btn btn-primary" id="update-tour-btn">Update</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	<!-- DataTables JavaScript -->
 	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#tours').DataTable({
-				responsive : true
-			});
-		});
-	</script>
 </body>
 </html>

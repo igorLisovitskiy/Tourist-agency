@@ -12,7 +12,7 @@ import com.lisovitskiy.facades.TourFacade;
 import com.lisovitskiy.pojos.Tour;
 
 
-@WebServlet(name = "TourPage", urlPatterns = "/dashboard/tour", loadOnStartup = 1)
+@WebServlet(name = "TourPage", urlPatterns = {"/dashboard/tour", "/adminpanel/dashboard/tour"}, loadOnStartup = 1)
 public class TourPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();

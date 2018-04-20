@@ -70,7 +70,7 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="dashboard">++ProTravel</a>
+            <a class="navbar-brand" href="../../dashboard">++ProTravel</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"
@@ -111,10 +111,7 @@
     <div class="container">
         <h2>${tour.name}</h2>
         <div class="description">
-            With our licensed guide get to know all of RomeвЂ™s wonders in a single day, with a rich and fascinating programme lasting 7 hours, including a lunch break. The morning is dedicated to visiting the Vatican Museums. We have access, without queueing, at 8.10 am, before normal public opening hours, after a typical Italian breakfast with cornetto and cappuccino.
-            We begin at the Belvedere Terrace, to admire the Dome of St Peter Basilica, then we proceed to see the celebrated LaocoГ¶n and His Sons and the Belvedere Torso.
-            We stroll through all the Galleries arriving, finally, in the place painted by Michelangelo, where the Conclave elects a new Pope: the Sistine Chapel. After we make our way directly to
-            St PeterвЂ™s Basilica to enjoy the grandeur of the worldвЂ™s most important basilica with its wonders like MichelangeloвЂ™s Pieta.
+            ${tour.description}
         </div>
         <div class="card">
             <div class="card-header">

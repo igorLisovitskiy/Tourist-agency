@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: quote;
     src: url(../fonts/Billy_Ohio.ttf);
 }
@@ -16,4 +16,10 @@ body, h1, h2, h3, h4, h5, h6 {
 
 .navbar-brand{
     font-family: brand_text !important;
+}
+*/
+
+
+#edit_tour_dates input{
+    width:  initial !important;
 }

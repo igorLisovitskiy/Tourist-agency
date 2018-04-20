@@ -14,9 +14,8 @@ import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class TourDaoImpl implements TourDao {
 	private final static String CREATE_TOUR = "INSERT INTO tours (name, description, start, end, price, language) VALUES(?, ?, ?, ?, ?, ?)";
-	private final static String DELETE_TOUR = "DELETE FROM tours WHERE tour_id = ?";
-	private final static String UPDATE_TOUR = "UPDATE tours\r\n"
-			+ "SET name = ? , description = ?, start = ?, end = ?, price = ?, language = ?\r\n" + "WHERE user_id =?;";
+	private final static String DELETE_TOUR = "DELETE FROM tours WHERE tour_id = ? LIMIT 1";
+	private final static String UPDATE_TOUR = "UPDATE tours SET name = ? , description = ?, start = ?, end = ?, price = ?, language = ? WHERE tour_id =?;";
 	private final static String SELECT_TOUR_BY_ID = "SELECT * FROM tours WHERE tour_id = ?";
 	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start >= ? AND end <= ?";
 	private final static String SELECT_ALL_TOURS = "SELECT * FROM tours";
@@ -95,7 +94,7 @@ public class TourDaoImpl implements TourDao {
 			ps.setDate(3, sqlStartDate);
 			ps.setDate(4, sqlEndDate);
 			ps.setInt(5, price);
-			ps.setString(2, language);
+			ps.setString(6, language);
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,7 +103,7 @@ public class TourDaoImpl implements TourDao {
 	}
 
 	@Override
-	public boolean updateTour(int orderId, String name, String description, String start, String end, int price,
+	public boolean updateTour(int tourId, String name, String description, String start, String end, int price,
 			String language) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
@@ -118,7 +117,7 @@ public class TourDaoImpl implements TourDao {
 			ps.setDate(4, sqlEndDate);
 			ps.setInt(5, price);
 			ps.setString(6, language);
-			ps.setInt(7, orderId);
+			ps.setInt(7, tourId);
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
