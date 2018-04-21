@@ -17,4 +17,6 @@ public interface UserDao {
 
 	boolean updateUser(int userId, String username, String password, String mail, String birthday, int roleId);
 
+	User getUserByOrderId(int orderId);
+
 }

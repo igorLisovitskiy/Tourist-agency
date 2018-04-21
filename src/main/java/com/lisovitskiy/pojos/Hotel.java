@@ -9,9 +9,11 @@ public class Hotel {
 	private Date checkin;
 	private Date checkout;
 	private int nights;
+	private int price;
 	private String city;
 
-	public Hotel(int hotelId, String name, String address, Date checkin, Date checkout, int nights, String city) {
+	public Hotel(int hotelId, String name, String address, Date checkin, Date checkout, int nights, int price,
+			String city) {
 		super();
 		this.hotelId = hotelId;
 		this.name = name;
@@ -19,6 +21,7 @@ public class Hotel {
 		this.checkin = checkin;
 		this.checkout = checkout;
 		this.nights = nights;
+		this.price = price;
 		this.city = city;
 	}
 
@@ -68,6 +71,14 @@ public class Hotel {
 
 	public void setNights(int nights) {
 		this.nights = nights;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getCity() {

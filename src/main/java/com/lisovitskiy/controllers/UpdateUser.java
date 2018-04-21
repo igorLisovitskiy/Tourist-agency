@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.lisovitskiy.facades.UserFacade;
 
 @WebServlet(name = "UpdateUser", urlPatterns = { "/adminpanel/update/user" }, loadOnStartup = 1)

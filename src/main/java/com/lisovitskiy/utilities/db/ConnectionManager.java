@@ -1,8 +1,10 @@
 package com.lisovitskiy.utilities.db;
 
-import org.apache.tomcat.jdbc.pool.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
 
 public final class ConnectionManager {
 	private final static String DB_DRIVER = "com.mysql.jdbc.Driver";

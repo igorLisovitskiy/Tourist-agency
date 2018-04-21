@@ -3,65 +3,6 @@ $(document).ready(function() {
         autoclose: true,
         todayHighlight: true
     });
-    $('#edit-birthday').datepicker({
-        autoclose: true,
-        todayHighlight: true
-    });
-
-        $('#tours-modal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus');
-        });
-
-    $('#editUserModal').on('hidden.bs.modal', function () {
-        $('.modal-header').find('h4').remove();
-        $('#edit-user-form').off('submit');
-    });
-
-    $( "#create-user-form").on('submit', function(e) {
-        $.ajax({
-            url : 'create/user?create=true',
-            type: "POST",
-            data: $('#create-user-form').serialize(),
-            success: function (data) {
-                $("#alert-area").append($("<div class=\"alert alert-success alert-dismissible fade in\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>Success!</strong> User Added!.</div>"));
-                $(".alert-success").delay(2000).fadeOut("slow", function () { $(this).remove(); });
-                loadUsers();
-            },
-            error: function (jXHR, textStatus, errorThrown) {
-                alert(textStatus);
-            }
-        });
-        e.preventDefault();
-    });
-
-    $('#repeat-password').on('keyup', function () {
-        if ($('#password').val() == $('#repeat-password').val()) {
-            $('.confirm-password').removeClass('has-error');
-            $('#create-user-form :input[type="submit"]').prop('disabled', false);
-            $('#repeat-password').css("background-color", "#f1f1f1");
-            $('#create-user-form :input[type="submit"]').css("background-color", "##337ab7");
-        } else{
-            $('#repeat-password').css("background-color", "#ffcccc");
-            $('#create-user-form :input[type="submit"]').css("background-color", "#7a7a7a");
-            $('#create-user-form :input[type="submit"]').prop('disabled', true);
-            $('.confirm-password').addClass('has-error');
-        }
-    });
-
-    $('#edit_repeat_password').on('keyup', function () {
-        if ($('#edit_password').val() == $('#edit_repeat_password').val()) {
-            $('.confirm-password').removeClass('has-error');
-            $('#update-user-btn').prop('disabled', false);
-            $('#edit_repeat_password').css("background-color", "#ffffff");
-            $('#update-user-btn').css("background-color", "#337ab7");
-        } else{
-            $('#edit_repeat_password').css("background-color", "#ffcccc");
-            $('#update-user-btn').css("background-color", "#7a7a7a");
-            $('#update-user-btn').prop('disabled', true);
-            $('.confirm-password').addClass('has-error');
-        }
-    });
-
 });
 $(document).ready(function() {
     $(".panel-heading").html('<b>All Users </b><button id="refresh">Refresh</button>');

@@ -8,7 +8,7 @@ public interface RentalDao {
 	Rental getRentalById(int yourId);
 
 	List<Rental> getAllRentals();
-
+	List<Rental> getRentalsByOrderId(int orderId);
 	List<Rental> getRentalsByPeriod(String start, String end);
 
 	boolean createRental(String name, String description, String fromDate, String toDate, int price, String city);

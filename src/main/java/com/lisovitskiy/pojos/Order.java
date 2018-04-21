@@ -1,59 +1,95 @@
 package com.lisovitskiy.pojos;
 
+import java.util.List;
+
 public class Order {
+	// required
 	private int orderId;
-	private int userId;
-	private int tourId;
-	private int rentalId;
-	private int flightId;
-	private int hotelId;
-	
+	private User user;
+	// optional
+	private List<Tour> tours;
+	private List<Hotel> hotels;
+	private List<Flight> flights;
+	private List<Rental> rentals;
+
+	public Order(OrderBuilder builder) {
+		this.orderId = builder.orderId;
+		this.user = builder.user;
+		this.tours = builder.tours;
+		this.hotels = builder.hotels;
+		this.flights = builder.flights;
+		this.rentals = builder.rentals;
+	}
+
 	public int getOrderId() {
 		return orderId;
 	}
-	public Order(int orderId, int userId, int tourId, int rentalId, int flightId, int hotelId) {
-		super();
-		this.orderId = orderId;
-		this.userId = userId;
-		this.tourId = tourId;
-		this.rentalId = rentalId;
-		this.flightId = flightId;
-		this.hotelId = hotelId;
-	}
+
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	public int getTourId() {
-		return tourId;
-	}
-	public void setTourId(int tourId) {
-		this.tourId = tourId;
-	}
-	public int getRentalId() {
-		return rentalId;
-	}
-	public void setRentalId(int rentalId) {
-		this.rentalId = rentalId;
-	}
-	public int getFlightId() {
-		return flightId;
-	}
-	public void setFlightId(int flightId) {
-		this.flightId = flightId;
-	}
-	public int getHotelId() {
-		return hotelId;
-	}
-	public void setHotelId(int hotelId) {
-		this.hotelId = hotelId;
+
+	public User getUser() {
+		return user;
 	}
 
-	
+	public List<Tour> getTours() {
+		return tours;
+	}
+
+	public List<Hotel> getHotels() {
+		return hotels;
+	}
+
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public List<Rental> getRentals() {
+		return rentals;
+	}
+
+	public static class OrderBuilder {
+		// required
+		private int orderId;
+		private User user;
+		// optional
+		private List<Tour> tours;
+		private List<Hotel> hotels;
+		private List<Flight> flights;
+		private List<Rental> rentals;
+
+		public OrderBuilder(int orderId, User user) {
+			this.orderId = orderId;
+			this.user = user;
+
+		}
+
+		public OrderBuilder setUser(User user) {
+			this.user = user;
+			return this;
+		}
+
+		public OrderBuilder setTours(List<Tour> tours) {
+			this.tours = tours;
+			return this;
+		}
+
+		public OrderBuilder setHotels(List<Hotel> hotels) {
+			this.hotels = hotels;
+			return this;
+		}
+
+		public OrderBuilder setFlights(List<Flight> flights) {
+			this.flights = flights;
+			return this;
+		}
+
+		public OrderBuilder setRentals(List<Rental> rentals) {
+			this.rentals = rentals;
+			return this;
+		}
+	}
+
 
 }

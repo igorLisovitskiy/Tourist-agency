@@ -17,4 +17,6 @@ public interface TourDao {
 			String language);
 
 	boolean deleteTour(int tourId);
+
+	List<Tour> getToursByOrderId(int orderId);
 }

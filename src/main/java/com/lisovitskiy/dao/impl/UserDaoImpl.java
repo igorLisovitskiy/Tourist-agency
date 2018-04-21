@@ -21,6 +21,7 @@ public class UserDaoImpl implements UserDao {
 	private final static String SELECT_USER_BY_ID = "SELECT * FROM users WHERE user_id = ?";
 	private final static String AUTHENTIFICATE_USER = "SELECT * FROM users WHERE username = ? AND password = ?";
 	private final static String SELECT_ALL_USERS = "SELECT * FROM users";
+	private final static String SELECT_USER_BY_ORDER_ID = "SELECT u.user_id, u.username, u.password, u.mail, u.birthday, u.role_id FROM orders o INNER JOIN users u WHERE o.user_id = ?;";
 
 	@Override
 	public User getUserById(int id) {
@@ -131,9 +132,25 @@ public class UserDaoImpl implements UserDao {
 		}
 		return updatedRows == 1;
 	}
-
 	
-
+	
+	@Override
+	public User getUserByOrderId(int orderId) {
+		User user = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(SELECT_USER_BY_ORDER_ID);
+			ps.setInt(1, orderId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				user = getUserFromDb(rs);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return user;
+	}
 	// Utility methods
 	private static User getUserFromDb(ResultSet rs) throws SQLException {
 		OrderDaoImpl oDao = new OrderDaoImpl();
@@ -142,4 +159,5 @@ public class UserDaoImpl implements UserDao {
 		user.setOrders(oDao.getOrdersByUserId(user.getId()));
 		return user;
 	}
+
 }

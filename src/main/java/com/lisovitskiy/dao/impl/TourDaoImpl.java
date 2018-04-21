@@ -19,10 +19,9 @@ public class TourDaoImpl implements TourDao {
 	private final static String SELECT_TOUR_BY_ID = "SELECT * FROM tours WHERE tour_id = ?";
 	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start >= ? AND end <= ?";
 	private final static String SELECT_ALL_TOURS = "SELECT * FROM tours";
-	private final static String SELECT_TOURS_BY_USER = "SELECT t.tour_id,t.name, t.description, t.start, t.end, t.price, t.language FROM users u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN tours t ON o.tour_id = t.tour_id WHERE o.user_id = ?;";
-	private final static String SELECT_FLIGHTS_BY_USER = "SELECT f.flight_id, f.from, f.to, f.departure, f.flight_time, f.price FROM users u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN flights f ON o.flight_id = f.flight_id WHERE o.user_id = ?;";
-	private final static String SELECT_HOTELS_BY_USER = "SELECT h.name, h.address, h.checkin, h.checkout, h.nights, h.price FROM users u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN hotels h ON h.hotel_id = h.hotel_id WHERE o.user_id = ?;";
-	private final static String SELECT_RENTAL_BY_USER = "SELECT r.rental_id, r.name, r.description, r.from, r.to, r.price FROM users u INNER JOIN orders o ON u.user_id = o.user_id INNER JOIN rental r ON r.rental_id = r.rental_id WHERE o.user_id = ?;";
+		
+	private final static String SELECT_TOUR_BY_ORDER_ID = "SELECT t.tour_id, t.name, t.description, t.start, t.end, t.price, t.language\r\n"
+			+ "FROM orders o\r\n" + "INNER JOIN tours t\r\n" + "WHERE o.tour_id = ?;";
 
 
 	@Override
@@ -137,6 +136,23 @@ public class TourDaoImpl implements TourDao {
 			e.printStackTrace();
 		}
 		return updatedRows == 1;
+	}
+	@Override
+	public List<Tour> getToursByOrderId(int orderId){
+		List<Tour> tourList = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(SELECT_TOUR_BY_ORDER_ID);
+			ps.setInt(1, orderId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				tourList.add(getTourFromDb(rs));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return tourList;
 	}
 
 	// Utility methods
