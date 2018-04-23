@@ -124,7 +124,7 @@
 				<div class="card-header">Book Now:</div>
 				<div class="card-body">
 					<h5 class="card-title">Only From:</h5>
-					<p>${hotel.price}</p>
+					<p></p>
 					<a href="${pageContext.servletContext.contextPath}/dashboard/book/hotel?id=${hotel.hotelId}" class=" card-btn btn btn-primary">Book</a>
 				</div>
 			</div>

@@ -21,7 +21,7 @@ public class BookingDaoImpl implements BookingDao {
 	private final static String SELECT_BOOKING_BY_ID = "SELECT * FROM orders_hotels WHERE booking_id = ?";
 	private final static String SELECT_BOOKING_BY_ORDER_ID = "SELECT * FROM orders_hotels WHERE order_id = ?";
 
-	private final static String GET_ALL_BOOKINGS = "SELECT * FROM orders_hotels";
+	private final static String SELECT_ALL_BOOKINGS = "SELECT * FROM orders_hotels";
 	
 	@Override
 	public Booking getBookingById(int bookingId) {
@@ -47,7 +47,7 @@ public class BookingDaoImpl implements BookingDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try (Connection conn = ConnectionManager.getConnection()) {
-			ps = conn.prepareStatement(GET_ALL_BOOKINGS);
+			ps = conn.prepareStatement(SELECT_ALL_BOOKINGS);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				bookingsList.add(getBookingFromDb(rs));

@@ -124,8 +124,6 @@
 			<div class="card">
 				<div class="card-header">Book Now:</div>
 				<div class="card-body">
-					<h5 class="card-title">Only From:</h5>
-					<p>${rental.price}</p>
 					<a href="#" class=" card-btn btn btn-primary">Book</a>
 				</div>
 			</div>
@@ -137,18 +135,6 @@
 						<tr>
 							<th scope="row">City</th>
 							<td>${rental.city}</td>
-						</tr>
-						<tr>
-							<th scope="row">Available From</th>
-							<td>${rental.fromDate}</td>
-						</tr>
-						<tr>
-							<th scope="row">To</th>
-							<td>${rental.toDate}</td>
-						</tr>
-						<tr>
-							<th scope="row">Price</th>
-							<td>${rental.price}</td>
 						</tr>
 					</tbody>
 				</table>

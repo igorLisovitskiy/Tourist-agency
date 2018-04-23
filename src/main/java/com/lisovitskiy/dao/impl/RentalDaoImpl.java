@@ -157,7 +157,7 @@ public class RentalDaoImpl implements RentalDao {
 
 	// Utility methods
 	private static Rental getRentalFromDb(ResultSet rs) throws SQLException {
-		return new Rental(rs.getInt("rental_id"), rs.getString("name"), rs.getString("description"), rs.getDate("from"),
-				rs.getDate("to"), rs.getInt("price"), rs.getString("city_name"));
+		return new Rental(rs.getInt("rental_id"), rs.getString("name"), rs.getString("description"), rs.getString("city_name"));
+
 	}
 }

@@ -22,8 +22,13 @@ $(document).ready(function() {
             { "data": "userEmail"},
             { "data": "tourName",
             	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.tourName+"</a>");
-                }
+                		if(oData.tourId == "0"){
+                			 $(nTd).html("None");
+                		}else{
+                			 $(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.tourName+"</a>");
+                			}
+                    	},
+                "defaultContent": "<i>Not set</i>"
             },
             { "data": "tourPrice"},
             { "data": "flightId",
@@ -33,9 +38,12 @@ $(document).ready(function() {
             		}else{
             			 $(nTd).html("<a href='dashboard/flight?id="+oData.flightId+"'>"+oData.flightId+"</a>");
             			}
-                	}
+                	},
+              "defaultContent": "<i>Not set</i>"
             },
-            { "data": "flightPrice"},
+            { "data": "flightPrice",
+               "defaultContent": "<i>Not set</i>"
+            },
             { "data": "hotelId",
             	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
             		if(oData.hotelPrice == "0"){
@@ -43,9 +51,13 @@ $(document).ready(function() {
             		}else{
             			 $(nTd).html("<a href='dashboard/hotel?id="+oData.hotelId+"'>"+oData.hotelId+"</a>");
             			}
-                	}
+                	},
+                "defaultContent": "<i>Not set</i>"
             },	
-            { "data": "hotelPrice"},
+            { "data": "hotelPrice",
+                "defaultContent": "<i>Not set</i>"
+            	
+            },
             { "data": "rentalId",
             	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
             		if(oData.rentalPrice == 0){
@@ -55,7 +67,8 @@ $(document).ready(function() {
             			}
                 	}
             },
-            { "data": "rentalPrice"},
+            { "data": "rentalPrice",
+                "defaultContent": "<i>Not set</i>"},
             {
                 "data": function(data, type) {
                     return "<button class='delete btn btn-danger btn-sm'>Delete</button>";

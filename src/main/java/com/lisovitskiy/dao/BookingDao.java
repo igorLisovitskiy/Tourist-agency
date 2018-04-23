@@ -11,7 +11,7 @@ public interface BookingDao {
 
 	List<Booking> getBookingByOrderId(int orderId);
 
-	boolean deleteBooking(int orderId);
+	boolean deleteBooking(int bookingId);
 
 	boolean updateBooking(int bookingId, int orderId, int hotelId, String checkin, String checkout, int price,
 			int nights);
