@@ -36,10 +36,6 @@ public class ConnectionPoolListener implements ServletContextListener {
     	servletContext = sce.getServletContext();
     	
     	//db initialization
-//    	String url = servletContext.getInitParameter("url");
-//    	String user = servletContext.getInitParameter("user");
-//    	String password = servletContext.getInitParameter("password");
-    	System.out.println("listen");
     	Connection con = null;
 		try {
 			ConnectionManager.setUpConnection(DB_CONNECTION_URL, DB_USER, DB_PASSWORD);

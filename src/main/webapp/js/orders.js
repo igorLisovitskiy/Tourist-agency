@@ -5,12 +5,12 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $(".panel-heading").html('<b>All Users </b><button id="refresh">Refresh</button>');
+    $(".panel-heading").html('<b>All Orders </b><button id="refresh">Refresh</button>');
     $('#refresh').on('click', loadUsers);
-    var table = $("#users").DataTable({
+    var table = $("#orders").DataTable({
         "responsive" : true,
         "ajax":{
-            url: "users/all",
+            url: "orders/all",
             dataType : "json",
             type: "GET",
             "data": function(d){
@@ -40,11 +40,11 @@ $(document).ready(function() {
         "bDestroy": true
 
     }).on( 'click', '.edit', function () {
-        var userId = $("#users").DataTable().row($(this).closest('tr')).data().id;
+        var userId = $("#orders").DataTable().row($(this).closest('tr')).data().id;
         var url = "update/user?id="+ userId + "&edit=true";
         updateUser(url);
     }).on( 'click', '.delete', function () {
-        var userId = $("#users").DataTable().row($(this).closest('tr')).data().id;
+        var userId = $("#orders").DataTable().row($(this).closest('tr')).data().id;
         var url = "update/user?id="+ userId+ "&delete=true";
         var deleteUser = confirm("Are you shure you want to delete the user #" + userId + "?");
         if(deleteUser){
@@ -65,10 +65,10 @@ $(document).ready(function() {
 });
 
 function loadUsers(){
-    var table = $("#users").DataTable({
+    var table = $("#orders").DataTable({
         "responsive" : true,
         "ajax":{
-            url: "users/all",
+            url: "orders/all",
             dataType : "json",
             type: "GET",
             "data": function(d){

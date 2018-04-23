@@ -1,95 +1,151 @@
 package com.lisovitskiy.pojos;
 
-import java.util.List;
-
 public class Order {
 	// required
+	private int userId;
 	private int orderId;
-	private User user;
+	private String userEmail;
 	// optional
-	private List<Tour> tours;
-	private List<Hotel> hotels;
-	private List<Flight> flights;
-	private List<Rental> rentals;
+	private int tourId;
+	private String tourName;
+	private int tourPrice;
+	private int flightId;
+	private int flightPrice;
+	private int hotelId;
+	private int hotelPrice;
+	private int rentalId;
+	private int rentalPrice;
 
 	public Order(OrderBuilder builder) {
+		this.userId = builder.userId;
 		this.orderId = builder.orderId;
-		this.user = builder.user;
-		this.tours = builder.tours;
-		this.hotels = builder.hotels;
-		this.flights = builder.flights;
-		this.rentals = builder.rentals;
+		this.userEmail = builder.userEmail;
+		this.tourId = builder.tourId;
+		this.tourName = builder.tourName;
+		this.tourPrice = builder.tourPrice;
+		this.flightId = builder.flightId;
+		this.flightPrice = builder.flightPrice;
+		this.hotelId = builder.hotelId;
+		this.hotelPrice = builder.hotelPrice;
+		this.rentalId = builder.rentalId;
+		this.rentalPrice = builder.rentalPrice;
+	}
+
+	public int getUserId() {
+		return userId;
 	}
 
 	public int getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public User getUser() {
-		return user;
+	public int getTourId() {
+		return tourId;
 	}
 
-	public List<Tour> getTours() {
-		return tours;
+	public String getTourName() {
+		return tourName;
 	}
 
-	public List<Hotel> getHotels() {
-		return hotels;
+	public int getTourPrice() {
+		return tourPrice;
 	}
 
-	public List<Flight> getFlights() {
-		return flights;
+	public int getFlightId() {
+		return flightId;
 	}
 
-	public List<Rental> getRentals() {
-		return rentals;
+	public int getFlightPrice() {
+		return flightPrice;
+	}
+
+	public int getHotelId() {
+		return hotelId;
+	}
+
+	public int getHotelPrice() {
+		return hotelPrice;
+	}
+
+	public int getRentalId() {
+		return rentalId;
+	}
+
+	public int getRentalPrice() {
+		return rentalPrice;
 	}
 
 	public static class OrderBuilder {
 		// required
+		private int userId;
 		private int orderId;
-		private User user;
+		private String userEmail;
 		// optional
-		private List<Tour> tours;
-		private List<Hotel> hotels;
-		private List<Flight> flights;
-		private List<Rental> rentals;
+		private int tourId;
+		private String tourName;
+		private int tourPrice;
+		private int flightId;
+		private int flightPrice;
+		private int hotelId;
+		private int hotelPrice;
+		private int rentalId;
+		private int rentalPrice;
 
-		public OrderBuilder(int orderId, User user) {
+		public OrderBuilder(int userId, int orderId, String userEmail) {
+			this.userId = userId;
 			this.orderId = orderId;
-			this.user = user;
-
+			this.userEmail = userEmail;
 		}
 
-		public OrderBuilder setUser(User user) {
-			this.user = user;
+		public OrderBuilder setRentalPrice(int rentalPrice) {
+			this.rentalPrice = rentalPrice;
 			return this;
 		}
 
-		public OrderBuilder setTours(List<Tour> tours) {
-			this.tours = tours;
+		public OrderBuilder setRentalId(int rentalId) {
+			this.rentalId = rentalId;
 			return this;
 		}
 
-		public OrderBuilder setHotels(List<Hotel> hotels) {
-			this.hotels = hotels;
+		public OrderBuilder setHotelPrice(int hotelPrice) {
+			this.hotelPrice = hotelPrice;
 			return this;
 		}
 
-		public OrderBuilder setFlights(List<Flight> flights) {
-			this.flights = flights;
+		public OrderBuilder setHotelId(int hotelId) {
+			this.hotelId = hotelId;
 			return this;
 		}
 
-		public OrderBuilder setRentals(List<Rental> rentals) {
-			this.rentals = rentals;
+		public OrderBuilder setFlightPrice(int flightPrice) {
+			this.flightPrice = flightPrice;
 			return this;
 		}
+
+		public OrderBuilder setFlightId(int flightId) {
+			this.flightId = flightId;
+			return this;
+		}
+
+		public OrderBuilder setTourPrice(int tourPrice) {
+			this.tourPrice = tourPrice;
+			return this;
+		}
+
+		public OrderBuilder setTourName(String tourName) {
+			this.tourName = tourName;
+			return this;
+		}
+
+		public OrderBuilder setTourId(int tourId) {
+			this.tourId = tourId;
+			return this;
+		}
+
 	}
-
 
 }

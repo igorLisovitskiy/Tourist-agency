@@ -9,9 +9,6 @@ import java.util.List;
 
 import com.lisovitskiy.dao.FlightDao;
 import com.lisovitskiy.pojos.Flight;
-import com.lisovitskiy.pojos.Tour;
-import com.lisovitskiy.pojos.User;
-import com.lisovitskiy.pojos.Flight;
 import com.lisovitskiy.utilities.DateService;
 import com.lisovitskiy.utilities.db.ConnectionManager;
 

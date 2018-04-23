@@ -11,7 +11,7 @@ public interface HotelDao {
 
 	List<Hotel> getHotelsByOrderId(int orderId);
 
-	List<Hotel> getHotelsByPeriod(String start, String end);
+	List<Hotel> getHotelsByCity(String cityName);
 
 	boolean createHotel(String name, String address, String checkin, String checkout, int nights, int price,
 			String city);
@@ -20,4 +20,5 @@ public interface HotelDao {
 			int price, String city);
 
 	boolean deleteHotel(int hotelId);
+
 }

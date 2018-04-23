@@ -8,21 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lisovitskiy.dao.OrderDao;
-import com.lisovitskiy.pojos.Flight;
-import com.lisovitskiy.pojos.Hotel;
 import com.lisovitskiy.pojos.Order;
-import com.lisovitskiy.pojos.Rental;
-import com.lisovitskiy.pojos.Tour;
-import com.lisovitskiy.pojos.User;
 import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class OrderDaoImpl implements OrderDao {
 
 	private final static String CREATE_ORDER = "INSERT INTO orders (user_id, tour_id) VALUES(?, ?)";
 	private final static String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
-	private final static String SELECT_ORDER_BY_ID = "SELECT * FROM orders WHERE order_id = ?";
-	private final static String SELECT_ORDER_BY_USER_ID = "SELECT * FROM orders WHERE user_id = ?";
-	private final static String SELECT_ALL_ORDERS = "SELECT * FROM orders";
+	private final static String SELECT_ORDER_BY_USER_ID = "SELECT o.order_id, u.user_id, mail AS user_email, t.tour_id, t.`name` AS tour_name, t.price AS tour_price, "
+						+ "f.flight_id, f.price AS flight_price, h.hotel_id, h.price AS hotel_price, r.rental_id, r.price AS rental_price "
+						+ "FROM orders o INNER JOIN users u ON o.user_id = u.user_id LEFT JOIN orders_tours ot ON o.order_id = ot.order_id LEFT JOIN tours t ON t.tour_id = ot.tour_id "
+						+ "LEFT JOIN orders_flights of ON o.order_id = of.order_id LEFT JOIN flights f ON f.flight_id = of.flight_id LEFT JOIN orders_hotels oh ON o.order_id = oh.order_id "
+						+ "LEFT JOIN hotels h ON h.hotel_id = oh.hotel_id LEFT JOIN orders_rental orental ON o.order_id = orental.order_id LEFT JOIN rental r ON r.rental_id = orental.rental_id "
+						+ "WHERE o.user_id = ? GROUP BY o.user_id";
+	private final static String SELECT_ALL_ORDERS = "SELECT o.order_id, u.user_id, mail AS user_email, t.tour_id, t.`name` AS tour_name, t.price AS tour_price, "
+			+ "f.flight_id, f.price AS flight_price, h.hotel_id, h.price AS hotel_price, r.rental_id, r.price AS rental_price "
+			+ "FROM orders o INNER JOIN users u ON o.user_id = u.user_id LEFT JOIN orders_tours ot ON o.order_id = ot.order_id LEFT JOIN tours t ON t.tour_id = ot.tour_id "
+			+ "LEFT JOIN orders_flights of ON o.order_id = of.order_id LEFT JOIN flights f ON f.flight_id = of.flight_id LEFT JOIN orders_hotels oh ON o.order_id = oh.order_id "
+			+ "LEFT JOIN hotels h ON h.hotel_id = oh.hotel_id LEFT JOIN orders_rental orental ON o.order_id = orental.order_id LEFT JOIN rental r ON r.rental_id = orental.rental_id "
+			+ "GROUP BY o.order_id";
+	private final static String SELECT_ORDER_BY_ID = "SELECT o.order_id, u.user_id, mail AS user_email, t.tour_id, t.`name` AS tour_name, t.price AS tour_price, "
+			+ "f.flight_id, f.price AS flight_price, h.hotel_id, h.price AS hotel_price, r.rental_id, r.price AS rental_price "
+			+ "FROM orders o INNER JOIN users u ON o.user_id = u.user_id LEFT JOIN orders_tours ot ON o.order_id = ot.order_id LEFT JOIN tours t ON t.tour_id = ot.tour_id "
+			+ "LEFT JOIN orders_flights of ON o.order_id = of.order_id LEFT JOIN flights f ON f.flight_id = of.flight_id LEFT JOIN orders_hotels oh ON o.order_id = oh.order_id "
+			+ "LEFT JOIN hotels h ON h.hotel_id = oh.hotel_id LEFT JOIN orders_rental orental ON o.order_id = orental.order_id LEFT JOIN rental r ON r.rental_id = orental.rental_id "
+			+ "WHERE o.order_id = ? GROUP BY o.order_id";
 
 	@Override
 	public Order getOrderById(int orderId) {
@@ -69,6 +79,7 @@ public class OrderDaoImpl implements OrderDao {
 			ps = conn.prepareStatement(SELECT_ALL_ORDERS);
 			rs = ps.executeQuery();
 			while (rs.next()) {
+				
 				orderList.add(getOrderFromDb(rs));
 			}
 		} catch (SQLException ex) {
@@ -108,36 +119,28 @@ public class OrderDaoImpl implements OrderDao {
 
 	// Utility methods
 	private static Order getOrderFromDb(ResultSet rs) throws SQLException {
-
+		int userId = rs.getInt("user_id");
+		String userEmail = rs.getString("user_email");
 		int orderId = rs.getInt("order_id");
-		UserDaoImpl uDao = new UserDaoImpl();
-		TourDaoImpl tDao = new TourDaoImpl();
-		HotelDaoImpl hDao = new HotelDaoImpl();
-		FlightDaoImpl fDao = new FlightDaoImpl();
-		RentalDaoImpl rDao = new RentalDaoImpl();
+		 int tourId = rs.getInt("tour_id");
+		 String tourName = rs.getString("tour_name");;
+		 int tourPrice = rs.getInt("tour_price");
+		 int flightId  = rs.getInt("flight_id");
+		 int flightPrice  = rs.getInt("flight_price");
+		 int hotelId  = rs.getInt("hotel_id");
+		 int hotelPrice  = rs.getInt("hotel_price");
+		 int rentalId  = rs.getInt("rental_id");
+		 int rentalPrice  = rs.getInt("rental_price");
 
-		User user = uDao.getUserByOrderId(orderId);
-		List<Tour> tours = tDao.getToursByOrderId(orderId);
-		List<Hotel> hotels = hDao.getHotelsByOrderId(orderId);
-		List<Flight> flights = fDao.getFlightsByOrderId(orderId);
-		List<Rental> rentals = rDao.getRentalsByOrderId(orderId);
-
-		return new Order(new Order.OrderBuilder(orderId, user).setTours(tours).setFlights(flights).setHotels(hotels)
-				.setRentals(rentals));
+		return new Order(new Order.OrderBuilder(userId, orderId, userEmail)
+				.setTourId(tourId)
+				.setTourId(tourId)
+				.setTourName(tourName)
+				.setTourPrice(tourPrice)
+				.setFlightId(flightId)
+				.setFlightPrice(flightPrice).setHotelId(hotelId)
+				.setHotelPrice(hotelPrice).setRentalId(rentalId)
+				.setRentalPrice(rentalPrice)
+				);
 	}
-
-	private static boolean updateService(int orderId, int serviceId, String statement) {
-		PreparedStatement ps = null;
-		int updatedRows = 0;
-		try (Connection conn = ConnectionManager.getConnection()) {
-			ps = conn.prepareStatement(statement);
-			ps.setInt(1, orderId);
-			ps.setInt(2, serviceId);
-			updatedRows = ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return updatedRows == 1;
-	}
-
 }
