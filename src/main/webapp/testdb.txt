@@ -28,6 +28,8 @@ INSERT INTO `protraveldb`.`tours` (`tour_id`, `name`, `description`, `start`, `e
 INSERT INTO `protraveldb`.`tours` (`tour_id`, `name`, `description`, `start`, `end`, `price`, `language`) VALUES ('20', 'New Underground', 'Many tourists visit the Colosseum, but few see the monument’s underground chambers. Get an in-depth look of one of the New7Wonders of the World on this Rome sightseeing tour. Descend to chambers used to keep gladiators and wild animals before you embar...', '2022-05-23 10:19:00', '2018-06-12 2:19:00', '123', 'Russian');
 INSERT INTO `protraveldb`.`tours` (`tour_id`, `name`, `description`, `start`, `end`, `price`, `language`) VALUES ('21', 'Colosseum Underground', 'Many tourists visit the Colosseum, but few see the monument’s underground chambers. Get an in-depth look of one of the New7Wonders of the World on this Rome sightseeing tour. Descend to chambers used to keep gladiators and wild animals before you embar...', '2022-08-25 10:19:00', '2018-06-16 0:19:00', '123', 'English');
 
+INSERT INTO `protraveldb`.`cities` (`city_id`, `city_name`, `country`) VALUES ('1', 'Rome', 'Italy');
+INSERT INTO `protraveldb`.`cities` (`city_id`, `city_name`, `country`) VALUES ('2', 'Kharkiv', 'Ukraine');
 
 
 INSERT INTO `protraveldb`.`rental` (`rental_id`, `name`, `description`, `from`, `to`, `price`, `city_id`, `city_name`) VALUES ('1', 'Volvo', 'rent a car', '2018-05-05', '2018-05-05', '100', '1', 'Rome');
@@ -38,7 +40,7 @@ INSERT INTO `protraveldb`.`rental` (`rental_id`, `name`, `description`, `from`, 
 INSERT INTO `protraveldb`.`flights` (`flight_id`, `departure`, `from_city_id`, `from_city_name`, `to_city_id`, `to_city_name`, `flight_time`, `price`) VALUES ('1', '2018-06-06', '1', 'Rome', '2', 'Kharkiv', '10', '1500');
 
 
-INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `checkin`, `checkout`, `nights`, `price`, `city_id`, `city_name`) VALUES ('1', 'Mariott', 'Rome Italy st 218', '2018-05-06', '2018-05-09', '12', '600', '1', 'Rome');
+INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `city_id`, `city_name`) VALUES ('1', 'Mariott', 'Rome Italy st 218', '1', 'Rome');
 
 
 INSERT INTO `protraveldb`.`city_tour` (`tour_id`, `city_id`, `city_name`) VALUES ('1', '1', 'Rome');
@@ -55,3 +57,4 @@ INSERT INTO `protraveldb`.`orders_tours` (`order_id`, `tour_id`) VALUES ('2', '2
 
 INSERT INTO `protraveldb`.`orders_hotels` (`order_id`, `hotel_id`) VALUES ('1', '1');
 
+INSERT INTO `protraveldb`.`orders_hotels` (`order_id`, `hotel_id`, `checkin`, `checkout`, `price`, `nights`) VALUES ('1', '1', '2018-05-05', '2018-06-06', '1000', '30');
