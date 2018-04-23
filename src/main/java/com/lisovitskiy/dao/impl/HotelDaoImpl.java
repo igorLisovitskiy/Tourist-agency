@@ -9,18 +9,17 @@ import java.util.List;
 
 import com.lisovitskiy.dao.HotelDao;
 import com.lisovitskiy.pojos.Hotel;
-import com.lisovitskiy.utilities.DateService;
 import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class HotelDaoImpl implements HotelDao {
-	private final static String CREATE_HOTEL = "INSERT INTO hotels (`name`, `address`, `checkin`, `checkout`, `nights`, `price`, `city_id`, `city_name`) VALUES(?, ?, ?, ?, ?, ?, (SELECT city_id FROM cities WHERE city_name = ?), ?)";
+	private final static String CREATE_HOTEL = "INSERT INTO hotels (`name`, `address`, `city_id`, `city_name`) VALUES(?, ?, (SELECT city_id FROM cities WHERE city_name = ?), ?)";
 	private final static String DELETE_HOTEL = "DELETE FROM hotels WHERE hotel_id = ?";
 
-	private final static String UPDATE_HOTEL = "UPDATE `protraveldb`.`hotels` SET `hotel_id`= ?, `name`= ?, `address`= ?, `checkin`= ?, `checkout`= ?, `nights`= ?, `price`= ?, `city_id`= ?, `city_name`= ? WHERE `hotel_id`= ?;";
+	private final static String UPDATE_HOTEL = "UPDATE `protraveldb`.`hotels` SET `hotel_id`= ?, `name`= ?, `address`= ?, `city_id`= ?, `city_name`= ? WHERE `hotel_id`= ?;";
 	private final static String SELECT_HOTEL_BY_ID = "SELECT * FROM hotels WHERE hotel_id = ?";
 	private final static String SELECT_HOTELS_BY_CITY = "SELECT * FROM hotels WHERE city_name = ?;";
 	private final static String SELECT_ALL_HOTELS = "SELECT * FROM hotels";
-	private final static String SELECT_HOTEL_BY_ORDER_ID = "SELECT h.hotel_id, h.name, h.address, h.checkin, h.checkout, h.nights, h.price, h.city_id, h.city_name\r\n"
+	private final static String SELECT_HOTEL_BY_ORDER_ID = "SELECT h.hotel_id, h.name, h.address, h.city_id, h.city_name\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN hotels h\r\n" + "WHERE o.hotel_id = ?;";
 	@Override
 	public List<Hotel> getHotelsByOrderId(int orderId) {
@@ -94,22 +93,15 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	@Override
-	public boolean createHotel(String name, String address, String checkin, String checkout, int nights, int price,
-			String city) {
+	public boolean createHotel(String name, String address, String city) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
-		java.sql.Date sqlCheckin = DateService.toSqlDate(checkin);
-		java.sql.Date sqlCheckout = DateService.toSqlDate(checkout);
 
 		try (Connection conn = ConnectionManager.getConnection()) {
 			ps = conn.prepareStatement(CREATE_HOTEL);
 			ps.setString(1, name);
 			ps.setString(2, address);
-			ps.setDate(3, sqlCheckin);
-			ps.setDate(4, sqlCheckout);
-			ps.setInt(5, nights);
-			ps.setInt(6, price);
-			ps.setString(7, city);
+			ps.setString(3, city);
 
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -119,23 +111,15 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	@Override
-	public boolean updateHotel(int hotelId, String name, String address, String checkin, String checkout, int nights,
-			int price, String city) {
+	public boolean updateHotel(int hotelId, String name, String address, String city) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
-		java.sql.Date sqlCheckin = DateService.toSqlDate(checkin);
-		java.sql.Date sqlCheckout = DateService.toSqlDate(checkout);
-
 		try (Connection conn = ConnectionManager.getConnection()) {
 			ps = conn.prepareStatement(UPDATE_HOTEL);
 			ps.setInt(1, hotelId);
 			ps.setString(2, name);
 			ps.setString(3, address);
-			ps.setDate(4, sqlCheckin);
-			ps.setDate(5, sqlCheckout);
-			ps.setInt(6, nights);
-			ps.setInt(7, price);
-			ps.setString(8, city);
+			ps.setString(4, city);
 
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -160,7 +144,6 @@ public class HotelDaoImpl implements HotelDao {
 
 	// Utility methods
 	private static Hotel getHotelFromDb(ResultSet rs) throws SQLException {
-		return new Hotel(rs.getInt("hotel_id"), rs.getString("name"), rs.getString("address"), rs.getDate("checkin"),
-				rs.getDate("checkout"), rs.getInt("nights"), rs.getInt("price"), rs.getString("city_name"));
+		return new Hotel(rs.getInt("hotel_id"), rs.getString("name"), rs.getString("address"), rs.getString("city_name"));
 	}
 }

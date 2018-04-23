@@ -17,4 +17,6 @@ public interface RentalDao {
 			String city);
 
 	boolean deleteRental(int rentalId);
+
+	List<Rental> getRentalsByCityName(String cityName);
 }

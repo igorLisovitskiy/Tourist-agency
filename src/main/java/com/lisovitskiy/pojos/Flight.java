@@ -8,18 +8,18 @@ public class Flight {
 	private String from;
 	private String to;
 	private Date departureDate;
+	private int flightTime;
+	private int price;
 
-	public Flight(int flightID, String from, String to, Date departure, int flightTime, int price) {
+	public Flight(int flightID, String from, String to, Date departureDate, int flightTime, int price) {
 		super();
 		this.flightID = flightID;
 		this.from = from;
 		this.to = to;
-		this.departureDate = departure;
+		this.departureDate = departureDate;
 		this.flightTime = flightTime;
 		this.price = price;
 	}
-
-	private int flightTime;
 
 	public int getFlightID() {
 		return flightID;
@@ -45,11 +45,11 @@ public class Flight {
 		this.to = to;
 	}
 
-	public Date getDeparture() {
+	public Date getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDeparture(Date departure) {
+	public void setDepartureDate(Date departure) {
 		this.departureDate = departure;
 	}
 
@@ -68,7 +68,5 @@ public class Flight {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	private int price;
 
 }

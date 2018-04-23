@@ -13,12 +13,10 @@ public interface HotelDao {
 
 	List<Hotel> getHotelsByCity(String cityName);
 
-	boolean createHotel(String name, String address, String checkin, String checkout, int nights, int price,
-			String city);
-
-	boolean updateHotel(int hotelId, String name, String address, String checkin, String checkout, int nights,
-			int price, String city);
-
 	boolean deleteHotel(int hotelId);
+
+	boolean createHotel(String name, String address, String city);
+
+	boolean updateHotel(int hotelId, String name, String address, String city);
 
 }

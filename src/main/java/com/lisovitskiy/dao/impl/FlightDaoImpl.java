@@ -17,9 +17,9 @@ public class FlightDaoImpl implements FlightDao {
 			+ "VALUES(?, (SELECT city_id FROM cities WHERE city_name = ?) , ?, (SELECT city_id FROM cities WHERE city_name = ?), ?, ?, ?)";
 	private final static String DELETE_FLIGHT = "DELETE FROM flights WHERE flight_id = ? LIMIT 1";
 	private final static String UPDATE_FLIGHT = "SET `departure`= ?, `from_city_id`= (SELECT city_id FROM cities WHERE city_name = ?), `from_city_name`= ?, `to_city_id`= (SELECT city_id FROM cities WHERE city_name = ?), `to_city_name`= ?, `flight_time`= ?, `price`= ? WHERE `flight_id`=?;";
-	private final static String SELECT_FLIGHT_BY_ID = "SELECT * FROM flights WHERE flightl_id = ?";
+	private final static String SELECT_FLIGHT_BY_ID = "SELECT * FROM flights WHERE flight_id = ?";
 	private final static String SELECT_ALL_FLIGHTS = "SELECT * FROM flights";
-	private final static String SELECT_FLIGHT_BY_PERIOD = "SELECT * FROM tours WHERE departure >= ? AND departure <= ?";
+	private final static String SELECT_FLIGHT_BY_PERIOD = "SELECT * FROM flights WHERE departure >= ? AND departure <= ?";
 
 	private final static String SELECT_FLIGHT_BY_ORDER_ID = "SELECT f.flight_id, f.departure, f.from_city_id, f.from_city_name, f.to_city_id, f.to_city_name, f.flight_time, f.price\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN flights f\r\n" + "WHERE o.flight_id = ?;";

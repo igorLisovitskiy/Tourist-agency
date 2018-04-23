@@ -51,18 +51,18 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="dashboard">++ProTravel</a>
+				<a class="navbar-brand" href="${pageContext.servletContext.contextPath}/dashboard">++ProTravel</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${user.role == 1 || user.role == 0}">
-						<li><a href="adminpanel" aria-haspopup="true"
+						<li><a href="${pageContext.servletContext.contextPath}/adminpanel" aria-haspopup="true"
 							aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
 								Site Administration</a></li>
 					</c:if>
-					<li><a href="contacts" aria-haspopup="true"
+					<li><a href="${pageContext.servletContext.contextPath}/contacts" aria-haspopup="true"
 						aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
 							Contact us</a></li>
 					<c:if test="${not empty user.username}">
@@ -71,12 +71,10 @@
 								class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
 						</a>
 							<ul class="dropdown-menu dropdown-user">
-								<li><a href="profile"><i class="fa fa-user fa-fw"></i> User
+								<li><a href="${pageContext.servletContext.contextPath}/profile"><i class="fa fa-user fa-fw"></i> User
 										Profile</a></li>
-								<li><a href="#"><i class="fa fa-gear fa-fw"></i>
-										Settings</a></li>
 								<li class="divider"></li>
-								<li><a href="logout"><i class="fa fa-sign-out fa-fw"></i>
+								<li><a href="${pageContext.servletContext.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i>
 										Logout</a></li>
 							</ul></li>
 					</c:if>
@@ -93,24 +91,24 @@
 		<div class="user-display-middle" style="width: 65%">
 			<div class="user-bar user-black">
 				<button class="user-bar-item user-button tablink"
-					onclick="openLink(event, 'Tour');">
+					onclick="openLink(event, 'tour');">
 					<i class="fa fa-globe user-margin-right"></i>Tour
 				</button>
 				<button class="user-bar-item user-button tablink"
-					onclick="openLink(event, 'Flight');">
+					onclick="openLink(event, 'flight');">
 					<i class="fa fa-plane user-margin-right"></i>Flight
 				</button>
 				<button class="user-bar-item user-button tablink"
-					onclick="openLink(event, 'Hotel');">
+					onclick="openLink(event, 'hotel');">
 					<i class="fa fa-bed user-margin-right"></i>Hotel
 				</button>
 				<button class="user-bar-item user-button tablink"
-					onclick="openLink(event, 'Car');">
+					onclick="openLink(event, 'car');">
 					<i class="fa fa-car user-margin-right"></i>Rental
 				</button>
 			</div>
 			<!-- Tabs -->
-			<div id="Tour"
+			<div id="tour"
 				class="user-container user-white user-padding-16 myLink">
 				<h3>Travel the world with us</h3>
 				<form id="tour-dates" name="tour-dates"
@@ -123,55 +121,65 @@
 						placeholder="mm/dd/yyyy" required/>
 				</form>
 				<p>
-					<button class="user-button user-dark-grey" id="search-tours">Search and find tours</button>
+					<button class="user-button user-dark-grey" id="search-tours" form="tour-dates">Search and find tours</button>
 				</p>
 			</div>
-			<div id="Flight"
+			<div id="flight"
 				class="user-container user-white user-padding-16 myLink">
 				<h3>Travel the world with us</h3>
-				<div class="input-group input-daterange">
+				<form id="flight-dates" name="flight-dates"
+					class="input-group input-daterange">
 					<div class="input-group-addon">From</div>
-					<input type="text" class="form-control" name="flights-start"
-						placeholder="Departing from">
+					<input id="startDate" name="startDate" type="text"
+						class="form-control" placeholder="mm/dd/yyyy" required/>
 					<div class="input-group-addon">to</div>
-					<input type="text" class="form-control" name="flights-end"
-						placeholder="Arriving at">
-				</div>
+					<input id="endDate" name="endDate" type="text" class="form-control"
+						placeholder="mm/dd/yyyy" required/>
+				</form>
 				<p>
-					<button class="user-button user-dark-grey" id="search-flights"
-						data-toggle="modal" data-target="#flights-modal">Search and find
+					<button class="user-button user-dark-grey" id="search-flights">Search and find
 						dates</button>
 				</p>
 			</div>
 
-			<div id="Hotel"
+			<div id="hotel"
 				class="user-container user-white user-padding-16 myLink">
 				<h3>Find the best hotels</h3>
 				<p>Book a hotel with us and get the best fares and promotions.</p>
 				<p>We know hotels - we know comfort.</p>
+				<select class="custom-select user-select hotel-select">
+				  <option selected value="default">Please, select the city you'like to visit.</option>
+				     <c:forEach items="${hotelCities}" var="city">
+				            <option value="${city}">${city}</option>
+				    </c:forEach>
+				</select>
+				<br>
 				<p>
-					<button class="user-button user-dark-grey">Search Hotels</button>
+					<button class="user-button user-dark-grey" id="search-hotels">Search Hotels</button>
 				</p>
 			</div>
 
-			<div id="Car"
+			<div id="car"
 				class="user-container user-white user-padding-16 myLink">
 				<h3>Best car rental in the world!</h3>
 				<p>
 					<span class="user-tag user-deep-orange">DISCOUNT!</span> Special
 					offer if you book today: 25% off anywhere in the world with
-					CarServiceRentalRUs
+					CarServiceRental
 				</p>
-				<input class="user-input user-border" type="text"
-					placeholder="Pick-up point">
+				<select class="custom-select user-select rental-select">
+				  <option selected value="default">Please, select the city you'like to visit.</option>
+				     <c:forEach items="${rentalCities}" var="rentalcity">
+				            <option value="${rentalcity}">${rentalcity}</option>
+				    </c:forEach>
+				</select>
 				<p>
-					<button class="user-button user-dark-grey">Search
+					<button class="user-button user-dark-grey" id="search-rentals">Search
 						Availability</button>
 				</p>
 			</div>
 		</div>
 	</header>
-
 	<!-- Page content -->
 	<div class="user-content" style="max-width: 75%">
 		<div class="container">
@@ -188,12 +196,7 @@
 							<table id="tours" class="table table-striped table-bordered" style="width:100%">
 								<thead>
 									<tr>
-										<th>Id</th>
 										<th>Name</th>
-										<th>Description</th>
-										<th>Start</th>
-										<th>End</th>
-										<th>Price</th>
 										<th>Language</th>
 										<th>Details</th>
 									</tr>
@@ -218,27 +221,70 @@
 							<h4 class="modal-title">Search Result:</h4>
 						</div>
 						<div class="modal-body">
-							<table width="100%"
-								class="table table-striped table-bordered table-hover"
-								id="flights">
+							<table width="100%" class="table table-striped table-bordered table-hover" id="flights">
 								<thead>
 									<tr>
 										<th>From</th>
 										<th>To</th>
 										<th>Departure</th>
-										<th>Flight Time</th>
-										<th>Price</th>
+										<th>Details</th>
 									</tr>
 								</thead>
-								<tfoot>
+							</table>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="hotels-modal" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Search Result:</h4>
+						</div>
+						<div class="modal-body">
+							<table width="100%" class="table table-striped table-bordered table-hover" id="hotels">
+								<thead>
 									<tr>
-										<th>From</th>
-										<th>To</th>
-										<th>Departure</th>
-										<th>Flight Time</th>
-										<th>Price</th>
+										<th>Name</th>
+										<th>Address</th>
+										<th>Details</th>
 									</tr>
-								</tfoot>
+								</thead>
+							</table>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="rentals-modal" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Search Result:</h4>
+						</div>
+						<div class="modal-body">
+							<table width="100%" class="table table-striped table-bordered table-hover" id="rentals">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Details</th>
+									</tr>
+								</thead>
 							</table>
 
 						</div>
@@ -251,8 +297,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<!-- Good offers -->
 	<div class="user-container user-margin-top">
 		<h3>Good Offers Right Now</h3>

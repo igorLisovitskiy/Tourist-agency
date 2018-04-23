@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <title>++ProTravel - ${user.mail}</title>
 <head>
-    <link rel="icon" href="images/icon.gif" type="image/gif" sizes="16x16">
+    <link rel="icon" href="${pageContext.servletContext.contextPath}/images/icon.gif" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/userdashboard.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="css/userdashboard.css">
+ 
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/userdashboard.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet"
@@ -70,35 +71,34 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../../dashboard">++ProTravel</a>
+            <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/dashboard">++ProTravel</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse"
              id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="adminpanel" aria-haspopup="true"
-                       aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
-                    Site Administration</a></li>
-
-                <li><a href="contacts" aria-haspopup="true"
-                       aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
-                    Contact us</a></li>
-
-                    <li class="dropdown"><a class="dropdown-toggle"
-                                            data-toggle="dropdown" href="#">Welcome, ${user.username} <i
-                            class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="profile"><i class="fa fa-user fa-fw"></i> User
-                                Profile</a></li>
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i>
-                                Settings</a></li>
-                            <li class="divider"></li>
-                            <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i>
-                                Logout</a></li>
-                        </ul></li>
-
-            </ul>
+            		<ul class="nav navbar-nav navbar-right">
+					<c:if test="${user.role == 1 || user.role == 0}">
+						<li><a href="${pageContext.servletContext.contextPath}/adminpanel" aria-haspopup="true"
+							aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
+								Site Administration</a></li>
+					</c:if>
+					<li><a href="${pageContext.servletContext.contextPath}/contacts" aria-haspopup="true"
+						aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
+							Contact us</a></li>
+					<c:if test="${not empty user.username}">
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Welcome, ${user.username} <i
+								class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+						</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li><a href="${pageContext.servletContext.contextPath}/profile"><i class="fa fa-user fa-fw"></i> User
+										Profile</a></li>
+								<li class="divider"></li>
+								<li><a href="${pageContext.servletContext.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i>
+										Logout</a></li>
+							</ul></li>
+					</c:if>
+				</ul>
         </div>
     </div>
     <!-- /.navbar-collapse -->
@@ -152,7 +152,8 @@
 
 <!-- Footer -->
 <footer class="user-container user-center user-margin-top">
-    <h3>Enjoy ${tour.name} sights</h3>
+    <h3 align="center">Enjoy ${tour.name} sights</h3>
+    <br>
         <div class="col">
             <a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox" data-gallery="example-gallery" class="">
                 <img src="https://unsplash.it/600.jpg?image=251" class="col-sm-2">

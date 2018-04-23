@@ -313,8 +313,7 @@ a{
  .user-select{
     padding:9px 0;
     width:100%;
-    border:none;
-    border-bottom:1px solid #ccc
+    margin-bottom: 10px;
 }
  .user-dropdown-click,.user-dropdown-hover{
     position:relative;

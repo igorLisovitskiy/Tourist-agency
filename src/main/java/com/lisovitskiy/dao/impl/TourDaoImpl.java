@@ -19,10 +19,9 @@ public class TourDaoImpl implements TourDao {
 	private final static String SELECT_TOUR_BY_ID = "SELECT * FROM tours WHERE tour_id = ?";
 	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start >= ? AND end <= ?";
 	private final static String SELECT_ALL_TOURS = "SELECT * FROM tours";
-		
+
 	private final static String SELECT_TOUR_BY_ORDER_ID = "SELECT t.tour_id, t.name, t.description, t.start, t.end, t.price, t.language\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN tours t\r\n" + "WHERE o.tour_id = ?;";
-
 
 	@Override
 	public Tour getTourById(int tourId) {
@@ -137,8 +136,9 @@ public class TourDaoImpl implements TourDao {
 		}
 		return updatedRows == 1;
 	}
+
 	@Override
-	public List<Tour> getToursByOrderId(int orderId){
+	public List<Tour> getToursByOrderId(int orderId) {
 		List<Tour> tourList = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;

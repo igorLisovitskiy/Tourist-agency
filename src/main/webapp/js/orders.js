@@ -6,7 +6,7 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     $(".panel-heading").html('<b>All Orders </b><button id="refresh">Refresh</button>');
-    $('#refresh').on('click', loadUsers);
+    $('#refresh').on('click', loadOrders);
     var table = $("#orders").DataTable({
         "responsive" : true,
         "ajax":{
@@ -18,18 +18,44 @@ $(document).ready(function() {
             dataSrc:'',
         },
         "columns": [
-            { "data": "id"},
-            { "data": "username"},
-            { "data": "password"},
-            { "data": "mail"},
-            { "data": "birthday"},
-            { "data": "role"},
-            {
-                "data": function(data, type) {
-                    return "<button class='edit btn btn-warning btn-sm' data-toggle=\"modal\" data-target=\"#editUserModal\">Edit</button>";
-                },
-                "bSortable": false
+            { "data": "orderId"},
+            { "data": "userEmail"},
+            { "data": "tourName",
+            	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.tourName+"</a>");
+                }
             },
+            { "data": "tourPrice"},
+            { "data": "flightId",
+            	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+            		if(oData.flightPrice == 0){
+            			 $(nTd).html("None");
+            		}else{
+            			 $(nTd).html("<a href='dashboard/flight?id="+oData.flightId+"'>"+oData.flightId+"</a>");
+            			}
+                	}
+            },
+            { "data": "flightPrice"},
+            { "data": "hotelId",
+            	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+            		if(oData.hotelPrice == "0"){
+            			 $(nTd).html("None");
+            		}else{
+            			 $(nTd).html("<a href='dashboard/hotel?id="+oData.hotelId+"'>"+oData.hotelId+"</a>");
+            			}
+                	}
+            },	
+            { "data": "hotelPrice"},
+            { "data": "rentalId",
+            	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+            		if(oData.rentalPrice == 0){
+            			 $(nTd).html("None");
+            		}else{
+            			 $(nTd).html("<a href='dashboard/rental?id="+oData.rentalId+"'>"+oData.rentalId+"</a>");
+            			}
+                	}
+            },
+            { "data": "rentalPrice"},
             {
                 "data": function(data, type) {
                     return "<button class='delete btn btn-danger btn-sm'>Delete</button>";
@@ -39,20 +65,16 @@ $(document).ready(function() {
         ],
         "bDestroy": true
 
-    }).on( 'click', '.edit', function () {
-        var userId = $("#orders").DataTable().row($(this).closest('tr')).data().id;
-        var url = "update/user?id="+ userId + "&edit=true";
-        updateUser(url);
     }).on( 'click', '.delete', function () {
-        var userId = $("#orders").DataTable().row($(this).closest('tr')).data().id;
-        var url = "update/user?id="+ userId+ "&delete=true";
-        var deleteUser = confirm("Are you shure you want to delete the user #" + userId + "?");
+        var orderId = $("#orders").DataTable().row($(this).closest('tr')).data().orderId;
+        var url = "update/order?id="+ orderId + "&delete=true";
+        var deleteUser = confirm("Are you shure you want to delete the order #" + orderId + "?");
         if(deleteUser){
             $.ajax({
                 url : url,
                 type: "DELETE",
                 success: function (data) {
-                    loadUsers();
+                	loadOrders();
                 },
                 error: function (jXHR, textStatus, errorThrown) {
                     alert(textStatus);
@@ -60,11 +82,9 @@ $(document).ready(function() {
             });
         }
     });
-
-
 });
 
-function loadUsers(){
+function loadOrders(){
     var table = $("#orders").DataTable({
         "responsive" : true,
         "ajax":{
@@ -76,18 +96,20 @@ function loadUsers(){
             dataSrc:'',
         },
         "columns": [
-            { "data": "id"},
-            { "data": "username"},
-            { "data": "password"},
-            { "data": "mail"},
-            { "data": "birthday"},
-            { "data": "role"},
-            {
-                "data": function(data, type) {
-                    return "<button class='edit btn btn-warning btn-sm' data-toggle=\"modal\" data-target=\"#editUserModal\">Edit</button>";
-                },
-                "bSortable": false
+            { "data": "orderId"},
+            { "data": "userEmail"},
+            { "data": "tourName",
+            	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.tourName+"</a>");
+                }
             },
+            { "data": "tourPrice"},
+            { "data": "flightId"},
+            { "data": "flightPrice"},
+            { "data": "hotelId"},
+            { "data": "hotelPrice"},
+            { "data": "rentalId"},
+            { "data": "rentalPrice"},
             {
                 "data": function(data, type) {
                     return "<button class='delete btn btn-danger btn-sm'>Delete</button>";
@@ -96,33 +118,6 @@ function loadUsers(){
             }
         ],
         "bDestroy": true
-    });
-}
-
-
-$('#editUserModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var recipient = button.data('whatever');
-    var modal = $(this);
-    modal.find('.modal-title').text('New message to ' + recipient);
-    modal.find('.modal-body input').val(recipient);
-});
-
-function updateUser(url){
-    $( "#edit-user-form").on('submit', function(e) {
-            $.ajax({
-                url : url,
-                type: "POST",
-                data: $('#edit-user-form').serialize(),
-                success: function (data) {
-                    loadUsers();
-                },
-                error: function (jXHR, textStatus, errorThrown) {
-                    alert(textStatus);
-                }
-        });
-        e.preventDefault();
-        $('#editUserModal').modal('toggle');
     });
 }
 

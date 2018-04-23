@@ -45,27 +45,32 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="../dashboard">++ProTravel</a>
+			<a class="navbar-brand" href="${pageContext.servletContext.contextPath}/dashboard">++ProTravel</a>
 		</div>
 		<!-- /.navbar-header -->
-		<ul class="nav navbar-top-links navbar-right">
-			<c:if test="${not empty user.username}">
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Welcome, ${user.username} <i
-						class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-				</a>
-					<ul class="dropdown-menu dropdown-user">
-						<li><a href="profile"><i class="fa fa-user fa-fw"></i>
-								User Profile</a></li>
-						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-						</li>
-						<li class="divider"></li>
-						<li><a href="logout"><i class="fa fa-sign-out fa-fw"></i>
-								Logout</a></li>
-					</ul></li>
-			</c:if>
-			<!-- /.dropdown -->
-		</ul>
+			<ul class="nav navbar-top-links navbar-right">
+					<c:if test="${user.role == 1 || user.role == 0}">
+						<li><a href="${pageContext.servletContext.contextPath}/adminpanel" aria-haspopup="true"
+							aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
+								Site Administration</a></li>
+					</c:if>
+					<li><a href="${pageContext.servletContext.contextPath}/contacts" aria-haspopup="true"
+						aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
+							Contact us</a></li>
+					<c:if test="${not empty user.username}">
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Welcome, ${user.username} <i
+								class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+						</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li><a href="${pageContext.servletContext.contextPath}/profile"><i class="fa fa-user fa-fw"></i> User
+										Profile</a></li>
+								<li class="divider"></li>
+								<li><a href="${pageContext.servletContext.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i>
+										Logout</a></li>
+							</ul></li>
+					</c:if>
+				</ul>
 		<!-- /.navbar-top-links -->
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
@@ -104,10 +109,13 @@
 									<th>Order Id</th>
 									<th>User</th>
 									<th>Tour Name</th>
+									<th>Tour Price</th>
 									<th>Flight</th>
+									<th>Flight Price</th>
 									<th>Hotel</th>
+									<th>Hotel Price</th>
 									<th>Rental</th>
-									<th>Edit</th>
+									<th>Rental Price</th>
 									<th>Delete</th>
 								</tr>
 							</thead>

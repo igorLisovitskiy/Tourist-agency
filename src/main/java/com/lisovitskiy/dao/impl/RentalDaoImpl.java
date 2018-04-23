@@ -20,7 +20,26 @@ public class RentalDaoImpl implements RentalDao {
 	private final static String SELECT_RENTAL_BY_ORDER_ID = "SELECT r.rental_id, r.name, r.description, r.from, r.to, r.price, r.city_id, r.city_name\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN rentals r\r\n" + "WHERE o.rental_id = ?;";
 	private static final String SELECT_RENTAL_BY_ID = "SELECT * FROM rental WHERE rental_id = ?;";
-	private static final String SELECT_ALL_RENTALS = "SELECT * FROM rentals;";
+	private static final String SELECT_ALL_RENTALS = "SELECT * FROM rental;";
+	private static final String SELECT_RENTAL_BY_CITY = "SELECT * FROM rental WHERE city_name = ?;";
+
+	@Override
+	public List<Rental> getRentalsByCityName(String cityName) {
+		List<Rental> rentalsList = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(SELECT_RENTAL_BY_CITY);
+			ps.setString(1, cityName);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				rentalsList.add(getRentalFromDb(rs));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return rentalsList;
+	}
 
 	@Override
 	public List<Rental> getRentalsByOrderId(int orderId) {
@@ -65,7 +84,6 @@ public class RentalDaoImpl implements RentalDao {
 		ResultSet rs = null;
 		try (Connection conn = ConnectionManager.getConnection()) {
 			ps = conn.prepareStatement(SELECT_ALL_RENTALS);
-			;
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				rentalsList.add(getRentalFromDb(rs));

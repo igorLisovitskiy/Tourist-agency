@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
+	<link rel="icon" href="images/icon.gif" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -14,7 +15,8 @@
     <!-- Include Date Range Picker -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-              <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css"/>
     <!-- DataTables CSS -->
@@ -22,8 +24,10 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-
     <link rel="stylesheet" href="vendor/sb-admin-2.css">
+    <!-- DatePicker CSS -->
+    <link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
+    <script src="js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -34,28 +38,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="dashboard">++ProTravel</a>
+        <a class="navbar-brand" href="${pageContext.servletContext.contextPath}/dashboard">++ProTravel</a>
     </div>
     <!-- /.navbar-header -->
-    <ul class="nav navbar-top-links navbar-right">
-            <c:if test="${not empty user.username}">
-             	<li class="dropdown">
-		            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome, ${user.username} 
-		                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-		            </a>
-		            <ul class="dropdown-menu dropdown-user">
-		                <li><a href="profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-		            </li>
-		                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-		                </li>
-		                <li class="divider"></li>
-		                <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-		                </li>
-		            </ul>
-                </li>
-                </c:if>
-        <!-- /.dropdown -->
-    </ul>
+   		<ul class="nav navbar-top-links navbar-right">
+					<c:if test="${user.role == 1 || user.role == 0}">
+						<li><a href="${pageContext.servletContext.contextPath}/adminpanel" aria-haspopup="true"
+							aria-expanded="false"><i class="fa fa-dashboard fa-fw"></i>
+								Site Administration</a></li>
+					</c:if>
+					<li><a href="${pageContext.servletContext.contextPath}/contacts" aria-haspopup="true"
+						aria-expanded="false"><i class="fa fa-envelope fa-fw"></i>
+							Contact us</a></li>
+					<c:if test="${not empty user.username}">
+						<li class="dropdown"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#">Welcome, ${user.username} <i
+								class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+						</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li><a href="${pageContext.servletContext.contextPath}/profile"><i class="fa fa-user fa-fw"></i> User
+										Profile</a></li>
+								<li class="divider"></li>
+								<li><a href="${pageContext.servletContext.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i>
+										Logout</a></li>
+							</ul></li>
+					</c:if>
+				</ul>
     <!-- /.navbar-top-links -->
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">

@@ -12,13 +12,8 @@ public class OrderFacade {
 		return oDao.getAllOrders();
 	}
 
-
-	public boolean updateOrder(int userId, String username, String password, String mail, String birthday, int roleId) {
-		return false;
-
-	}
-	public boolean deleteOrder(int userId) {
-		return false;
+	public boolean deleteOrder(int orderId) {
+		return oDao.deleteOrder(orderId);
 		
 	}
 }
