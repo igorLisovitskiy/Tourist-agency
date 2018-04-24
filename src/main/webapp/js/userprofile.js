@@ -46,34 +46,86 @@ $('#search-tours').on('click', function(e) {
                     			if(oData.tourId != null){
                     				$(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.name+"</a>");
                     			}
-                    	}
-                    }
+                    	},
+                     "emptyTable": "<i>You have not booked any tours!</i>"
+                    },
+    	            {
+    	                "data": function(data, type) {
+    	                    return "<button class='delete btn btn-danger btn-sm'>Delete</button>";
+    	                },
+    	                "bSortable": false
+    	            }
                 ],
                 "bDestroy": true
-            });
+            }).on( 'click', '.delete', function () {
+                var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
+                var url = "profile/update/tour?id="+ tourId + "&delete=true";
+                var deleteTour = confirm("Are you shure you want to remove this tour?");
+                if(deleteTour){
+                    $.ajax({
+                        url : url,
+                        type: "DELETE",
+                        success: function (data) {
+                        	$('#tours-modal').modal('toggle');
+                        },
+                        error: function (jXHR, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                }
+            });;
 });
 
-	$('#search-hotels').on('click', function(e) {
+	$('#search-bookings').on('click', function(e) {
 		e.preventDefault();
-	    $('#hotels-modal').modal('toggle');
-	    var table = $("#hotels").DataTable({
+	    $('#bookings-modal').modal('toggle');
+	    var table = $("#bookings").DataTable({
 	        "ajax":{
-	            url: "profile/myhotels",
+	            url: "profile/mybookings",
 	            dataType : "json",
 	            type: "GET",
 	            dataSrc:'',
 	        },
 	        "columns": [
-	            { "data": "name",
+	            { "data": "bookingId"},
+	            {"data": "hotelId",
 	            	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-	            			if(oData.tourId != null){
-	            				$(nTd).html("<a href='dashboard/hotel?id="+oData.hotelId+"'>"+oData.name+"</a>");
+	            			if(oData.bookingId != null){
+	            				$(nTd).html("<a href='dashboard/hotel?id="+oData.hotelId+"'>"+oData.hotelId+"</a>");
 	            			}
 	            	}
+	            },
+	            { "data": "checkin"},
+	            { "data": "checkout"},
+	            { "data": "price"},
+	            {
+	                "data": function(data, type) {
+	                    return "<button class='delete btn btn-danger btn-sm'>Delete</button>";
+	                },
+	                "bSortable": false
 	            }
 	        ],
+	        "language": {
+	            "emptyTable": "No data available in table"
+	          },
 	        "bDestroy": true
-	    });
+	    }).on( 'click', '.delete', function () {
+            var bookingId = $("#bookings").DataTable().row($(this).closest('tr')).data().bookingId;
+            var url = "profile/update/booking?id="+ bookingId + "&delete=true";
+            var deleteBooking = confirm("Are you shure you want to remove this booking?");
+            if(deleteBooking){
+                $.ajax({
+                    url : url,
+                    type: "DELETE",
+                    success: function (data) {
+                    	$('#bookings-modal').modal('toggle');
+                    },
+                    error: function (jXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            }
+        });
 	});
     $('#search-flights').on('click', function(e) {
     	e.preventDefault();
@@ -86,15 +138,38 @@ $('#search-tours').on('click', function(e) {
                 dataSrc:'',
             },
             "columns": [
-                { "data": "name",
+                { "data": "to",
                 	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                			if(oData.tourId != null){
-                				$(nTd).html("<a href='dashboard/flight?id="+oData.flightsId+"'>From"+oData.fromCity+" to "+ oData.toCity +"</a>");
+                			if(oData.flightId != null){
+                				$(nTd).html("<a href='dashboard/flight?id="+oData.flightId+"'>From "+oData.from+" to "+ oData.to +"</a>");
                 			}
-                	}
-                }
+                	},
+                "emptyTable": "<i>You have not booked any flights!</i>"
+                },
+	            {
+	                "data": function(data, type) {
+	                    return "<button class='delete btn btn-danger btn-sm'>Delete</button>";
+	                },
+	                "bSortable": false
+	            }
             ],
             "bDestroy": true
+        }).on( 'click', '.delete', function () {
+            var flightId = $("#flights").DataTable().row($(this).closest('tr')).data().flightId;
+            var url = "profile/update/flight?id="+ flightId + "&delete=true";
+            var deleteFlight = confirm("Are you shure you want to remove this flight?");
+            if(deleteFlight){
+                $.ajax({
+                    url : url,
+                    type: "DELETE",
+                    success: function (data) {
+                    	$('#flights-modal').modal('toggle');
+                    },
+                    error: function (jXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            }
         });
     });
 });

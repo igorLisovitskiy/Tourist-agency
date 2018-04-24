@@ -86,6 +86,18 @@ INSERT INTO `protraveldb`.`rental` (`rental_id`, `name`, `description`, `city_id
 INSERT INTO `protraveldb`.`orders_rental` (`receipt_id`, `order_id`, `rental_id`, `from`, `to`, `price`) VALUES ('1', '1', '1', '2018-05-05', '2018-05-05', '200');
 
 
+INSERT INTO `protraveldb`.`rental` (`rental_id`, `name`, `description`, `city_id`, `city_name`, `rental_price`) VALUES ('1', 'Volvo', 'Rent a Volvo', '1', 'Rome', '100');
+
+
+INSERT INTO `protraveldb`.`flights` (`flight_id`, `departure`, `from_city_id`, `from_city_name`, `to_city_id`, `to_city_name`, `flight_time`, `price`) VALUES ('1', '2018-05-05', '1', 'Rome', '2', 'Kharkiv', '5', '1000');
+
+
+INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `city_id`, `city_name`, `suite_price`) VALUES ('1', 'Mariott', 'Fly st 1', '1', 'Rome', '40');
+
+INSERT INTO `protraveldb`.`orders` (`order_id`, `user_id`) VALUES ('2', '1');
+
+
+INSERT INTO `protraveldb`.`flights` (`departure`, `from_city_id`, `from_city_name`, `to_city_id`, `to_city_name`, `flight_time`, `price`) VALUES ('2018-05-05 00:00:00', '2', 'Kharkiv', '1', 'Rome', '5', '2000');
 
 
 

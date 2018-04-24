@@ -125,7 +125,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Only From:</h5>
 					<p>${flight.price}</p>
-					<a href="${pageContext.servletContext.contextPath}/dashboard/book/flight?id=${flight.flightID}&user=${user.id}" class=" card-btn btn btn-primary" id="booking-btn">Book</a>
+					<a href="${pageContext.servletContext.contextPath}/dashboard/book/flight?id=${flight.flightId}&user=${user.id}" class=" card-btn btn btn-primary" id="booking-btn">Book</a>
 				</div>
 			</div>
 			<div class="details">

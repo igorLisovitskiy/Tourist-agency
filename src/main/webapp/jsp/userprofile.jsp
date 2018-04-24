@@ -113,7 +113,7 @@
             <div class="list-group menu">
                 <button class="list-group-item list-group-item-action" id="search-tours"><i class="fa fa-globe"></i> Tours</button>
                 <button class="list-group-item list-group-item-action" id="search-flights"><i class="fa fa-plane"></i> Flights</button>
-                <button class="list-group-item list-group-item-action" id="search-hotels"><i class="fa fa-building"></i> Hotels</button>
+                <button class="list-group-item list-group-item-action" id="search-bookings"><i class="fa fa-building"></i> Bookings</button>
             </div>
             <div class="personal-info">
                 <h3>Personal Information</h3>
@@ -266,7 +266,8 @@
                         <table id="tours" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>My tours</th>
+                                 <th></th>
                             </tr>
                             </thead>
                         </table>
@@ -294,7 +295,8 @@
                                id="flights">
                             <thead>
                             <tr>
-                                <th>Flight to</th>
+                                <th>My Flights</th>
+                                <th></th>
                             </tr>
                             </thead>
                         </table>
@@ -308,7 +310,7 @@
             </div>
         </div>
               <!-- Modal -->
-        <div class="modal fade" id="hotels-modal" role="dialog">
+        <div class="modal fade" id="bookings-modal" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -319,15 +321,15 @@
                     <div class="modal-body">
                         <table width="100%"
                                class="table table-striped table-bordered table-hover"
-                               id="flights">
+                               id="bookings">
                             <thead>
                             <tr>
-                              	<th>Name</th>
-                              	<th>Address</th>
-                                <th>Check in</th>
-                                <th>Check out</th>
-                                <th>Details</th>
-                                <th></th>
+                              	<th>My bookings</th>
+                              	<th>Hotel</th>
+                              	 <th>Check-in</th>
+                              	 <th>Check-out</th>
+                              	 <th>Price</th>
+                              	 <th></th>
                             </tr>
                             </thead>
                         </table>
