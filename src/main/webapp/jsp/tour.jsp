@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+ 	<script src="${pageContext.servletContext.contextPath}//js/tours.js"></script>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/userdashboard.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Raleway">
@@ -120,7 +120,7 @@
             <div class="card-body">
                 <h5 class="card-title">Only From:</h5>
                 <p> ${tour.price}</p>
-                <a href="#" class=" card-btn btn btn-primary">Book</a>
+                <a href="${pageContext.servletContext.contextPath}/dashboard/book/tour?id=${tour.tourId}&user=${user.id}" class=" card-btn btn btn-primary" id="booking-btn">Book</a>
             </div>
         </div>
         <div class="details">
@@ -145,11 +145,11 @@
             <hr>
         </div>
     </div>
+ </div>
 
-
-    </div>
-</div>
-
+	<div id="alert-area" style="height:60px;">
+				
+	</div>
 <!-- Footer -->
 <footer class="user-container user-center user-margin-top">
     <h3 align="center">Enjoy ${tour.name} sights</h3>

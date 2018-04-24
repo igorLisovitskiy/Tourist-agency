@@ -98,6 +98,7 @@ public class BookingDaoImpl implements BookingDao {
 			ps = conn.prepareStatement(CREATE_BOOKING);
 			ps.setInt(1, orderId);
 			ps.setInt(2, hotelId);
+			System.out.println(checkin);
 			ps.setDate(3, DateService.toSqlDate(checkin));
 			ps.setDate(4, DateService.toSqlDate(checkout));
 			ps.setInt(5, price);

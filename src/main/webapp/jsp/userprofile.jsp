@@ -13,13 +13,16 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
 
-    <script src="js/userprofile.js" type="text/javascript"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/userprofile.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/userdashboard.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/profile.css" rel="stylesheet">
-
+	<!-- DataTables Responsive CSS -->
+	<link href="${pageContext.servletContext.contextPath}/vendor/datatables-responsive/dataTables.responsive.css"
+		rel="stylesheet">
+	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/vendor/sb-admin-2.css">
     <!-- Include Date Picker -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -108,9 +111,9 @@
         <h2>${user.username} account</h2>
     <br>
             <div class="list-group menu">
-                <button data-toggle="modal" data-target="#tours-modal" class="list-group-item list-group-item-action" id="search-tours"><i class="fa fa-globe"></i> Tours</button>
-                <button data-toggle="modal" data-target="#flights-modal" class="list-group-item list-group-item-action" id="search-flights"><i class="fa fa-plane"></i> Flights</button>
-                <button data-toggle="modal" data-target="#hotels-modal" class="list-group-item list-group-item-action" id="search-hotels"><i class="fa fa-building"></i> Hotels</button>
+                <button class="list-group-item list-group-item-action" id="search-tours"><i class="fa fa-globe"></i> Tours</button>
+                <button class="list-group-item list-group-item-action" id="search-flights"><i class="fa fa-plane"></i> Flights</button>
+                <button class="list-group-item list-group-item-action" id="search-hotels"><i class="fa fa-building"></i> Hotels</button>
             </div>
             <div class="personal-info">
                 <h3>Personal Information</h3>
@@ -263,15 +266,7 @@
                         <table id="tours" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
-                                <th>Description</th>
-                                <th>Start</th>
-                                <th>End</th>
-                                <th>Price</th>
-                                <th>Language</th>
-                                <th>Details</th>
-                                <th></th>
                             </tr>
                             </thead>
                         </table>
@@ -299,13 +294,7 @@
                                id="flights">
                             <thead>
                             <tr>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Departure</th>
-                                <th>Flight Time</th>
-                                <th>Price</th>
-                                <th>Details</th>
-                                <th></th>
+                                <th>Flight to</th>
                             </tr>
                             </thead>
                         </table>
@@ -388,6 +377,12 @@
             </a>
         </div>
     </footer>
+    
+	<!-- DataTables JavaScript -->
+	<script src="${pageContext.servletContext.contextPath}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/vendor/datatables-responsive/dataTables.responsive.js"></script>
+</body>
 <script>
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
         event.preventDefault();

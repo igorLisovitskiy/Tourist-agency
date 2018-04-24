@@ -12,10 +12,10 @@ import com.lisovitskiy.pojos.Hotel;
 import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class HotelDaoImpl implements HotelDao {
-	private final static String CREATE_HOTEL = "INSERT INTO hotels (`name`, `address`, `city_id`, `city_name`) VALUES(?, ?, (SELECT city_id FROM cities WHERE city_name = ?), ?)";
+	private final static String CREATE_HOTEL = "INSERT INTO hotels (`name`, `address`, `suite_price, `city_id`, `city_name``) VALUES(?, ?, (SELECT city_id FROM cities WHERE city_name = ?), ?, ?)";
 	private final static String DELETE_HOTEL = "DELETE FROM hotels WHERE hotel_id = ?";
 
-	private final static String UPDATE_HOTEL = "UPDATE `protraveldb`.`hotels` SET `hotel_id`= ?, `name`= ?, `address`= ?, `city_id`= ?, `city_name`= ? WHERE `hotel_id`= ?;";
+	private final static String UPDATE_HOTEL = "UPDATE `protraveldb`.`hotels` SET `hotel_id`= ?, `name`= ?, `address`= ?, `suite_price`= ?, `city_id`= ?, `city_name`= ? WHERE `hotel_id`= ?;";
 	private final static String SELECT_HOTEL_BY_ID = "SELECT * FROM hotels WHERE hotel_id = ?";
 	private final static String SELECT_HOTELS_BY_CITY = "SELECT * FROM hotels WHERE city_name = ?;";
 	private final static String SELECT_ALL_HOTELS = "SELECT * FROM hotels";
@@ -93,7 +93,7 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	@Override
-	public boolean createHotel(String name, String address, String city) {
+	public boolean createHotel(String name, String address, int suitePrice, String city) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
 
@@ -101,7 +101,9 @@ public class HotelDaoImpl implements HotelDao {
 			ps = conn.prepareStatement(CREATE_HOTEL);
 			ps.setString(1, name);
 			ps.setString(2, address);
-			ps.setString(3, city);
+			ps.setInt(3, suitePrice);
+			ps.setString(4, city);
+			
 
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -111,7 +113,7 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	@Override
-	public boolean updateHotel(int hotelId, String name, String address, String city) {
+	public boolean updateHotel(int hotelId, String name, String address, int suitePrice, String city) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
 		try (Connection conn = ConnectionManager.getConnection()) {
@@ -119,7 +121,9 @@ public class HotelDaoImpl implements HotelDao {
 			ps.setInt(1, hotelId);
 			ps.setString(2, name);
 			ps.setString(3, address);
-			ps.setString(4, city);
+			ps.setInt(4, suitePrice);
+			ps.setString(5, city);
+			
 
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -144,6 +148,6 @@ public class HotelDaoImpl implements HotelDao {
 
 	// Utility methods
 	private static Hotel getHotelFromDb(ResultSet rs) throws SQLException {
-		return new Hotel(rs.getInt("hotel_id"), rs.getString("name"), rs.getString("address"), rs.getString("city_name"));
+		return new Hotel(rs.getInt("hotel_id"), rs.getString("name"), rs.getString("address"),rs.getInt("suite_price"), rs.getString("city_name"));
 	}
 }

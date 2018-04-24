@@ -19,4 +19,6 @@ public interface FlightDao {
 
 	boolean deleteFlight(int flightId);
 
+	boolean orderFlight(Integer orderId, int flightId);
+
 }

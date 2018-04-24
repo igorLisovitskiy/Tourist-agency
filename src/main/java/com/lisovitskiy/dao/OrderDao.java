@@ -8,8 +8,10 @@ public interface OrderDao {
 	Order getOrderById(int orderId);
 
 	List<Order> getAllOrders();
+
 	List<Order> getOrdersByUserId(int userId);
-	
-	boolean createOrder(int userId,int tourId);
+
 	boolean deleteOrder(int orderId);
+
+	int createOrder(int userId);
 }

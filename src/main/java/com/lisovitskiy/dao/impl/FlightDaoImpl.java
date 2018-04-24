@@ -20,6 +20,7 @@ public class FlightDaoImpl implements FlightDao {
 	private final static String SELECT_FLIGHT_BY_ID = "SELECT * FROM flights WHERE flight_id = ?";
 	private final static String SELECT_ALL_FLIGHTS = "SELECT * FROM flights";
 	private final static String SELECT_FLIGHT_BY_PERIOD = "SELECT * FROM flights WHERE departure >= ? AND departure <= ?";
+	private final static String ORDER_FLIGHT = "INSERT INTO orders_flights (order_id, flight_id) VALUES(?, ?);";
 
 	private final static String SELECT_FLIGHT_BY_ORDER_ID = "SELECT f.flight_id, f.departure, f.from_city_id, f.from_city_name, f.to_city_id, f.to_city_name, f.flight_time, f.price\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN flights f\r\n" + "WHERE o.flight_id = ?;";
@@ -156,6 +157,20 @@ public class FlightDaoImpl implements FlightDao {
 			ex.printStackTrace();
 		}
 		return flightsList;
+	}
+	@Override
+	public boolean orderFlight(Integer orderId, int flightId) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(ORDER_FLIGHT);
+			ps.setInt(1, orderId);
+			ps.setInt(2, flightId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
 	}
 
 	// Utility methods

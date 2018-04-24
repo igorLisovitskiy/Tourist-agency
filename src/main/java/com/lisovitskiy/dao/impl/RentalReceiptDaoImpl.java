@@ -14,7 +14,7 @@ import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class RentalReceiptDaoImpl implements RentalReceiptDao {
 
-	private final static String CREATE_RENTAL_RECEIPT = "INSERT INTO orders_rental (receipt_id, order_id, rental_id, from, to, price) VALUES(?, ?, ?, ?, ?, ?)";
+	private final static String CREATE_RENTAL_RECEIPT = "INSERT INTO orders_rental (order_id, rental_id, `from`, `to`, price) VALUES(?, ?, ?, ?, ?)";
 	private final static String UPDATE_RENTAL_RECEIPT = "UPDATE `protraveldb`.`orders_rental` SET `order_id`= ?, `rental_id`= ?, `from`= ?, `to`= ?, `price`= ?, WHERE `receipt_id`= ?;";
 
 	private final static String DELETE_RENTAL_RECEIPT = "DELETE FROM orders_rental WHERE receipt_id = ?";
@@ -95,7 +95,7 @@ public class RentalReceiptDaoImpl implements RentalReceiptDao {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
 		try (Connection conn = ConnectionManager.getConnection()) {
-			ps = conn.prepareStatement(CREATE_RENTAL_RECEIPT);
+			ps = conn.prepareStatement(UPDATE_RENTAL_RECEIPT);
 			ps.setInt(1, orderId);
 			ps.setInt(2, rentalId);
 			ps.setDate(3, DateService.toSqlDate(from));
@@ -114,7 +114,7 @@ public class RentalReceiptDaoImpl implements RentalReceiptDao {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
 		try (Connection conn = ConnectionManager.getConnection()) {
-			ps = conn.prepareStatement(UPDATE_RENTAL_RECEIPT);
+			ps = conn.prepareStatement(CREATE_RENTAL_RECEIPT);
 			ps.setInt(1, orderId);
 			ps.setInt(2, rentalId);
 			ps.setDate(3, DateService.toSqlDate(from));

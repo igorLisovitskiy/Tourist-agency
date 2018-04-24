@@ -5,15 +5,15 @@
 <html>
 <title>++ProTravel - ${user.mail}</title>
 <head>
-<link rel="icon" href="../../images/icon.gif" type="image/gif" sizes="16x16">
+<link rel="icon" href="${pageContext.servletContext.contextPath}/images/icon.gif" type="image/gif" sizes="16x16">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="../../css/userdashboard.css">
+<script src="${pageContext.servletContext.contextPath}/js/rentals.js"></script>
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/userdashboard.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet"
@@ -68,6 +68,9 @@
 	width: 20%;
 }
 </style>
+<!-- DatePicker CSS -->
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap-datepicker3.min.css">
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body class="user-light-grey">
 	<nav class="navbar navbar-default navbar-static-top">
@@ -124,7 +127,9 @@
 			<div class="card">
 				<div class="card-header">Book Now:</div>
 				<div class="card-body">
-					<a href="#" class=" card-btn btn btn-primary">Book</a>
+				<h5 class="card-title">Only From:</h5>
+					<p id="rental_price">${rental.rentalPrice}</p>
+					<a id="booking-btn" href="${pageContext.servletContext.contextPath}/dashboard/book/rental?id=${rental.rentalId}&user=${user.id}&rental-price=${rental.rentalPrice}" class=" card-btn btn btn-primary">Book</a>
 				</div>
 			</div>
 			<div class="details">
@@ -142,7 +147,31 @@
 			</div>
 		</div>
 	</div>
-
+<div class="container">
+  <h2>Renting form</h2>
+  <form id="reservation-form">
+    <div class="form-group">
+      <label for="staying">Rent period:</label>
+ 		<div class="input-group input-daterange" id="staying">
+			<div class="input-group-addon">From</div>
+				<input id="startDate" name="startDate" type="text" class="form-control" placeholder="mm/dd/yyyy" required />
+						<div class="input-group-addon">to</div>
+				<input id="endDate" name="endDate" type="text" class="form-control" placeholder="mm/dd/yyyy" required />
+		</div>	
+    </div>
+    <div class="form-group">
+      <label for="days">Total Days:</label>
+      <input type="number" class="form-control" id="days" value="1" placeholder="Days" name="days">
+       </div>
+      <div class="form-group">
+      <label for="days">Price:</label>
+      <input type="number" class="form-control" id="price" value="${rental.rentalPrice}" name="price" readonly>
+    </div>
+  </form>
+  	<div id="alert-area" style="height:60px;">
+				
+	</div>
+</div>
 	<!-- Footer -->
 	<footer class="user-container user-center user-margin-top">
 

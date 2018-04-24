@@ -13,7 +13,8 @@ import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class OrderDaoImpl implements OrderDao {
 
-	private final static String CREATE_ORDER = "INSERT INTO orders (user_id, tour_id) VALUES(?, ?)";
+	private final static String CREATE_ORDER = "INSERT INTO orders (user_id) VALUES (?);";
+	private final static String SELECT_LAST_ORDER_ID = " SELECT LAST_INSERT_ID() AS last_order_id;";
 	private final static String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
 	private final static String SELECT_ORDER_BY_USER_ID = "SELECT o.order_id, u.user_id, mail AS user_email, t.tour_id, t.`name` AS tour_name, t.price AS tour_price, "
 			+ "f.flight_id, f.price AS flight_price, h.hotel_id, oh.price AS hotel_price, r.rental_id, orental.price AS rental_price "
@@ -21,7 +22,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "LEFT JOIN tours t ON t.tour_id = ot.tour_id LEFT JOIN orders_flights of ON o.order_id = of.order_id "
 			+ "LEFT JOIN flights f ON f.flight_id = of.flight_id LEFT JOIN orders_hotels oh ON o.order_id = oh.order_id "
 			+ "LEFT JOIN hotels h ON h.hotel_id = oh.hotel_id LEFT JOIN orders_rental orental ON o.order_id = orental.order_id "
-			+ "LEFT JOIN rental r ON r.rental_id = orental.rental_id WHERE o.user_id = ? GROUP BY o.user_id";
+			+ "LEFT JOIN rental r ON r.rental_id = orental.rental_id WHERE o.user_id = ? GROUP BY o.order_id";
 
 	private final static String SELECT_ALL_ORDERS = "SELECT o.order_id, u.user_id, mail AS user_email, t.tour_id, t.`name` AS tour_name, t.price AS tour_price, "
 			+ "f.flight_id, f.price AS flight_price, h.hotel_id, oh.price AS hotel_price, r.rental_id, orental.price AS rental_price "
@@ -29,7 +30,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "LEFT JOIN tours t ON t.tour_id = ot.tour_id LEFT JOIN orders_flights of ON o.order_id = of.order_id "
 			+ "LEFT JOIN flights f ON f.flight_id = of.flight_id LEFT JOIN orders_hotels oh ON o.order_id = oh.order_id "
 			+ "LEFT JOIN hotels h ON h.hotel_id = oh.hotel_id LEFT JOIN orders_rental orental ON o.order_id = orental.order_id "
-			+ "LEFT JOIN rental r ON r.rental_id = orental.rental_id GROUP BY o.user_id";
+			+ "LEFT JOIN rental r ON r.rental_id = orental.rental_id GROUP BY o.order_id";
 
 	private final static String SELECT_ORDER_BY_ID = "SELECT o.order_id, u.user_id, mail AS user_email, t.tour_id, t.`name` AS tour_name, t.price AS tour_price, "
 			+ "f.flight_id, f.price AS flight_price, h.hotel_id, oh.price AS hotel_price, r.rental_id, orental.price AS rental_price "
@@ -94,18 +95,23 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public boolean createOrder(int userId, int tourId) {
+	public int createOrder(int userId) {
 		PreparedStatement ps = null;
-		int updatedRows = 0;
+		int lastId = 0;
+		ResultSet rs = null;
 		try (Connection conn = ConnectionManager.getConnection()) {
 			ps = conn.prepareStatement(CREATE_ORDER);
 			ps.setInt(1, userId);
-			ps.setInt(2, tourId);
-			updatedRows = ps.executeUpdate();
+			ps.executeUpdate();
+			ps = conn.prepareStatement(SELECT_LAST_ORDER_ID);
+			rs = ps.executeQuery();
+			if(rs.next()){
+				lastId = rs.getInt("last_order_id");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return updatedRows == 1;
+		return lastId;
 	}
 
 	@Override
@@ -115,6 +121,7 @@ public class OrderDaoImpl implements OrderDao {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			ps = conn.prepareStatement(DELETE_ORDER);
 			ps.setInt(1, orderId);
+			
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -15,8 +15,8 @@ public interface HotelDao {
 
 	boolean deleteHotel(int hotelId);
 
-	boolean createHotel(String name, String address, String city);
+	boolean createHotel(String name, String address, int suitePrice, String city);
 
-	boolean updateHotel(int hotelId, String name, String address, String city);
+	boolean updateHotel(int hotelId, String name, String address, int suitePrice, String city);
 
 }

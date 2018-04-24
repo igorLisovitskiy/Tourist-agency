@@ -8,7 +8,7 @@ import com.lisovitskiy.pojos.Booking;
 public class BookingFacade {
 	BookingDaoImpl bDao = new BookingDaoImpl();
 
-	public List<Booking> getHotels() {
+	public List<Booking> getBookings() {
 		return bDao.getAllBookings();
 	}
 

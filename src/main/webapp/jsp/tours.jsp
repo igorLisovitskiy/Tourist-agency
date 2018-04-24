@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
-	<link rel="icon" href="../images/icon.gif" type="image/gif" sizes="16x16">
+	<link rel="icon" href="${pageContext.servletContext.contextPath}/images/icon.gif" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,19 +15,19 @@
     <!-- Include Date Range Picker -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/admin.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css"/>
     <!-- DataTables CSS -->
-    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.servletContext.contextPath}/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="${pageContext.servletContext.contextPath}/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="../vendor/sb-admin-2.css">
     <!-- DatePicker CSS -->
     <link rel="stylesheet" href="../css/bootstrap-datepicker3.min.css">
-    <script src="../js/bootstrap-datepicker.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -224,8 +224,8 @@
 	  </div>
 	</div>
 	<!-- DataTables JavaScript -->
-	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/vendor/datatables-responsive/dataTables.responsive.js"></script>
 </body>
 </html>

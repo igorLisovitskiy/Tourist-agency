@@ -40,7 +40,8 @@ INSERT INTO `protraveldb`.`rental` (`rental_id`, `name`, `description`, `from`, 
 INSERT INTO `protraveldb`.`flights` (`flight_id`, `departure`, `from_city_id`, `from_city_name`, `to_city_id`, `to_city_name`, `flight_time`, `price`) VALUES ('1', '2018-06-06', '1', 'Rome', '2', 'Kharkiv', '10', '1500');
 
 
-INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `city_id`, `city_name`) VALUES ('1', 'Mariott', 'Rome Italy st 218', '1', 'Rome');
+INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `city_id`, `city_name`, `suite_price`) VALUES ('1', 'Mariott', 'May st 1', '1', 'Rome', '200');
+
 
 
 INSERT INTO `protraveldb`.`city_tour` (`tour_id`, `city_id`, `city_name`) VALUES ('1', '1', 'Rome');
@@ -75,5 +76,16 @@ INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `city_id`, `c
 INSERT INTO `protraveldb`.`hotels` (`hotel_id`, `name`, `address`, `city_id`, `city_name`) VALUES ('2', 'Plaza', 'Svoboda sq. 2', '2', 'Kharkiv');
 
 
-INSERT INTO `protraveldb`.`orders_hotels` (`booking_id`, `order_id`, `hotel_id`, `checkin`, `checkout`, `price`, `nights`) VALUES ('1', '1', '1', '2018-05-05', '2018-05-05', '250', '2');
+INSERT INTO `protraveldb`.`orders_hotels` (`booking_id`, `order_id`, `hotel_id`, `checkin`, `checkout`, `price`, `nights`) VALUES ('1', '1', '1', '2018-05-05', '2018-05-05', '1200', '2');
+
+
+
+INSERT INTO `protraveldb`.`rental` (`rental_id`, `name`, `description`, `city_id`, `city_name`, `renta_price`) VALUES ('1', 'BMW', 'rent a BMW', '1', 'Rome', '100');
+
+
+INSERT INTO `protraveldb`.`orders_rental` (`receipt_id`, `order_id`, `rental_id`, `from`, `to`, `price`) VALUES ('1', '1', '1', '2018-05-05', '2018-05-05', '200');
+
+
+
+
 

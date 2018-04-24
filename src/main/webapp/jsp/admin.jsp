@@ -94,10 +94,10 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-          
-             <h3>Welcome to the Administration panel!</h3>
-     
-                <p>Please select the category to view.</p>
+            
+             <h2>Welcome to the Administration panel!</h2>
+                <h3>Please select the category to view.</h3>
+      
         </div>
      </div>
       </div>

@@ -23,5 +23,9 @@ public class FlightFacade {
 	public boolean deleteFlight(int flightId) {
 		return fDao.deleteFlight(flightId);
 	}
+	public boolean orderFlight(Integer orderId, int flightId) {
+		return fDao.orderFlight(orderId, flightId);
+		
+	}
 
 }

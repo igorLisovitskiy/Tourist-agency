@@ -19,7 +19,7 @@ public class TourDaoImpl implements TourDao {
 	private final static String SELECT_TOUR_BY_ID = "SELECT * FROM tours WHERE tour_id = ?";
 	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start >= ? AND end <= ?";
 	private final static String SELECT_ALL_TOURS = "SELECT * FROM tours";
-
+	private final static String ORDER_TOUR = "INSERT INTO orders_tours (order_id, tour_id) VALUES(?, ?);";
 	private final static String SELECT_TOUR_BY_ORDER_ID = "SELECT t.tour_id, t.name, t.description, t.start, t.end, t.price, t.language\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN tours t\r\n" + "WHERE o.tour_id = ?;";
 
@@ -153,6 +153,20 @@ public class TourDaoImpl implements TourDao {
 			ex.printStackTrace();
 		}
 		return tourList;
+	}
+	@Override
+	public boolean orderTour(int orderId, int tourId) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(ORDER_TOUR);
+			ps.setInt(1, orderId);
+			ps.setInt(2, tourId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
 	}
 
 	// Utility methods

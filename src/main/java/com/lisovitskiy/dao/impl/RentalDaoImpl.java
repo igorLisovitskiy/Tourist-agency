@@ -13,9 +13,9 @@ import com.lisovitskiy.utilities.DateService;
 import com.lisovitskiy.utilities.db.ConnectionManager;
 
 public class RentalDaoImpl implements RentalDao {
-	private final static String CREATE_RENTAL = "INSERT INTO rentals (`name`, `description`, `from`, `to`, `price`, `city_id`, `city_name`) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private final static String CREATE_RENTAL = "INSERT INTO rentals (`name`, `description`, `from`, `to`, `price`, `city_id`, `city_name`, `rental_price`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private final static String DELETE_RENTAL = "DELETE FROM rentals WHERE rental_id = ?";
-	private final static String UPDATE_RENTAL = "UPDATE `protraveldb`.`rental` SET `rental_id`= ?, `name`= ?, `description`= ?, `from`= ?, `to`= ?, `price`= ?, `city_id`= ?, `city_name`= ? WHERE `rental_id`= ?;";
+	private final static String UPDATE_RENTAL = "UPDATE `protraveldb`.`rental` SET `rental_id`= ?, `name`= ?, `description`= ?, `from`= ?, `to`= ?, `price`= ?, `city_id`= ?, `city_name`= ? `rental_price` = ? WHERE `rental_id`= ?;";
 
 	private final static String SELECT_RENTAL_BY_ORDER_ID = "SELECT r.rental_id, r.name, r.description, r.from, r.to, r.price, r.city_id, r.city_name\r\n"
 			+ "FROM orders o\r\n" + "INNER JOIN rentals r\r\n" + "WHERE o.rental_id = ?;";
@@ -95,8 +95,7 @@ public class RentalDaoImpl implements RentalDao {
 	}
 
 	@Override
-	public boolean createRental(String name, String description, String fromDate, String toDate, int price,
-			String city) {
+	public boolean createRental(String name, String description, String fromDate, String toDate, int price, String city) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
 		java.sql.Date sqlFrom = DateService.toSqlDate(fromDate);
@@ -157,7 +156,7 @@ public class RentalDaoImpl implements RentalDao {
 
 	// Utility methods
 	private static Rental getRentalFromDb(ResultSet rs) throws SQLException {
-		return new Rental(rs.getInt("rental_id"), rs.getString("name"), rs.getString("description"), rs.getString("city_name"));
+		return new Rental(rs.getInt("rental_id"), rs.getString("name"), rs.getString("description"), rs.getInt("rental_price"), rs.getString("city_name"));
 
 	}
 }

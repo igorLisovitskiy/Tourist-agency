@@ -17,8 +17,8 @@ public class HotelFacade {
 	public List<Hotel> getHotelByCity(String city) {
 		return hDao.getHotelsByCity(city);
 	}
-	public boolean createHotel(String name, String address, String city) {
-		return hDao.createHotel(name, address, city);
+	public boolean createHotel(String name, String address, int suitePrice, String city) {
+		return hDao.createHotel(name, address, suitePrice, city);
 	}
 	public boolean deleteHotel(int hotelId) {
 		return hDao.deleteHotel(hotelId);

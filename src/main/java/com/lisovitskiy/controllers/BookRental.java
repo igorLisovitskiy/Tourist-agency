@@ -11,13 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import com.lisovitskiy.facades.BookingFacade;
 import com.lisovitskiy.facades.OrderFacade;
+import com.lisovitskiy.facades.RentingFacade;
 import com.lisovitskiy.utilities.DateService;
 
-@WebServlet(name = "BookHotel", urlPatterns = "/dashboard/book/hotel", loadOnStartup = 1)
-public class BookHotel extends HttpServlet {
+@WebServlet(name = "BookRental", urlPatterns = "/dashboard/book/rental", loadOnStartup = 1)
+public class BookRental extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	BookingFacade bookingFacade = new BookingFacade();
 	OrderFacade orderFacade = new OrderFacade();
+	RentingFacade rentingFacade = new RentingFacade();
 	HttpSession session;
 
 	@Override
@@ -31,12 +32,12 @@ public class BookHotel extends HttpServlet {
 			throws ServletException, IOException {
 
 		int userId = Integer.parseInt(request.getParameter("user"));
-		int hotelId = Integer.parseInt(request.getParameter("id"));
-		String checkin = (String) request.getParameter("startDate");
-		String checkout = (String) request.getParameter("endDate");
-		int nights = (int) (DateService.daysDifference(checkin, checkout)) + 1;
-		int suitPrice = Integer.parseInt(request.getParameter("price"));
-		int price = nights * suitPrice;
+		int rentalId = Integer.parseInt(request.getParameter("id"));
+		String pickup = (String) request.getParameter("startDate");
+		String dropoff = (String) request.getParameter("endDate");
+		int days = (int) (DateService.daysDifference(pickup, dropoff)) + 1;
+		int rentalPrice = Integer.parseInt(request.getParameter("price"));
+		int price = days * rentalPrice;
 
 		session = request.getSession();
 		Integer orderId = (Integer) session.getAttribute("orderId");
@@ -44,7 +45,8 @@ public class BookHotel extends HttpServlet {
 			orderId = orderFacade.createOrder(userId);
 			session.setAttribute("order", orderId);
 		}
-		bookingFacade.createBooking(orderId, hotelId, checkin, checkout, price, nights);
+		rentingFacade.createReceipt(orderId, rentalId, pickup, dropoff, price);
+		
 	}
 
 }

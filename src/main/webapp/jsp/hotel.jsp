@@ -1,28 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <title>++ProTravel - ${user.mail}</title>
 <head>
 <link rel="icon" href="${pageContext.servletContext.contextPath}/images/icon.gif" type="image/gif" sizes="16x16">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/js/hotels.js"></script>
 
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/userdashboard.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script
-	src=" https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
 <style>
 .card {
 	height: 170px;
@@ -68,6 +61,9 @@
 	width: 20%;
 }
 </style>
+<!-- DatePicker CSS -->
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap-datepicker3.min.css">
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body class="user-light-grey">
 	<nav class="navbar navbar-default navbar-static-top">
@@ -114,8 +110,6 @@
 		<!-- /.navbar-collapse -->
 	</nav>
 	<!-- Header -->
-
-
 	<!-- Page content -->
 	<div class="user-content" style="min-height: 200px;">
 		<div class="container">
@@ -124,8 +118,8 @@
 				<div class="card-header">Book Now:</div>
 				<div class="card-body">
 					<h5 class="card-title">Only From:</h5>
-					<p></p>
-					<a href="${pageContext.servletContext.contextPath}/dashboard/book/hotel?id=${hotel.hotelId}" class=" card-btn btn btn-primary">Book</a>
+					<p id="suite_price">${hotel.suitePrice}</p>
+					<a href="${pageContext.servletContext.contextPath}/dashboard/book/hotel?id=${hotel.hotelId}&user=${user.id}&suite-price=${hotel.suitePrice}" class="card-btn btn btn-primary" id="booking-btn">Book</a>
 				</div>
 			</div>
 			<div class="details">
@@ -150,22 +144,29 @@
 	</div>
 <div class="container">
   <h2>Reservation form</h2>
-  <form >
+  <form id="reservation-form">
     <div class="form-group">
       <label for="staying">Staying:</label>
  		<div class="input-group input-daterange" id="staying">
 			<div class="input-group-addon">From</div>
-				<input id="startDate" name="startDate" type="date" class="form-control" placeholder="mm/dd/yyyy" required />
+				<input id="startDate" name="startDate" type="text" class="form-control" placeholder="mm/dd/yyyy" required />
 						<div class="input-group-addon">to</div>
-				<input id="endDate" name="endDate" type="date" class="form-control" placeholder="mm/dd/yyyy" required />
+				<input id="endDate" name="endDate" type="text" class="form-control" placeholder="mm/dd/yyyy" required />
 		</div>	
     </div>
     <div class="form-group">
       <label for="nights">Nights:</label>
-      <input type="number" class="form-control" id="nights" placeholder="Nights" name="nights">
+      <input type="number" class="form-control" id="nights" value="1" placeholder="Nights" name="nights">
+       </div>
+      <div class="form-group">
+      <label for="nights">Price:</label>
+      <input type="number" class="form-control" id="price" value="${hotel.suitePrice}" name="price" readonly>
     </div>
   </form>
 </div>
+	<div id="alert-area" style="height:60px;">
+				
+	</div>
 	<!-- Footer -->
 	<footer class="user-container user-center user-margin-top">
 		<h3 align="center">Enjoy your staying at ${hotel.name} !</h3>
