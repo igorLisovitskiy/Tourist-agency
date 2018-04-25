@@ -19,4 +19,14 @@ public interface UserDao {
 
 	User getUserByOrderId(int orderId);
 
+	boolean updateUserPassword(int userId, String password);
+
+	boolean updateUserBirthday(int userId, String birthday);
+
+	boolean updateUserMail(int userId, String mail);
+
+	boolean updateUserRole(int userId, int userRole);
+
+	boolean updateUserName(int userId, String username);
+
 }

@@ -4,16 +4,15 @@ import java.util.Date;
 
 public class Flight {
 
-	private int flightID;
+	private int flightId;
 	private String from;
 	private String to;
 	private Date departureDate;
 	private int flightTime;
 	private int price;
 
-	public Flight(int flightID, String from, String to, Date departureDate, int flightTime, int price) {
-		super();
-		this.flightID = flightID;
+	public Flight(int flightId, String from, String to, Date departureDate, int flightTime, int price) {
+		this.flightId = flightId;
 		this.from = from;
 		this.to = to;
 		this.departureDate = departureDate;
@@ -21,12 +20,12 @@ public class Flight {
 		this.price = price;
 	}
 
-	public int getFlightID() {
-		return flightID;
+	public int getFlightId() {
+		return flightId;
 	}
 
-	public void setFlightID(int flightID) {
-		this.flightID = flightID;
+	public void setFlightId(int flightId) {
+		this.flightId = flightId;
 	}
 
 	public String getFrom() {
@@ -49,8 +48,8 @@ public class Flight {
 		return departureDate;
 	}
 
-	public void setDepartureDate(Date departure) {
-		this.departureDate = departure;
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 
 	public int getFlightTime() {

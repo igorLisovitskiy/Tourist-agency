@@ -21,9 +21,7 @@ public class FlightDaoImpl implements FlightDao {
 	private final static String SELECT_ALL_FLIGHTS = "SELECT * FROM flights";
 	private final static String SELECT_FLIGHT_BY_PERIOD = "SELECT * FROM flights WHERE departure >= ? AND departure <= ?";
 	private final static String ORDER_FLIGHT = "INSERT INTO orders_flights (order_id, flight_id) VALUES(?, ?);";
-
-	private final static String SELECT_FLIGHT_BY_ORDER_ID = "SELECT f.flight_id, f.departure, f.from_city_id, f.from_city_name, f.to_city_id, f.to_city_name, f.flight_time, f.price\r\n"
-			+ "FROM orders o\r\n" + "INNER JOIN flights f\r\n" + "WHERE o.flight_id = ?;";
+	private final static String DELETE_ORDERED_FLIGHT = "DELETE FROM orders_flights WHERE order_id =?";
 
 	@Override
 	public Flight getFlightById(int flightId) {
@@ -142,23 +140,6 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	@Override
-	public List<Flight> getFlightsByOrderId(int orderId) {
-		List<Flight> flightsList = new ArrayList<>();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try (Connection conn = ConnectionManager.getConnection()) {
-			ps = conn.prepareStatement(SELECT_FLIGHT_BY_ORDER_ID);
-			ps.setInt(1, orderId);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				flightsList.add(getFlightFromDb(rs));
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		return flightsList;
-	}
-	@Override
 	public boolean orderFlight(Integer orderId, int flightId) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
@@ -173,11 +154,26 @@ public class FlightDaoImpl implements FlightDao {
 		return updatedRows == 1;
 	}
 
+	public boolean deleteOrderedFlight(int orderId) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(DELETE_ORDERED_FLIGHT);
+			ps.setInt(1, orderId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
+
+	}
+
 	// Utility methods
 	private static Flight getFlightFromDb(ResultSet rs) throws SQLException {
 		return new Flight(rs.getInt("flight_id"), rs.getString("from_city_name"), rs.getString("to_city_name"),
 				rs.getDate("departure"), rs.getInt("flight_time"), rs.getInt("price"));
 
 	}
+
 
 }

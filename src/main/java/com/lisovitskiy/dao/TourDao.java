@@ -18,7 +18,7 @@ public interface TourDao {
 
 	boolean deleteTour(int tourId);
 
-	List<Tour> getToursByOrderId(int orderId);
-
 	boolean orderTour(int orderId, int tourId);
+
+	boolean deleteOrderedTour(int orderId);
 }

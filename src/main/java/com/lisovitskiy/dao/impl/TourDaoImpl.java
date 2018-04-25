@@ -20,8 +20,7 @@ public class TourDaoImpl implements TourDao {
 	private final static String SELECT_TOUR_BY_PERIOD = "SELECT * FROM tours WHERE start >= ? AND end <= ?";
 	private final static String SELECT_ALL_TOURS = "SELECT * FROM tours";
 	private final static String ORDER_TOUR = "INSERT INTO orders_tours (order_id, tour_id) VALUES(?, ?);";
-	private final static String SELECT_TOUR_BY_ORDER_ID = "SELECT t.tour_id, t.name, t.description, t.start, t.end, t.price, t.language\r\n"
-			+ "FROM orders o\r\n" + "INNER JOIN tours t\r\n" + "WHERE o.tour_id = ?;";
+	private final static String DELETE_ORDERED_TOUR = "DELETE FROM orders_tours WHERE order_id =?";
 
 	@Override
 	public Tour getTourById(int tourId) {
@@ -138,23 +137,6 @@ public class TourDaoImpl implements TourDao {
 	}
 
 	@Override
-	public List<Tour> getToursByOrderId(int orderId) {
-		List<Tour> tourList = new ArrayList<>();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try (Connection conn = ConnectionManager.getConnection()) {
-			ps = conn.prepareStatement(SELECT_TOUR_BY_ORDER_ID);
-			ps.setInt(1, orderId);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				tourList.add(getTourFromDb(rs));
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		return tourList;
-	}
-	@Override
 	public boolean orderTour(int orderId, int tourId) {
 		PreparedStatement ps = null;
 		int updatedRows = 0;
@@ -162,6 +144,19 @@ public class TourDaoImpl implements TourDao {
 			ps = conn.prepareStatement(ORDER_TOUR);
 			ps.setInt(1, orderId);
 			ps.setInt(2, tourId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
+	}
+	@Override
+	public boolean deleteOrderedTour(int orderId) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(DELETE_ORDERED_TOUR);
+			ps.setInt(1, orderId);
 			updatedRows = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

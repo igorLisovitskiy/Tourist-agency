@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.userprofile;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,11 +16,11 @@ import com.google.gson.Gson;
 import com.lisovitskiy.facades.BookingFacade;
 import com.lisovitskiy.facades.HotelFacade;
 import com.lisovitskiy.facades.OrderFacade;
-import com.lisovitskiy.pojos.Hotel;
+import com.lisovitskiy.pojos.Booking;
 import com.lisovitskiy.pojos.Order;
 import com.lisovitskiy.pojos.User;
 
-@WebServlet(name = "MyHotels", urlPatterns = {"/dashboard/myhotels", "/profile/myhotels"}, loadOnStartup = 1)
+@WebServlet(name = "MyHotels", urlPatterns = {"/dashboard/myhotels", "/profile/mybookings"}, loadOnStartup = 1)
 public class MyHotels extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	BookingFacade bookingFacade = new BookingFacade();
@@ -35,16 +35,10 @@ public class MyHotels extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		List<Order> userOrders = orderFacade.getOrdersByUserId(user.getId());
-
-		List<Integer> hotelIdslist = userOrders.stream()
+		List<Booking> bookingsList = userOrders.stream()
 				.map(order -> bookingFacade.getBookingsByOrderId(order.getOrderId()))
-						.flatMap(Collection::stream).collect(Collectors.toList()).stream()
-						.map(booking -> booking.getHotelId()).collect(Collectors.toList());
-				
-		List<Hotel> hotels = hotelIdslist.stream().map(id -> hotelFacade.getHotelById(id))
-				.collect(Collectors.toList());
-
-		String json = new Gson().toJson(hotels);
+				.flatMap(Collection::stream).collect(Collectors.toList());
+		String json = new Gson().toJson(bookingsList);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(json);

@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.auth;
 
 import java.io.IOException;
 import java.util.Optional;

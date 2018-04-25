@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.update;
 
 import java.io.IOException;
 

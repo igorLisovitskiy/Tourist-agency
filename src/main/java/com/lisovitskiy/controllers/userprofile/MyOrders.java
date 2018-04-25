@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.userprofile;
 
 import java.io.IOException;
 
@@ -7,21 +7,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.lisovitskiy.facades.TourFacade;
+import com.lisovitskiy.pojos.User;
 
-
-@WebServlet(name = "UserProfile", urlPatterns = "/profile", loadOnStartup = 1)
-public class UserProfile extends HttpServlet {
+@WebServlet(name = "MyOrders", urlPatterns = "/myorders", loadOnStartup = 1)
+public class MyOrders extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			//int id = Integer.parseInt(request.getParameter("id"));
-			request.setAttribute("user",request.getSession().getAttribute("user"));
-			request.getRequestDispatcher("/jsp/userprofile.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+	//	List<Tour> tours = tourFacade.ge;
+		//String json = new Gson().toJson(tours);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+	//	response.getWriter().write(json);
 	}
 
 	@Override

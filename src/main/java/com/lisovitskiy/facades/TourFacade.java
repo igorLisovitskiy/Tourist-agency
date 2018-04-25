@@ -29,6 +29,10 @@ public class TourFacade {
 		return tDao.deleteTour(tourId);
 	}
 	
+	public boolean deleteOrderedTour(int orderId) {
+		return tDao.deleteOrderedTour(orderId);
+	}
+	
 	public boolean orderTour(int orderId, int tourId) {
 		return tDao.orderTour(orderId, tourId);
 	}

@@ -23,4 +23,23 @@ public class UserFacade {
 	public boolean deleteUser(int userId) {
 		return uDao.deleteUser(userId);
 	}
+	
+	public boolean updateUserBirthday(int userId, String birthday) {
+		return uDao.updateUserBirthday(userId, birthday);
+	}
+
+	public boolean updateUserMail(int userId, String mail) {
+		return uDao.updateUserMail(userId, mail);
+	}
+
+	public boolean updateUserRole(int userId, int userRole) {
+		return uDao.updateUserRole(userId, userRole);
+	}
+
+	public boolean updateUserName(int userId, String username) {
+		return uDao.updateUserName(userId, username);
+	}
+	public boolean updateUserPassword(int userId, String password) {
+		return uDao.updateUserPassword(userId, password);
+	}
 }

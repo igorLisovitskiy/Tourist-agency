@@ -155,7 +155,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <form class="" action="edit"  method="post" id="f_n_edit">
+                                <form class="" action="profile/edit/password  method="post" id="f_n_edit">
                                     <div class="container">
                                         <div class="form-group"><label for="username-edit"><span class="asteriskField">
                                  </span>Name:</label> <input type="text" name="username" class="form-control" id=username-edit placeholder="Username" required>
@@ -176,7 +176,7 @@
                         <div class="modal-content">
 
                             <div class="modal-body">
-                                <form class="" action="edit" method="post" id="f_m_edit">
+                                <form class="" action="profile/edit/email" method="post" id="f_m_edit">
                                     <div class="container">
                                         <div class="form-group"><label for="mail-edit"><span class="asteriskField">
                                  </span>E-Mail:</label> <input type="text" name="mail" class="form-control" id=mail-edit placeholder="e-mail" required>
@@ -196,7 +196,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <form class="" action="edit" method="post" id="f_b_edit">
+                                <form class="" action="profile/edit/birthday" method="post" id="f_b_edit">
                                     <div class="container">
                                         <label for="birthday-edit" class="control-label requiredField"><span class="asteriskField"></span>Birthday:</label>
                                         <div class="form-group">
@@ -222,7 +222,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <form class="" action="edit" method="post" id="f_p_edit">
+                        <form class="" action="profile/edit/password" method="post" id="f_p_edit">
                             <div class="container">
                                 <div class="form-group">
                                     <label for="old-password"><span class="asteriskField">
@@ -266,7 +266,8 @@
                         <table id="tours" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
-                                <th>My tours</th>
+                            	<th>Order Id</th>
+                                <th>Tour Name</th>
                                  <th></th>
                             </tr>
                             </thead>
@@ -295,7 +296,8 @@
                                id="flights">
                             <thead>
                             <tr>
-                                <th>My Flights</th>
+                            	<th>Order Id</th>
+                                <th>Flight</th>
                                 <th></th>
                             </tr>
                             </thead>

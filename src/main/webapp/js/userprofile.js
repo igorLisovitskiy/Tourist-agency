@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	$("form").on('submit', function(){
+		window.location.reload();
+	});
     var info = document.getElementById('form-info');
     var pass = document.getElementById('form-password');
     window.onclick = function (event) {
@@ -24,13 +27,11 @@ $(document).ready(function() {
         }
     });
 
-
-
 $('#myModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
 })
 
-$('#search-tours').on('click', function(e) {
+$('#search-tours:not(.bound)').addClass('bound').on('click', function(e) {
         	e.preventDefault();
             $('#tours-modal').modal('toggle');
             var table = $("#tours").DataTable({
@@ -41,10 +42,11 @@ $('#search-tours').on('click', function(e) {
                     dataSrc:'',
                 },
                 "columns": [
-                    { "data": "name",
+                	{ "data": "orderId"},
+                    { "data": "tourName",
                     	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                     			if(oData.tourId != null){
-                    				$(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.name+"</a>");
+                    				$(nTd).html("<a href='dashboard/tour?id="+oData.orderId+"'>"+oData.tourName+"</a>");
                     			}
                     	},
                      "emptyTable": "<i>You have not booked any tours!</i>"
@@ -57,9 +59,9 @@ $('#search-tours').on('click', function(e) {
     	            }
                 ],
                 "bDestroy": true
-            }).on( 'click', '.delete', function () {
-                var tourId = $("#tours").DataTable().row($(this).closest('tr')).data().tourId;
-                var url = "profile/update/tour?id="+ tourId + "&delete=true";
+            }).off( 'click' ).on( 'click', '.delete', function () {
+                var orderId = $("#tours").DataTable().row($(this).closest('tr')).data().orderId;
+                var url = "profile/mytours/tour?orderid="+ orderId + "&delete=true";
                 var deleteTour = confirm("Are you shure you want to remove this tour?");
                 if(deleteTour){
                     $.ajax({
@@ -73,10 +75,10 @@ $('#search-tours').on('click', function(e) {
                         }
                     });
                 }
-            });;
+   });;
 });
 
-	$('#search-bookings').on('click', function(e) {
+$('#search-bookings:not(.bound)').addClass('bound').on('click', function(e) {
 		e.preventDefault();
 	    $('#bookings-modal').modal('toggle');
 	    var table = $("#bookings").DataTable({
@@ -109,7 +111,7 @@ $('#search-tours').on('click', function(e) {
 	            "emptyTable": "No data available in table"
 	          },
 	        "bDestroy": true
-	    }).on( 'click', '.delete', function () {
+	    }).off( 'click' ).on( 'click', '.delete', function () {
             var bookingId = $("#bookings").DataTable().row($(this).closest('tr')).data().bookingId;
             var url = "profile/update/booking?id="+ bookingId + "&delete=true";
             var deleteBooking = confirm("Are you shure you want to remove this booking?");
@@ -127,7 +129,8 @@ $('#search-tours').on('click', function(e) {
             }
         });
 	});
-    $('#search-flights').on('click', function(e) {
+
+$('#search-flights:not(.bound)').addClass('bound').on('click', function(e) {
     	e.preventDefault();
         $('#flights-modal').modal('toggle');
         var table = $("#flights").DataTable({
@@ -138,10 +141,11 @@ $('#search-tours').on('click', function(e) {
                 dataSrc:'',
             },
             "columns": [
-                { "data": "to",
+            	{ "data": "orderId"},
+                { "data": "flightId",
                 	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                 			if(oData.flightId != null){
-                				$(nTd).html("<a href='dashboard/flight?id="+oData.flightId+"'>From "+oData.from+" to "+ oData.to +"</a>");
+                				$(nTd).html("<a href='dashboard/flight?id="+oData.flightId+"'>"+oData.flightId+"</a>");
                 			}
                 	},
                 "emptyTable": "<i>You have not booked any flights!</i>"
@@ -154,9 +158,9 @@ $('#search-tours').on('click', function(e) {
 	            }
             ],
             "bDestroy": true
-        }).on( 'click', '.delete', function () {
-            var flightId = $("#flights").DataTable().row($(this).closest('tr')).data().flightId;
-            var url = "profile/update/flight?id="+ flightId + "&delete=true";
+        }).off( 'click' ).on( 'click', '.delete', function () {
+            var orderId = $("#flights").DataTable().row($(this).closest('tr')).data().orderId;
+            var url = "profile/myflights/flight?orderid="+ orderId + "&delete=true";
             var deleteFlight = confirm("Are you shure you want to remove this flight?");
             if(deleteFlight){
                 $.ajax({

@@ -1,4 +1,4 @@
-package com.lisovitskiy.controllers;
+package com.lisovitskiy.controllers.userprofile;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,10 +15,10 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.lisovitskiy.facades.OrderFacade;
 import com.lisovitskiy.facades.TourFacade;
-import com.lisovitskiy.pojos.Tour;
+import com.lisovitskiy.pojos.Order;
 import com.lisovitskiy.pojos.User;
 
-@WebServlet(name = "MyTours", urlPatterns = {"/dashboard/book/tour", "/profile/mytours"}, loadOnStartup = 1)
+@WebServlet(name = "MyTours", urlPatterns = {"/dashboard/book/tour", "/profile/mytours","/profile/mytours/tour"}, loadOnStartup = 1)
 public class MyTours extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	TourFacade tourFacade = new TourFacade();
@@ -30,10 +30,8 @@ public class MyTours extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		List<Integer> tourIdlist = orderFacade.getOrdersByUserId(user.getId()).stream().map(o -> o.getTourId()).collect(Collectors.toList());
-		List<Tour> tours = tourIdlist.stream().map(id -> tourFacade.getTourById(id)).collect(Collectors.toList());
-		tours = tours.stream().filter( Objects::nonNull).collect(Collectors.toList());
-		String json = new Gson().toJson(tours);
+		List<Order> orderslist = orderFacade.getOrdersByUserId(user.getId()).stream().filter(o -> Objects.nonNull(o)).filter(o -> o.getTourId()!= 0).collect(Collectors.toList());
+		String json = new Gson().toJson(orderslist);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(json);
@@ -50,6 +48,13 @@ public class MyTours extends HttpServlet {
 			session.setAttribute("order", orderId);
 		}
 		tourFacade.orderTour(orderId, tourlId);
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int orderId = Integer.parseInt(req.getParameter("orderid"));
+		tourFacade.deleteOrderedTour(orderId);
+
 	}
 
 }

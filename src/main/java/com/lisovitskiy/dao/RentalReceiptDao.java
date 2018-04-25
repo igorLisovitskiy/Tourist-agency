@@ -1,6 +1,7 @@
 package com.lisovitskiy.dao;
 
 import java.util.List;
+
 import com.lisovitskiy.pojos.RentalReceipt;
 
 public interface RentalReceiptDao {

@@ -16,13 +16,21 @@ import com.lisovitskiy.utilities.db.ConnectionManager;
 public class UserDaoImpl implements UserDao {
 	private final static String CREATE_USER = "INSERT INTO users(username, password, mail, birthday, role_id) VALUES(?, ?, ?, ?, ?)";
 	private final static String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
-	private final static String UPDATE_USER = "UPDATE users\r\n"
-			+ "SET username = ? , password = ?, mail = ?, birthday = ?, role_id = ?\r\n" + "WHERE user_id =?;";
+	private final static String UPDATE_USER = "UPDATE users SET username = ? , password = ?, mail = ?, birthday = ?, role_id = ? WHERE user_id =?;";
 	private final static String SELECT_USER_BY_ID = "SELECT * FROM users WHERE user_id = ?";
 	private final static String AUTHENTIFICATE_USER = "SELECT * FROM users WHERE username = ? AND password = ?";
 	private final static String SELECT_ALL_USERS = "SELECT * FROM users";
 	private final static String SELECT_USER_BY_ORDER_ID = "SELECT u.user_id, u.username, u.password, u.mail, u.birthday, u.role_id FROM orders o INNER JOIN users u WHERE o.user_id = ?;";
+	
+	
+	private final static String CHANGE_NAME = "UPDATE users SET username = ? WHERE user_id =?;";
+	private final static String CHANGE_ROLE = "UPDATE users SET username = ? WHERE user_id =?;";
+	private final static String CHANGE_EMAIL = "UPDATE users SET mail = ? WHERE user_id =?;";
+	private final static String CHANGE_BIRTHDAY = "UPDATE users SET birthday = ? WHERE user_id =?;";
+	private final static String CHANGE_PASSWORD = "UPDATE users SET password = ? WHERE user_id =?;";
 
+	
+	
 	@Override
 	public User getUserById(int id) {
 		User user = null;
@@ -118,7 +126,53 @@ public class UserDaoImpl implements UserDao {
 		}
 		return updatedRows == 1;
 	}
+	
+	@Override
+	public boolean updateUserName(int userId, String username) {
+		return updateUserAttribute(userId, username, CHANGE_NAME);
+	}
+	@Override
+	public boolean updateUserRole(int userId, int userRole) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(CHANGE_ROLE);
+			ps.setInt(1, userRole);
+			ps.setInt(2, userId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
+	}
+	
+	@Override
+	public boolean updateUserMail(int userId, String mail) {
+		return updateUserAttribute(userId, mail, CHANGE_EMAIL);
+	}
+	
+	@Override
+	public boolean updateUserBirthday(int userId, String birthday) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(CHANGE_BIRTHDAY);
+			ps.setDate(1, DateService.toSqlDate(birthday));
+			ps.setInt(2, userId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
+	}
+	
+	@Override
+	public boolean updateUserPassword(int userId, String password) {
+		String encryptedPass = PasswordService.encrypt(password);
+		return updateUserAttribute(userId, encryptedPass, CHANGE_PASSWORD);
+	}
 
+	
 	@Override
 	public boolean deleteUser(int userId) {
 		PreparedStatement ps = null;
@@ -159,5 +213,17 @@ public class UserDaoImpl implements UserDao {
 		user.setOrders(oDao.getOrdersByUserId(user.getId()));
 		return user;
 	}
-
+	private boolean updateUserAttribute(int userId, String attribute, String statement) {
+		PreparedStatement ps = null;
+		int updatedRows = 0;
+		try (Connection conn = ConnectionManager.getConnection()) {
+			ps = conn.prepareStatement(statement);
+			ps.setString(1, attribute);
+			ps.setInt(2, userId);
+			updatedRows = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updatedRows == 1;
+	}
 }

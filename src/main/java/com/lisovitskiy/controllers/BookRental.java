@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.lisovitskiy.facades.BookingFacade;
 import com.lisovitskiy.facades.OrderFacade;
 import com.lisovitskiy.facades.RentingFacade;
 import com.lisovitskiy.utilities.DateService;
