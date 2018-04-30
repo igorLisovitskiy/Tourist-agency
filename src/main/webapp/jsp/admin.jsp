@@ -5,6 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
+<title>++ProTravel - ${user.mail}</title>
 <head>
 	<link rel="icon" href="images/icon.gif" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +16,7 @@
     <!-- Include Date Range Picker -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/admin.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/admin.css"/>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css"/>

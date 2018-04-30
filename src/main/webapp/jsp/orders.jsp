@@ -5,6 +5,7 @@
 <%@ page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
+<title>++ProTravel - ${user.mail}</title>
 <head>
 <link rel="icon" href="${pageContext.servletContext.contextPath}/images/icon.gif" type="image/gif"
 	sizes="16x16">

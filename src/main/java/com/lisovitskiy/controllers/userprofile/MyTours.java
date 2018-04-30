@@ -30,7 +30,9 @@ public class MyTours extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		List<Order> orderslist = orderFacade.getOrdersByUserId(user.getId()).stream().filter(o -> Objects.nonNull(o)).filter(o -> o.getTourId()!= 0).collect(Collectors.toList());
+		List<Order> orderslist = orderFacade.getOrdersByUserId(user.getId())
+				.stream().filter(o -> Objects.nonNull(o))
+				.filter(o -> o.getTourId()!= 0).collect(Collectors.toList());
 		String json = new Gson().toJson(orderslist);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

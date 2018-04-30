@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+<title>++ProTravel - ${user.mail}</title>
 <head>
       <meta charset="UTF-8">
       <title>++ProTravel</title>

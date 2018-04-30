@@ -46,7 +46,7 @@ $('#search-tours:not(.bound)').addClass('bound').on('click', function(e) {
                     { "data": "tourName",
                     	"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                     			if(oData.tourId != null){
-                    				$(nTd).html("<a href='dashboard/tour?id="+oData.orderId+"'>"+oData.tourName+"</a>");
+                    				$(nTd).html("<a href='dashboard/tour?id="+oData.tourId+"'>"+oData.tourName+"</a>");
                     			}
                     	},
                      "emptyTable": "<i>You have not booked any tours!</i>"
